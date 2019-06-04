@@ -1,0 +1,73 @@
+----------Atributos passados na Seção3 da descrição do Trab----------
+
+Medico: Possuem usuário e senha  (quando entra no sistema uma lista de consultas que o medico tem naquele dia é carregada)
+	CRM
+	Nome 
+	Cpf
+	Rg
+	endereço
+	número da carteira de trabalho
+	data de admissão na clínica
+	formação
+	especialidade
+
+---Quando vai consultar um paciente o médico deve preencher:
+	sintomas
+	prescrição médica
+	exames
+
+------------------------------------------------------------------------------------------------------------------
+
+Secretária: Possuem usuário e senha
+	nome
+	Cpf
+	Rg
+	endereço
+	número da carteira de trabalho
+	data de admissão na clínica
+	horário de entrada		(fixo)
+	horário de saída		(fixo)
+	-marcarConsulta
+	-desmarcarConsulta
+	-manterAtualizadaBaseExames
+
+------------------------------------------------------------------------------------------------------------------
+
+Gerente Geral: 
+	-cadastrarMedicos
+	-cadastrarSecretaria (sistema SUGERE horários que não possuem secretárias trabalhando - Colocar confirmação)
+
+------------------------------------------------------------------------------------------------------------------
+
+Paciente: DEVE ser cadastrado no sistema
+	nome
+	endereço
+	Cpf
+	Rg
+	ano de nascimento
+	telefone
+	data da primeira consulta
+
+	***OBS: Antes de marcar uma consulta é OBRIGATÓRIO que o paciente já esteja cadastrado.
+
+------------------------------------------------------------------------------------------------------------------
+
+Consulta:
+	paciente
+	Dia da consulta
+	médico
+	horário da consulta
+
+	***OBS: não é possível agendar 2 consultas para o mesmo DIA, HORÁRIO e MÉDICO. Intervalo de 30 MIN
+
+
+------------------------------------------------------------------------------------------------------------------
+	Exames são previamente cadastrados no sistema pelas SECRETARIAS
+	Médicos só podem solicitar exames já cadastrados no sistema
+
+Exame:
+	código identificador
+	nome
+	obsGerais
+	tempo de duração aproximada
+	tempo para obtenção do resultado
