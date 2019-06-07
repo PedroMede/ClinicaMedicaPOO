@@ -3,14 +3,10 @@ package clinica.model;
 import java.util.Date;
 
 public class Paciente extends Pessoa {
+
 	private Date dataPrimeiraConsulta;
-	
 	private String telefoneAcompanhante;
-	
 	private String localNascimento;
-	
-	public Paciente() {
-	}
 
 	public Paciente(Date dataPrimeiraConsulta, String telefoneAcompanhante, String localNascimento) {
 		super();

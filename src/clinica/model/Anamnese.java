@@ -1,14 +1,11 @@
 package clinica.model;
 
 public class Anamnese {
+	
 	private Paciente paciente;
-	
 	private Medico medico;
-	
 	private String prescricao;
-	
 	private String sintomas;
-	
 	private String diagnosticoDefinitivo;
 
 	

@@ -3,6 +3,7 @@ package clinica.model;
 import clinica.model.enums.EtniaEnum;
 
 public class Pessoa extends Endereco {
+	
 	private String nome;
 	private String cpf;
 	private String rg;

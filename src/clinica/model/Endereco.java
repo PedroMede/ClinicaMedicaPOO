@@ -1,18 +1,13 @@
 package clinica.model;
 
 public class Endereco {
+	
 	private String logradouro;
-	
 	private Integer numero;
-	
 	private String cep;
-	
 	private String bairro;
-	
 	private String cidade;
-	
 	private String estado;
-	
 	private String complemento;
 
 	public Endereco() {

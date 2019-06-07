@@ -3,12 +3,10 @@ package clinica.model;
 import java.util.Date;
 
 public class MarcacaoExame {
+	
 	private Exame exame;
-	
 	private Date data;
-	
 	private String hora;
-	
 	private Medico medico;
 
 	public MarcacaoExame() {

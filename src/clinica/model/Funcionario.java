@@ -3,14 +3,11 @@ package clinica.model;
 import java.util.Date;
 
 public class Funcionario extends Pessoa {
+	
 	private String carteiraTrab;
-	
 	private Date dataAdmissao;
-	
 	private String login;
-	
 	private String senha;
-
 	
 	public Funcionario() {
 	}

@@ -3,18 +3,13 @@ package clinica.model;
 import clinica.model.enums.ExameEnum;
 
 public class Exame {
+	
 	private Integer codigo;
-	
 	private String nome;
-	
 	private String obsGeral;
-	
 	private String tempDuracao;
-	
-	private String tempResultado;
-	
+	private String tempResultado;	
 	private String tipoExame;
-	
 	private ExameEnum classificacao;
 
 	public Exame() {
