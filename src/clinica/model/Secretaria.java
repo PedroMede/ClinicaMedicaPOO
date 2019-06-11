@@ -33,7 +33,7 @@ public class Secretaria extends Funcionario {
 	}
 
 	public int marcarConsulta(Date dia, String hora, Medico medico, Paciente paciente) {
-		Consulta con =  new Consulta(dia, hora, medico, paciente);
+		//Consulta con =  new Consulta(dia, hora, medico, paciente);
 		return 1; //Fazer implement��o de salvamento de arquivo;
 	}
 

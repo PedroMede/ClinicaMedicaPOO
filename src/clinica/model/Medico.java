@@ -1,8 +1,10 @@
 package clinica.model;
 
+import java.util.Date;
+
 import clinica.model.enums.EspecialidadeEnum;
 
-public class Medico extends Pessoa {
+public class Medico extends Funcionario {
 	private String crm;
 	
 	private EspecialidadeEnum especialidade;
