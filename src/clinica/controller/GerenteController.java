@@ -13,7 +13,7 @@ import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
 
 public class GerenteController {
-	public static String cadastrarSecretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
+	public String cadastrarSecretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
 			String carteiraTrab, String login, String senha, String horaEntrada, String horaSaida) {
 		
@@ -72,7 +72,7 @@ public class GerenteController {
 		}
 	}
 	
-	public static String cadastrarMedico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
+	public String cadastrarMedico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
 			String carteiraTrab, String login, String senha, String crm, String especialidade) {
 		
@@ -116,6 +116,7 @@ public class GerenteController {
 		atributos.add(med.getEstado());
 		med.setComplemento(complemento);
 		atributos.add(med.getComplemento());
+		
 		
 		med.setLogin(login);
 		atributosLogin[0] = med.getLogin();

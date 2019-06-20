@@ -14,6 +14,10 @@ public class GerenteGeral extends Funcionario {
 	public static boolean cadastrarSecretaria(List<String> atributosSec, String[] atributosLogin) {
 		File dir = new File("./" + "\\database");
 		
+		if(!validarDados(atributosSec, atributosLogin)) {
+			return false;
+		}
+		
 		if(!dir.exists()) {
 			boolean sucesso = dir.mkdir();
 			
@@ -50,6 +54,10 @@ public class GerenteGeral extends Funcionario {
 	public static boolean cadastrarMedico(List<String> atributosMed, String[] atributosLogin) {
 		File dir = new File("./" + "\\database");
 		
+		if(!validarDados(atributosMed, atributosLogin)) {
+			return false;
+		}
+		
 		if(!dir.exists()) {
 			boolean sucesso = dir.mkdir();
 			
@@ -78,6 +86,21 @@ public class GerenteGeral extends Funcionario {
 			
 		} catch(IOException e) {
 			return false;
+		}
+		
+		return true;
+	}
+	
+	private static boolean validarDados(List<String> dados, String[] dadosLogin) {
+		for(String dado : dados) {
+			if(dado == null || dado == "") {
+				return false;
+			}
+		}
+		for(String dadoLogin : dadosLogin) {
+			if(dadoLogin == null || dadoLogin == "") {
+				return false;
+			}
 		}
 		
 		return true;
