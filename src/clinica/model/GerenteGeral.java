@@ -1,6 +1,7 @@
 package clinica.model;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +12,16 @@ public class GerenteGeral extends Funcionario {
 	}
 	
 	public static boolean cadastrarSecretaria(List<String> atributosSec, String[] atributosLogin) {
+		File dir = new File("./" + "\\database");
+		
+		if(!dir.exists()) {
+			boolean sucesso = dir.mkdir();
+			
+			if(!sucesso) {
+				return false;
+			}
+		} 
+		
 		String arqSec = "./database/secretaria.txt";
 		String arqLogin = "./database/login.txt";
 		
@@ -34,6 +45,7 @@ public class GerenteGeral extends Funcionario {
 		}
 		
 		return true;
+		
 	}
 	
 	public Medico cadastrarMedico() {
