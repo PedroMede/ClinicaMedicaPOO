@@ -10,13 +10,13 @@ public class Pessoa extends Endereco {
 	private String telefone;
 	private Integer anoNascimento;
 	private String estadoCivil;
-	private char sexo;
+	private String sexo;
 	private EtniaEnum etnia;
 	
 	public Pessoa() {
 	}
 
-	public Pessoa(String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, char sexo, EtniaEnum etnia) {
+	public Pessoa(String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -76,14 +76,14 @@ public class Pessoa extends Endereco {
 		this.estadoCivil = estadoCivil;
 	}
 	
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	
-	public void setSexo(char sexo) {
+
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	
+
 	public EtniaEnum getEtnia() {
 		return etnia;
 	}
