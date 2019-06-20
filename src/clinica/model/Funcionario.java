@@ -2,12 +2,15 @@ package clinica.model;
 
 import java.util.Date;
 
+import clinica.model.enums.PerfilEnum;
+
 public class Funcionario extends Pessoa {
 	
 	private String carteiraTrab;
 	private Date dataAdmissao;
 	private String login;
 	private String senha;
+	private PerfilEnum perfilEnum;
 	
 	public Funcionario() {
 	}
@@ -50,6 +53,14 @@ public class Funcionario extends Pessoa {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public PerfilEnum getPerfilEnum() {
+		return perfilEnum;
+	}
+
+	public void setPerfilEnum(PerfilEnum perfilEnum) {
+		this.perfilEnum = perfilEnum;
 	}
 	
 }
