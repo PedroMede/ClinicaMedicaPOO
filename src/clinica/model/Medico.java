@@ -6,7 +6,6 @@ import clinica.model.enums.EspecialidadeEnum;
 
 public class Medico extends Funcionario {
 	private String crm;
-	
 	private EspecialidadeEnum especialidade;
 
 	public Medico() {

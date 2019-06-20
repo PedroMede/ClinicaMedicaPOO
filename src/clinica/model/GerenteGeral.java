@@ -22,7 +22,7 @@ public class GerenteGeral extends Funcionario {
 			}
 		} 
 		
-		String arqSec = "./database/secretaria.txt";
+		String arqSec = "./database/secretarias.txt";
 		String arqLogin = "./database/login.txt";
 		
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(arqSec, true))) {
@@ -45,10 +45,41 @@ public class GerenteGeral extends Funcionario {
 		}
 		
 		return true;
-		
 	}
 	
-	public Medico cadastrarMedico() {
-		return new Medico();
+	public static boolean cadastrarMedico(List<String> atributosMed, String[] atributosLogin) {
+		File dir = new File("./" + "\\database");
+		
+		if(!dir.exists()) {
+			boolean sucesso = dir.mkdir();
+			
+			if(!sucesso) {
+				return false;
+			}
+		} 
+		
+		String arqSec = "./database/medicos.txt";
+		String arqLogin = "./database/login.txt";
+		
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter(arqSec, true))) {
+			for(String atributo : atributosMed) {
+				bw.write(atributo);
+				bw.newLine();
+			}
+			
+			try (BufferedWriter bwLogin = new BufferedWriter(new FileWriter(arqLogin, true))) {
+				for(String atributoLog : atributosLogin) {
+					bw.write(atributoLog);
+					bw.newLine();
+				}
+			} catch(IOException e) {
+				return false;
+			}
+			
+		} catch(IOException e) {
+			return false;
+		}
+		
+		return true;
 	}
 }

@@ -6,13 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import clinica.model.GerenteGeral;
-//import clinica.model.Medico;
+import clinica.model.Medico;
 import clinica.model.Secretaria;
+import clinica.model.enums.EspecialidadeEnum;
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
 
 public class GerenteController {
-	public static boolean cadastrarSecretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
+	public static String cadastrarSecretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
 			String carteiraTrab, String login, String senha, String horaEntrada, String horaSaida) {
 		
@@ -64,10 +65,69 @@ public class GerenteController {
 		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
 		atributosLogin[2] = sec.getPerfilEnum().toString();
 		
+		if(GerenteGeral.cadastrarSecretaria(atributos, atributosLogin)) {
+			return "Secretária cadastrada com sucesso";
+		} else {
+			return "Houve um erro ao cadastrar a secretária, verifique os dados e tente novamente";
+		}
+	}
+	
+	public static String cadastrarMedico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
+			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
+			String carteiraTrab, String login, String senha, String crm, String especialidade) {
 		
+		Medico med = new Medico(crm, EspecialidadeEnum.valueOf(especialidade));
+		Date dataAdmissao = new Date();
+		List<String> atributos = new ArrayList<String>();
+		String atributosLogin[] = new String[3];
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		GerenteGeral.cadastrarSecretaria(atributos, atributosLogin);
+		med.setNome(nome);
+		atributos.add(med.getNome());
+		med.setCpf(cpf);
+		atributos.add(med.getCpf());
+		med.setRg(rg);
+		atributos.add(med.getRg());
+		med.setTelefone(telefone);
+		atributos.add(med.getTelefone());
+		med.setAnoNascimento(anoNascimento);
+		atributos.add(med.getAnoNascimento().toString());
+		med.setEstadoCivil(estadoCivil);
+		atributos.add(med.getEstadoCivil());
+		med.setSexo(sexo);
+		atributos.add(med.getSexo());
+		med.setEtnia(etnia);
+		atributos.add(med.getEtnia().toString());
+		med.setCarteiraTrab(carteiraTrab);
+		atributos.add(med.getCarteiraTrab());
+		med.setDataAdmissao(dataAdmissao);
+		atributos.add(sdf.format(med.getDataAdmissao()));
+		med.setLogradouro(logradouro);
+		atributos.add(med.getLogradouro());
+		med.setNumero(numero);
+		atributos.add(med.getNumero().toString());
+		med.setCep(cep);
+		atributos.add(med.getCep());
+		med.setBairro(bairro);
+		atributos.add(med.getBairro());
+		med.setCidade(cidade);
+		atributos.add(med.getCidade());
+		med.setEstado(estado);
+		atributos.add(med.getEstado());
+		med.setComplemento(complemento);
+		atributos.add(med.getComplemento());
 		
-		return true;
+		med.setLogin(login);
+		atributosLogin[0] = med.getLogin();
+		med.setSenha(senha);
+		atributosLogin[1] = med.getSenha();
+		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
+		atributosLogin[2] = med.getPerfilEnum().toString();
+		
+		if(GerenteGeral.cadastrarMedico(atributos, atributosLogin)) {
+			return "Médico cadastrado com sucesso";
+		} else {
+			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";
+		}
 	}
 }
