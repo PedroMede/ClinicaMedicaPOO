@@ -1,11 +1,9 @@
 package clinica.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import clinica.model.enums.EspecialidadeEnum;
 import clinica.model.enums.EtniaEnum;
-import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
 
 public class Medico extends Funcionario implements Serializable {
@@ -16,12 +14,12 @@ public class Medico extends Funcionario implements Serializable {
 
 	public Medico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endereço
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
-			String carteiraTrab, Date dataAdmissao, String login, String senha,	PerfilEnum perfilEnum,											//dados de funcionario
-			String crm, EspecialidadeEnum especialidade) {
+			String carteiraTrab, String login, String senha,																	//dados de funcionario
+			String crm/*, EspecialidadeEnum especialidade*/) {
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia,
-				carteiraTrab, dataAdmissao, login, senha, perfilEnum);
+				carteiraTrab, login, senha);
 		this.crm = crm;
-		this.especialidade = especialidade;
+		//this.especialidade = especialidade;
 	}
 	
 	public String getCrm() {

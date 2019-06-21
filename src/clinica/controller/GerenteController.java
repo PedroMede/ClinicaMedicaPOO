@@ -8,6 +8,7 @@ import java.util.List;
 import clinica.model.GerenteGeral;
 import clinica.model.Medico;
 import clinica.model.Secretaria;
+import clinica.model.enums.PerfilEnum;
 
 public class GerenteController {
 	
@@ -17,9 +18,12 @@ public class GerenteController {
 		
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
+		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		sec.setDataAdmissao(dataAdmissao);
+		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
+		
 		atributos.add(sec.getNome());
 		atributos.add(sec.getCpf());
 		atributos.add(sec.getRg());
@@ -39,11 +43,15 @@ public class GerenteController {
 		atributos.add(sec.getLogin());
 		atributos.add(sec.getSenha());		
 		
+		atributosLogin[0] = sec.getLogin();
+		atributosLogin[1] = sec.getSenha();
+		atributosLogin[2] = sec.getPerfilEnum().toString();
+		
 		if(!validarDados(atributos)) {
 			return "Alguns atributos estão em branco, tente novamente";
 		}
 		
-		if(gerente.cadastrarFuncionario(sec, "./database/secretarias.txt")) {
+		if(gerente.cadastrarFuncionario(sec, "./database/secretarias.txt") && gerente.criarLoginFuncionario(atributosLogin)) {
 			return "Secretária cadastrada com sucesso";
 		} else {
 			return "Houve um erro ao cadastrar a secretária, verifique os dados e tente novamente";
@@ -54,9 +62,12 @@ public class GerenteController {
 		
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
+		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		med.setDataAdmissao(dataAdmissao);
+		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
+		
 		atributos.add(med.getNome());
 		atributos.add(med.getCpf());
 		atributos.add(med.getRg());
@@ -76,14 +87,18 @@ public class GerenteController {
 		atributos.add(med.getLogin());
 		atributos.add(med.getSenha());
 		
+		atributosLogin[0] = med.getLogin();
+		atributosLogin[1] = med.getSenha();
+		atributosLogin[2] = med.getPerfilEnum().toString();
+		
 		if(!validarDados(atributos)) {
-			return "Alguns atributos estï¿½o em branco, tente novamente";
+			return "Alguns atributos estão em branco, tente novamente";
 		}
 		
-		if(gerente.cadastrarFuncionario(med, "./database/medicos.txt")) {
-			return "Mï¿½dico cadastrado com sucesso";
+		if(gerente.cadastrarFuncionario(med, "./database/medicos.txt") && gerente.criarLoginFuncionario(atributosLogin)) {
+			return "Médico cadastrado com sucesso";
 		} else {
-			return "Houve um erro ao cadastrar o mï¿½dico, verifique os dados e tente novamente";
+			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";
 		}
 	}
 	

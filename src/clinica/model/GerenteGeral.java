@@ -21,7 +21,7 @@ public class GerenteGeral {
 			}
 		} 
 		
-		try(ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path))) {
+		try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path, true))) {
 			bw.writeObject(obj);
 			bw.flush();
 			bw.close();
@@ -44,7 +44,6 @@ public class GerenteGeral {
 				return false;
 			}
 		}
-		
 		
 		try (BufferedWriter bwLogin = new BufferedWriter(new FileWriter(arqLogin, true))) {
 			for(String atributoLog : atributosLogin) {

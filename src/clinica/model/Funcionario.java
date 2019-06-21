@@ -16,13 +16,11 @@ public class Funcionario extends Pessoa {
 
 	public Funcionario(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endereço
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
-			String carteiraTrab, Date dataAdmissao, String login, String senha, PerfilEnum perfilEnum) {										//dados de funcionario
+			String carteiraTrab, String login, String senha) {																					//dados de funcionario
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia);
 		this.carteiraTrab = carteiraTrab;
-		this.dataAdmissao = dataAdmissao;
 		this.login = login;
 		this.senha = senha;
-		this.perfilEnum = perfilEnum;
 	}
 
 	public String getCarteiraTrab() {
