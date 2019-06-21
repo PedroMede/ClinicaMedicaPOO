@@ -42,29 +42,22 @@ public class SecretariaController {
 			
 
 		if(!validarDados(atributos)) {
-			return "Alguns atributos estï¿½o em branco, tente novamente";
+			return "Alguns atributos estão em branco, tente novamente";
 		}
 		
-		if(secretaria.cadastrarPaciente(pac, "./database/paciente.txt") ) {
+		if(secretaria.cadastrarPaciente(pac, "./database/pacientes.txt") ) {
 			return "Paciente cadastrado com sucesso";
 		} else {
-			return "Houve um erro ao cadastrar o Paciente, verifique os dados e tente novamente";
+			return "Houve um erro ao cadastrar o paciente, verifique os dados e tente novamente";
 		}
 	}
-	
-	
 	
 	private static boolean validarDados(List<String> dados) {
 		for(String dado : dados) {
 			if(dado == null || dado == "") {
 				return false;
 			}
-		}
-		
+		}	
 		return true;
 	}
-	
-	
-	
-
 }

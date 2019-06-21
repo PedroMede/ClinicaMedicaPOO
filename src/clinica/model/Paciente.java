@@ -1,21 +1,22 @@
 package clinica.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.SexoEnum;
 
-public class Paciente extends Pessoa {
+public class Paciente extends Pessoa implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Date dataPrimeiraConsulta;
 	private String telefoneAcompanhante;
 	private String localNascimento;
 
-	public Paciente(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento, 		//dados de endereço
+	public Paciente(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento, 			//dados de endereço
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia, 	//dados de pessoa
-			Date dataPrimeiraConsulta, String telefoneAcompanhante, String localNascimento) {												//dados de paciente
+			String telefoneAcompanhante, String localNascimento) {																				//dados de paciente
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia);
-		this.dataPrimeiraConsulta = dataPrimeiraConsulta;
 		this.telefoneAcompanhante = telefoneAcompanhante;
 		this.localNascimento = localNascimento;
 	}

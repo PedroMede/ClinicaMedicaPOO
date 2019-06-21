@@ -21,7 +21,7 @@ public class Principal {
 		
 		Paciente pac = new Paciente("logradouro", 32, "cep", "bairro", "cidade", "estado", "complemento", "nome", "cpf",
 				"rg", "telefone", 1990, "estadoCivil", SexoEnum.valueOf("MASCULINO"), EtniaEnum.valueOf("PARDO"),
-				"987654321", "secretaria@teste.com", "123456");
+				"teset", "teste");
 		
 		
 		GerenteController gerenteController = new GerenteController();
@@ -29,7 +29,6 @@ public class Principal {
 		
 		System.out.println(secretariaController.cadastrarPaciente(pac));
 
-		
 		System.out.println(gerenteController.cadastrarSecretaria(sec));
 		
 		System.out.println(gerenteController.cadastrarMedico(med));
