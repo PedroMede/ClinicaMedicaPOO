@@ -1,14 +1,13 @@
 package clinica.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Secretaria extends Funcionario {
-	
+public class Secretaria extends Funcionario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String horaEntrada;
 	private String horaSaida;
-
-	public Secretaria() {
-	}
 
 	public Secretaria(String horaEntrada, String horaSaida) {
 		super();
@@ -41,5 +40,4 @@ public class Secretaria extends Funcionario {
 		//Abrir o arquivo de consultas e deletar a consulta 
 		return 1;
 	}
-	
 }

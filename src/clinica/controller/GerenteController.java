@@ -72,7 +72,7 @@ public class GerenteController {
 		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
 		atributosLogin[2] = sec.getPerfilEnum().toString();
 		
-		if(GerenteGeral.cadastrarSecretaria(atributos, atributosLogin)) {
+		if(GerenteGeral.cadastrarFuncionario(sec, "./database/secretarias.txt")) {
 			return "Secretária cadastrada com sucesso";
 		} else {
 			return "Houve um erro ao cadastrar a secretária, verifique os dados e tente novamente";
@@ -138,7 +138,7 @@ public class GerenteController {
 		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
 		atributosLogin[2] = med.getPerfilEnum().toString();
 		
-		if(GerenteGeral.cadastrarMedico(atributos, atributosLogin)) {
+		if(GerenteGeral.cadastrarFuncionario(med, "./database/medicos.txt")) {
 			return "Médico cadastrado com sucesso";
 		} else {
 			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";
