@@ -45,7 +45,7 @@ public class SecretariaController {
 			return "Alguns atributos est�o em branco, tente novamente";
 		}
 		
-		if(secretaria.cadastrarPaciente(pac, "./database/secretarias.txt") ) {
+		if(secretaria.cadastrarPaciente(pac, "./database/paciente.txt") ) {
 			return "Paciente cadastrado com sucesso";
 		} else {
 			return "Houve um erro ao cadastrar o Paciente, verifique os dados e tente novamente";
