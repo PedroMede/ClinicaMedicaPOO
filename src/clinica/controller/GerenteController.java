@@ -13,6 +13,9 @@ import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
 
 public class GerenteController {
+	
+	private GerenteGeral gerente = new GerenteGeral();
+	
 	public String cadastrarSecretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
 			String carteiraTrab, String login, String senha, String horaEntrada, String horaSaida) {
@@ -46,33 +49,11 @@ public class GerenteController {
 			return "Alguns atributos estão em branco, tente novamente";
 		}
 		
-		Secretaria sec = new Secretaria(horaEntrada, horaSaida);
+		Secretaria sec = new Secretaria(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, 
+				estadoCivil, sexo, etnia, carteiraTrab, dataAdmissao, login, senha, PerfilEnum.ROLE_SECRETARIA, horaEntrada, horaSaida);
 		
-		sec.setNome(nome);
-		sec.setCpf(cpf);
-		sec.setRg(rg);
-		sec.setTelefone(telefone);
-		sec.setAnoNascimento(anoNascimento);
-		sec.setEstadoCivil(estadoCivil);
-		sec.setSexo(sexo);
-		sec.setEtnia(etnia);
-		sec.setCarteiraTrab(carteiraTrab);
-		sec.setDataAdmissao(dataAdmissao);
-		sec.setLogradouro(logradouro);
-		sec.setNumero(numero);
-		sec.setCep(cep);
-		sec.setBairro(bairro);
-		sec.setCidade(cidade);
-		sec.setEstado(estado);
-		sec.setComplemento(complemento);
-		atributos.add(sec.getComplemento());
 		
-		sec.setLogin(login);
-		sec.setSenha(senha);
-		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
-		atributosLogin[2] = sec.getPerfilEnum().toString();
-		
-		if(GerenteGeral.cadastrarFuncionario(sec, "./database/secretarias.txt")) {
+		if(gerente.cadastrarFuncionario(sec, "./database/secretarias.txt")) {
 			return "Secretária cadastrada com sucesso";
 		} else {
 			return "Houve um erro ao cadastrar a secretária, verifique os dados e tente novamente";
@@ -112,33 +93,11 @@ public class GerenteController {
 			return "Alguns atributos estão em branco, tente novamente";
 		}
 		
-		Medico med = new Medico(crm, EspecialidadeEnum.valueOf(especialidade));
+		Medico med = new Medico(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, 
+				estadoCivil, sexo, etnia, carteiraTrab, dataAdmissao, login, senha, PerfilEnum.ROLE_MEDICO,
+				crm, EspecialidadeEnum.valueOf(especialidade));
 		
-		med.setNome(nome);
-		med.setCpf(cpf);
-		med.setRg(rg);
-		med.setTelefone(telefone);
-		med.setAnoNascimento(anoNascimento);
-		med.setEstadoCivil(estadoCivil);
-		med.setSexo(sexo);
-		med.setEtnia(etnia);
-		med.setCarteiraTrab(carteiraTrab);
-		med.setDataAdmissao(dataAdmissao);
-		med.setLogradouro(logradouro);
-		med.setNumero(numero);
-		med.setCep(cep);
-		med.setBairro(bairro);
-		med.setCidade(cidade);
-		med.setEstado(estado);
-		med.setComplemento(complemento);
-		atributos.add(med.getComplemento());
-		
-		med.setLogin(login);
-		med.setSenha(senha);
-		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
-		atributosLogin[2] = med.getPerfilEnum().toString();
-		
-		if(GerenteGeral.cadastrarFuncionario(med, "./database/medicos.txt")) {
+		if(gerente.cadastrarFuncionario(med, "./database/medicos.txt")) {
 			return "Médico cadastrado com sucesso";
 		} else {
 			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";

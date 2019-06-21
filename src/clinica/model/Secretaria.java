@@ -3,14 +3,21 @@ package clinica.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import clinica.model.enums.EtniaEnum;
+import clinica.model.enums.PerfilEnum;
+
 public class Secretaria extends Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String horaEntrada;
 	private String horaSaida;
 
-	public Secretaria(String horaEntrada, String horaSaida) {
-		super();
+	public Secretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endereço
+			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,		//dados de pessoa
+			String carteiraTrab, Date dataAdmissao, String login, String senha,	PerfilEnum perfilEnum,											//dados de funcionario
+			String horaEntrada, String horaSaida) {																								//dados de secretaria
+		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia,
+				carteiraTrab, dataAdmissao, login, senha, perfilEnum);
 		this.horaEntrada = horaEntrada;
 		this.horaSaida = horaSaida;
 	}

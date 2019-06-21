@@ -12,12 +12,10 @@ public class Pessoa extends Endereco {
 	private String estadoCivil;
 	private String sexo;
 	private EtniaEnum etnia;
-	
-	public Pessoa() {
-	}
 
-	public Pessoa(String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia) {
-		super();
+	public Pessoa(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endereço
+			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia) {		//dados de pessoa
+		super(logradouro, numero, cep, bairro, cidade, estado, complemento);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;

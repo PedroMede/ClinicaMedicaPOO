@@ -2,14 +2,18 @@ package clinica.model;
 
 import java.util.Date;
 
+import clinica.model.enums.EtniaEnum;
+
 public class Paciente extends Pessoa {
 
 	private Date dataPrimeiraConsulta;
 	private String telefoneAcompanhante;
 	private String localNascimento;
 
-	public Paciente(Date dataPrimeiraConsulta, String telefoneAcompanhante, String localNascimento) {
-		super();
+	public Paciente(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento, 		//dados de endereço
+			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia, 	//dados de pessoa
+			Date dataPrimeiraConsulta, String telefoneAcompanhante, String localNascimento) {												//dados de paciente
+		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia);
 		this.dataPrimeiraConsulta = dataPrimeiraConsulta;
 		this.telefoneAcompanhante = telefoneAcompanhante;
 		this.localNascimento = localNascimento;
