@@ -13,8 +13,10 @@ public class Funcionario extends Pessoa {
 	private String login;
 	private String senha;
 	private PerfilEnum perfilEnum;
-
-	public Funcionario(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endereço
+	
+	public Funcionario() {}
+	
+	public Funcionario(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endereï¿½o
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
 			String carteiraTrab, String login, String senha) {																					//dados de funcionario
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia);

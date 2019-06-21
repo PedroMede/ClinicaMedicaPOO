@@ -9,8 +9,10 @@ public class Endereco {
 	private String cidade;
 	private String estado;
 	private String complemento;
-
-	public Endereco(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento) {	//dados de endereço
+	
+	public Endereco() {}
+	
+	public Endereco(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento) {	//dados de endereï¿½o
 		super();
 		this.logradouro = logradouro;
 		this.numero = numero;

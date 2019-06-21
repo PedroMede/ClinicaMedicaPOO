@@ -17,7 +17,9 @@ public class Secretaria extends Funcionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String horaEntrada;
 	private String horaSaida;
-
+	
+	public Secretaria() {}
+	
 	public Secretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endere�o
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
 			String carteiraTrab, String login, String senha,																					//dados de funcionario
