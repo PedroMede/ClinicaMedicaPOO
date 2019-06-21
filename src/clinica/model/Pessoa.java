@@ -1,6 +1,7 @@
 package clinica.model;
 
 import clinica.model.enums.EtniaEnum;
+import clinica.model.enums.SexoEnum;
 
 public class Pessoa extends Endereco {
 	
@@ -10,11 +11,11 @@ public class Pessoa extends Endereco {
 	private String telefone;
 	private Integer anoNascimento;
 	private String estadoCivil;
-	private String sexo;
+	private SexoEnum sexo;
 	private EtniaEnum etnia;
 
 	public Pessoa(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endereço
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia) {		//dados de pessoa
+			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia) {	//dados de pessoa
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento);
 		this.nome = nome;
 		this.cpf = cpf;
@@ -73,12 +74,12 @@ public class Pessoa extends Endereco {
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
-	
-	public String getSexo() {
+
+	public SexoEnum getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(SexoEnum sexo) {
 		this.sexo = sexo;
 	}
 

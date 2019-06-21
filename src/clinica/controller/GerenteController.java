@@ -8,50 +8,40 @@ import java.util.List;
 import clinica.model.GerenteGeral;
 import clinica.model.Medico;
 import clinica.model.Secretaria;
-import clinica.model.enums.EspecialidadeEnum;
-import clinica.model.enums.EtniaEnum;
-import clinica.model.enums.PerfilEnum;
 
 public class GerenteController {
 	
 	private GerenteGeral gerente = new GerenteGeral();
 	
-	public String cadastrarSecretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
-			String carteiraTrab, String login, String senha, String horaEntrada, String horaSaida) {
+	public String cadastrarSecretaria(Secretaria sec) {
 		
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
-		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		atributos.add(nome);
-		atributos.add(cpf);
-		atributos.add(rg);
-		atributos.add(telefone);
-		atributos.add(anoNascimento.toString());
-		atributos.add(estadoCivil);
-		atributos.add(sexo);
-		atributos.add(etnia.toString());
-		atributos.add(carteiraTrab);
-		atributos.add(sdf.format(dataAdmissao));
-		atributos.add(logradouro);
-		atributos.add(numero.toString());
-		atributos.add(cep);
-		atributos.add(bairro);
-		atributos.add(cidade);
-		atributos.add(estado);
+		sec.setDataAdmissao(dataAdmissao);
+		atributos.add(sec.getNome());
+		atributos.add(sec.getCpf());
+		atributos.add(sec.getRg());
+		atributos.add(sec.getTelefone());
+		atributos.add(sec.getAnoNascimento().toString());
+		atributos.add(sec.getEstadoCivil());
+		atributos.add(sec.getSexo().toString());
+		atributos.add(sec.getEtnia().toString());
+		atributos.add(sec.getCarteiraTrab());
+		atributos.add(sdf.format(sec.getDataAdmissao()));
+		atributos.add(sec.getLogradouro());
+		atributos.add(sec.getNumero().toString());
+		atributos.add(sec.getCep());
+		atributos.add(sec.getBairro());
+		atributos.add(sec.getCidade());
+		atributos.add(sec.getEstado());
+		atributos.add(sec.getLogin());
+		atributos.add(sec.getSenha());		
 		
-		atributosLogin[0] = login;
-		atributosLogin[1] = senha;
-		
-		if(!validarDados(atributos, atributosLogin)) {
+		if(!validarDados(atributos)) {
 			return "Alguns atributos estão em branco, tente novamente";
 		}
-		
-		Secretaria sec = new Secretaria(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, 
-				estadoCivil, sexo, etnia, carteiraTrab, dataAdmissao, login, senha, PerfilEnum.ROLE_SECRETARIA, horaEntrada, horaSaida);
-		
 		
 		if(gerente.cadastrarFuncionario(sec, "./database/secretarias.txt")) {
 			return "Secretária cadastrada com sucesso";
@@ -60,58 +50,46 @@ public class GerenteController {
 		}
 	}
 	
-	public String cadastrarMedico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
-			String carteiraTrab, String login, String senha, String crm, String especialidade) {
+	public String cadastrarMedico(Medico med) {
 		
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
-		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		atributos.add(nome);
-		atributos.add(cpf);
-		atributos.add(rg);
-		atributos.add(telefone);
-		atributos.add(anoNascimento.toString());
-		atributos.add(estadoCivil);
-		atributos.add(sexo);
-		atributos.add(etnia.toString());
-		atributos.add(carteiraTrab);
-		atributos.add(sdf.format(dataAdmissao));
-		atributos.add(logradouro);
-		atributos.add(numero.toString());
-		atributos.add(cep);
-		atributos.add(bairro);
-		atributos.add(cidade);
-		atributos.add(estado);
+		med.setDataAdmissao(dataAdmissao);
+		atributos.add(med.getNome());
+		atributos.add(med.getCpf());
+		atributos.add(med.getRg());
+		atributos.add(med.getTelefone());
+		atributos.add(med.getAnoNascimento().toString());
+		atributos.add(med.getEstadoCivil());
+		atributos.add(med.getSexo().toString());
+		atributos.add(med.getEtnia().toString());
+		atributos.add(med.getCarteiraTrab());
+		atributos.add(sdf.format(med.getDataAdmissao()));
+		atributos.add(med.getLogradouro());
+		atributos.add(med.getNumero().toString());
+		atributos.add(med.getCep());
+		atributos.add(med.getBairro());
+		atributos.add(med.getCidade());
+		atributos.add(med.getEstado());
+		atributos.add(med.getLogin());
+		atributos.add(med.getSenha());
 		
-		atributosLogin[0] = login;
-		atributosLogin[1] = senha;
-		
-		if(!validarDados(atributos, atributosLogin)) {
-			return "Alguns atributos estão em branco, tente novamente";
+		if(!validarDados(atributos)) {
+			return "Alguns atributos estï¿½o em branco, tente novamente";
 		}
 		
-		Medico med = new Medico(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, 
-				estadoCivil, sexo, etnia, carteiraTrab, dataAdmissao, login, senha, PerfilEnum.ROLE_MEDICO,
-				crm, EspecialidadeEnum.valueOf(especialidade));
-		
 		if(gerente.cadastrarFuncionario(med, "./database/medicos.txt")) {
-			return "Médico cadastrado com sucesso";
+			return "Mï¿½dico cadastrado com sucesso";
 		} else {
-			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";
+			return "Houve um erro ao cadastrar o mï¿½dico, verifique os dados e tente novamente";
 		}
 	}
 	
-	private static boolean validarDados(List<String> dados, String[] dadosLogin) {
+	private static boolean validarDados(List<String> dados) {
 		for(String dado : dados) {
 			if(dado == null || dado == "") {
-				return false;
-			}
-		}
-		for(String dadoLogin : dadosLogin) {
-			if(dadoLogin == null || dadoLogin == "") {
 				return false;
 			}
 		}
