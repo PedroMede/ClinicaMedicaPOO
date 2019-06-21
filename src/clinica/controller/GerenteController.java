@@ -54,7 +54,7 @@ public class GerenteController {
 		if(gerente.cadastrarFuncionario(sec, "./database/secretarias.txt") && gerente.criarLoginFuncionario(atributosLogin)) {
 			return "Secretária cadastrada com sucesso";
 		} else {
-			return "Houve um erro ao cadastrar a secretária, verifique os dados e tente novamente";
+			return "Houve um erro ao cadastrar a secretária,  tente novamente em alguns minutos";
 		}
 	}
 	

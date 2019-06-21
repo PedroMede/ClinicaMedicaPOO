@@ -48,7 +48,7 @@ public class SecretariaController {
 		if(secretaria.cadastrarPaciente(pac, "./database/pacientes.txt") ) {
 			return "Paciente cadastrado com sucesso";
 		} else {
-			return "Houve um erro ao cadastrar o paciente, verifique os dados e tente novamente";
+			return "Houve um erro ao cadastrar o paciente, tente novamente em alguns minutos";
 		}
 	}
 	
