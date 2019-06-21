@@ -17,51 +17,58 @@ public class GerenteController {
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
 			String carteiraTrab, String login, String senha, String horaEntrada, String horaSaida) {
 		
-		Secretaria sec = new Secretaria(horaEntrada, horaSaida);
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
 		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
+		atributos.add(nome);
+		atributos.add(cpf);
+		atributos.add(rg);
+		atributos.add(telefone);
+		atributos.add(anoNascimento.toString());
+		atributos.add(estadoCivil);
+		atributos.add(sexo);
+		atributos.add(etnia.toString());
+		atributos.add(carteiraTrab);
+		atributos.add(sdf.format(dataAdmissao));
+		atributos.add(logradouro);
+		atributos.add(numero.toString());
+		atributos.add(cep);
+		atributos.add(bairro);
+		atributos.add(cidade);
+		atributos.add(estado);
+		
+		atributosLogin[0] = login;
+		atributosLogin[1] = senha;
+		
+		if(!validarDados(atributos, atributosLogin)) {
+			return "Alguns atributos estão em branco, tente novamente";
+		}
+		
+		Secretaria sec = new Secretaria(horaEntrada, horaSaida);
+		
 		sec.setNome(nome);
-		atributos.add(sec.getNome());
 		sec.setCpf(cpf);
-		atributos.add(sec.getCpf());
 		sec.setRg(rg);
-		atributos.add(sec.getRg());
 		sec.setTelefone(telefone);
-		atributos.add(sec.getTelefone());
 		sec.setAnoNascimento(anoNascimento);
-		atributos.add(sec.getAnoNascimento().toString());
 		sec.setEstadoCivil(estadoCivil);
-		atributos.add(sec.getEstadoCivil());
 		sec.setSexo(sexo);
-		atributos.add(sec.getSexo());
 		sec.setEtnia(etnia);
-		atributos.add(sec.getEtnia().toString());
 		sec.setCarteiraTrab(carteiraTrab);
-		atributos.add(sec.getCarteiraTrab());
 		sec.setDataAdmissao(dataAdmissao);
-		atributos.add(sdf.format(sec.getDataAdmissao()));
 		sec.setLogradouro(logradouro);
-		atributos.add(sec.getLogradouro());
 		sec.setNumero(numero);
-		atributos.add(sec.getNumero().toString());
 		sec.setCep(cep);
-		atributos.add(sec.getCep());
 		sec.setBairro(bairro);
-		atributos.add(sec.getBairro());
 		sec.setCidade(cidade);
-		atributos.add(sec.getCidade());
 		sec.setEstado(estado);
-		atributos.add(sec.getEstado());
 		sec.setComplemento(complemento);
 		atributos.add(sec.getComplemento());
 		
 		sec.setLogin(login);
-		atributosLogin[0] = sec.getLogin();
 		sec.setSenha(senha);
-		atributosLogin[1] = sec.getSenha();
 		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
 		atributosLogin[2] = sec.getPerfilEnum().toString();
 		
@@ -76,52 +83,58 @@ public class GerenteController {
 			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, String sexo, EtniaEnum etnia,
 			String carteiraTrab, String login, String senha, String crm, String especialidade) {
 		
-		Medico med = new Medico(crm, EspecialidadeEnum.valueOf(especialidade));
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
 		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
+		atributos.add(nome);
+		atributos.add(cpf);
+		atributos.add(rg);
+		atributos.add(telefone);
+		atributos.add(anoNascimento.toString());
+		atributos.add(estadoCivil);
+		atributos.add(sexo);
+		atributos.add(etnia.toString());
+		atributos.add(carteiraTrab);
+		atributos.add(sdf.format(dataAdmissao));
+		atributos.add(logradouro);
+		atributos.add(numero.toString());
+		atributos.add(cep);
+		atributos.add(bairro);
+		atributos.add(cidade);
+		atributos.add(estado);
+		
+		atributosLogin[0] = login;
+		atributosLogin[1] = senha;
+		
+		if(!validarDados(atributos, atributosLogin)) {
+			return "Alguns atributos estão em branco, tente novamente";
+		}
+		
+		Medico med = new Medico(crm, EspecialidadeEnum.valueOf(especialidade));
+		
 		med.setNome(nome);
-		atributos.add(med.getNome());
 		med.setCpf(cpf);
-		atributos.add(med.getCpf());
 		med.setRg(rg);
-		atributos.add(med.getRg());
 		med.setTelefone(telefone);
-		atributos.add(med.getTelefone());
 		med.setAnoNascimento(anoNascimento);
-		atributos.add(med.getAnoNascimento().toString());
 		med.setEstadoCivil(estadoCivil);
-		atributos.add(med.getEstadoCivil());
 		med.setSexo(sexo);
-		atributos.add(med.getSexo());
 		med.setEtnia(etnia);
-		atributos.add(med.getEtnia().toString());
 		med.setCarteiraTrab(carteiraTrab);
-		atributos.add(med.getCarteiraTrab());
 		med.setDataAdmissao(dataAdmissao);
-		atributos.add(sdf.format(med.getDataAdmissao()));
 		med.setLogradouro(logradouro);
-		atributos.add(med.getLogradouro());
 		med.setNumero(numero);
-		atributos.add(med.getNumero().toString());
 		med.setCep(cep);
-		atributos.add(med.getCep());
 		med.setBairro(bairro);
-		atributos.add(med.getBairro());
 		med.setCidade(cidade);
-		atributos.add(med.getCidade());
 		med.setEstado(estado);
-		atributos.add(med.getEstado());
 		med.setComplemento(complemento);
 		atributos.add(med.getComplemento());
 		
-		
 		med.setLogin(login);
-		atributosLogin[0] = med.getLogin();
 		med.setSenha(senha);
-		atributosLogin[1] = med.getSenha();
 		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
 		atributosLogin[2] = med.getPerfilEnum().toString();
 		
@@ -130,5 +143,20 @@ public class GerenteController {
 		} else {
 			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";
 		}
+	}
+	
+	private static boolean validarDados(List<String> dados, String[] dadosLogin) {
+		for(String dado : dados) {
+			if(dado == null || dado == "") {
+				return false;
+			}
+		}
+		for(String dadoLogin : dadosLogin) {
+			if(dadoLogin == null || dadoLogin == "") {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
