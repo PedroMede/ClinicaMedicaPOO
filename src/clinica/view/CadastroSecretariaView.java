@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
 public class CadastroSecretariaView {
 
@@ -20,10 +21,8 @@ public class CadastroSecretariaView {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
@@ -35,6 +34,34 @@ public class CadastroSecretariaView {
 	private JTextField textField_16;
 	private JTextField textField_17;
 	private JTextField textField_18;
+	private static String siglasEstados[] = {
+			"AC",
+			"AL",
+			"AP",
+			"AM",
+			"BA",
+			"CE",
+			"DF",
+			"ES",
+			"GO",
+			"MA",
+			"MT",
+			"MS",
+			"MG",
+			"PA",
+			"PB",
+			"PR",
+			"PE",
+			"PI",
+			"RJ",
+			"RN",
+			"RS",
+			"RO",
+			"RR",
+			"SC",
+			"SP",
+			"SE",
+			"TO"};
 
 	/**
 	 * Launch the application.
@@ -115,6 +142,15 @@ public class CadastroSecretariaView {
 		textField_2.setBounds(109, 206, 172, 20);
 		frame.getContentPane().add(textField_2);
 		
+		JLabel label_7 = new JLabel("Estado:");
+		label_7.setFont(new Font("Tahoma", Font.BOLD, 13));
+		label_7.setBounds(514, 209, 53, 14);
+		frame.getContentPane().add(label_7);
+		
+		JComboBox<Object> comboBox_1 = new JComboBox<Object>(siglasEstados);
+		comboBox_1.setBounds(574, 206, 73, 20);
+		frame.getContentPane().add(comboBox_1);
+		
 		JLabel label_4 = new JLabel("N\u00FAmero:");
 		label_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_4.setBounds(291, 153, 61, 14);
@@ -134,16 +170,6 @@ public class CadastroSecretariaView {
 		label_6.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_6.setBounds(353, 182, 105, 13);
 		frame.getContentPane().add(label_6);
-		
-		JLabel label_7 = new JLabel("Estado:");
-		label_7.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_7.setBounds(392, 206, 53, 14);
-		frame.getContentPane().add(label_7);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(455, 204, 192, 20);
-		frame.getContentPane().add(textField_4);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
@@ -175,11 +201,6 @@ public class CadastroSecretariaView {
 		label_11.setBounds(52, 335, 134, 14);
 		frame.getContentPane().add(label_11);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(189, 333, 71, 20);
-		frame.getContentPane().add(textField_7);
-		
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
 		textField_8.setBounds(99, 308, 192, 20);
@@ -202,12 +223,12 @@ public class CadastroSecretariaView {
 		
 		JLabel label_14 = new JLabel("Estado Civil:");
 		label_14.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_14.setBounds(274, 335, 84, 14);
+		label_14.setBounds(282, 335, 84, 14);
 		frame.getContentPane().add(label_14);
 		
 		textField_10 = new JTextField();
 		textField_10.setColumns(10);
-		textField_10.setBounds(355, 333, 118, 20);
+		textField_10.setBounds(371, 333, 118, 20);
 		frame.getContentPane().add(textField_10);
 		
 		textField_11 = new JTextField();
@@ -290,7 +311,7 @@ public class CadastroSecretariaView {
 		
 		textField_16 = new JTextField();
 		textField_16.setColumns(10);
-		textField_16.setBounds(301, 464, 147, 20);
+		textField_16.setBounds(301, 464, 124, 20);
 		frame.getContentPane().add(textField_16);
 		
 		JLabel label_21 = new JLabel("CRM:");
@@ -321,6 +342,9 @@ public class CadastroSecretariaView {
 		textField_18.setColumns(10);
 		textField_18.setBounds(564, 437, 93, 20);
 		frame.getContentPane().add(textField_18);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(188, 335, 84, 20);
+		frame.getContentPane().add(dateChooser);
 	}
-
 }

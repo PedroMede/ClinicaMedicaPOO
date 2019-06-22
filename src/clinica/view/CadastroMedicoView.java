@@ -13,6 +13,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
 public class CadastroMedicoView {
 
@@ -22,7 +23,6 @@ public class CadastroMedicoView {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTextField textField_2;
@@ -35,7 +35,34 @@ public class CadastroMedicoView {
 	private JTextField textField_14;
 	private JTextField textField_15;
 	private JTextField textField_16;
-	private JTextField textField_17;
+	private static String siglasEstados[] = {
+			"AC",
+			"AL",
+			"AP",
+			"AM",
+			"BA",
+			"CE",
+			"DF",
+			"ES",
+			"GO",
+			"MA",
+			"MT",
+			"MS",
+			"MG",
+			"PA",
+			"PB",
+			"PR",
+			"PE",
+			"PI",
+			"RJ",
+			"RN",
+			"RS",
+			"RO",
+			"RR",
+			"SC",
+			"SP",
+			"SE",
+			"TO"};
 
 	/**
 	 * Launch the application.
@@ -143,13 +170,12 @@ public class CadastroMedicoView {
 		
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEstado.setBounds(384, 199, 53, 14);
+		lblEstado.setBounds(493, 205, 53, 14);
 		frame.getContentPane().add(lblEstado);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(447, 197, 192, 20);
-		frame.getContentPane().add(textField_6);
+		JComboBox<Object> comboBox_1 = new JComboBox<Object>(siglasEstados);
+	  	comboBox_1.setBounds(553, 202, 73, 20);
+	  	frame.getContentPane().add(comboBox_1);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.BLACK);
@@ -238,19 +264,14 @@ public class CadastroMedicoView {
 	  	lblDataDeNascimento.setBounds(44, 328, 134, 14);
 	  	frame.getContentPane().add(lblDataDeNascimento);
 	  	
-	  	textField_17 = new JTextField();
-	  	textField_17.setColumns(10);
-	  	textField_17.setBounds(181, 326, 71, 20);
-	  	frame.getContentPane().add(textField_17);
-	  	
 	  	JLabel lblEstadoCivil = new JLabel("Estado Civil:");
 	  	lblEstadoCivil.setFont(new Font("Tahoma", Font.BOLD, 13));
-	  	lblEstadoCivil.setBounds(266, 328, 84, 14);
+	  	lblEstadoCivil.setBounds(271, 328, 84, 14);
 	  	frame.getContentPane().add(lblEstadoCivil);
 	  	
 	  	textField_11 = new JTextField();
 	  	textField_11.setColumns(10);
-	  	textField_11.setBounds(347, 326, 118, 20);
+	  	textField_11.setBounds(359, 326, 118, 20);
 	  	frame.getContentPane().add(textField_11);
 	  	
 	  	JSeparator separator_2 = new JSeparator();
@@ -316,5 +337,9 @@ public class CadastroMedicoView {
 	  	JButton button = new JButton("Cadastrar");
 	  	button.setBounds(308, 529, 109, 23);
 	  	frame.getContentPane().add(button);
+	  	
+	  	JDateChooser dateChooser = new JDateChooser();
+	  	dateChooser.setBounds(182, 326, 84, 20);
+	  	frame.getContentPane().add(dateChooser);
 	}
 }
