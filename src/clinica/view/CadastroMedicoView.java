@@ -35,6 +35,7 @@ public class CadastroMedicoView {
 	private JTextField textField_14;
 	private JTextField textField_15;
 	private JTextField textField_16;
+	private String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
 			"AL",
@@ -212,14 +213,13 @@ public class CadastroMedicoView {
 		textField_2.setBounds(447, 145, 192, 20);
 		frame.getContentPane().add(textField_2);
 		
-		JLabel lblCor = new JLabel("Cor:");
+		JLabel lblCor = new JLabel("Etnia:");
 		lblCor.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCor.setBounds(513, 277, 41, 14);
 		frame.getContentPane().add(lblCor);
 		
-		String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 		JComboBox<Object> comboBox = new JComboBox<Object>(etnias);
-		comboBox.setBounds(546, 275, 93, 20);
+		comboBox.setBounds(553, 275, 86, 20);
 		frame.getContentPane().add(comboBox);
 		
 		JLabel lblCpf = new JLabel("CPF:");

@@ -34,6 +34,7 @@ public class CadastroSecretariaView {
 	private JTextField textField_16;
 	private JTextField textField_17;
 	private JTextField textField_18;
+	private String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
 			"AL",
@@ -246,15 +247,14 @@ public class CadastroSecretariaView {
 		textField_12.setBounds(364, 282, 147, 20);
 		frame.getContentPane().add(textField_12);
 		
-		String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 		JComboBox<Object> comboBox = new JComboBox<Object>(etnias);
-		comboBox.setBounds(554, 282, 93, 20);
+		comboBox.setBounds(564, 282, 83, 20);
 		frame.getContentPane().add(comboBox);
 		
-		JLabel label_15 = new JLabel("Cor:");
-		label_15.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_15.setBounds(521, 284, 41, 14);
-		frame.getContentPane().add(label_15);
+		JLabel lblEtnia = new JLabel("Etnia:");
+		lblEtnia.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEtnia.setBounds(521, 284, 41, 14);
+		frame.getContentPane().add(lblEtnia);
 		
 		JLabel label_16 = new JLabel("Sexo:");
 		label_16.setFont(new Font("Tahoma", Font.BOLD, 13));

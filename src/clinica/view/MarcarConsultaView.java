@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -15,6 +16,7 @@ public class MarcarConsultaView {
 
 	private JFrame frame;
 	private JTextField textField;
+	private String[] pessoas = { "Fulano", "Sicrano", "Beltrano"};
 
 	/**
 	 * Launch the application.
@@ -59,8 +61,7 @@ public class MarcarConsultaView {
 		lblMdico.setBounds(49, 112, 66, 18);
 		frame.getContentPane().add(lblMdico);
 		
-		String[] medicos = { "Fulano", "Sicrano", "Beltrano"};
-		JComboBox<Object> comboBox = new JComboBox<Object>(medicos);
+		JComboBox<Object> comboBox = new JComboBox<Object>(pessoas);
 		comboBox.setBounds(109, 112, 95, 20);
 		frame.getContentPane().add(comboBox);
 		
@@ -69,8 +70,7 @@ public class MarcarConsultaView {
 		lblPaciente.setBounds(37, 151, 66, 18);
 		frame.getContentPane().add(lblPaciente);
 		
-		String[] pacientes = { "Fulano", "Sicrano", "Beltrano"};
-		JComboBox<Object> comboBox_1 = new JComboBox<Object>(pacientes);
+		JComboBox<Object> comboBox_1 = new JComboBox<Object>(pessoas);
 		comboBox_1.setBounds(109, 151, 95, 20);
 		frame.getContentPane().add(comboBox_1);
 		
