@@ -49,7 +49,7 @@ public class RemarcarConsultaView extends JFrame {
 		JLabel lblRemarcarConsulta = new JLabel("Remarcar Consulta");
 		lblRemarcarConsulta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRemarcarConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblRemarcarConsulta.setBounds(141, 41, 220, 26);
+		lblRemarcarConsulta.setBounds(141, 11, 220, 26);
 		contentPane.add(lblRemarcarConsulta);
 		
 		JScrollPane scrollPane = new JScrollPane();
