@@ -80,7 +80,11 @@ public class SecretariaView extends JFrame {
 		frame.getContentPane().add(separator_3);
 		
 		JButton btnBaseDeExames = new JButton("Base de Exames");
-		btnBaseDeExames.setBounds(186, 284, 144, 23);
+		btnBaseDeExames.setBounds(290, 284, 144, 23);
 		frame.getContentPane().add(btnBaseDeExames);
+		
+		JButton btnMarcarExame = new JButton("Marcar Exame");
+		btnMarcarExame.setBounds(61, 284, 122, 23);
+		frame.getContentPane().add(btnMarcarExame);
 	}
 }
