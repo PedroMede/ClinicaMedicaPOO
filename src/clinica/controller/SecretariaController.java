@@ -66,7 +66,7 @@ public class SecretariaController {
 			atributos.add(exam.getClassificacao().toString());
 			
 			if(!validarDados(atributos)) {
-				return "Alguns atributos estï¿½o em branco, tente novamente";
+				return "Alguns atributos estão em branco, tente novamente";
 			}
 			
 			if(secretaria.cadastrarExame(exam, "./database/exames.txt") ) {

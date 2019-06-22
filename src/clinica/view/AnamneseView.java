@@ -6,15 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class AnamneseView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private JTextField textField;
+	private String[] exames = {"Exame de sangue", "Exame de urina", "Exame de próstata"};
 
 	/**
 	 * Launch the application.
@@ -47,15 +47,14 @@ public class AnamneseView extends JFrame {
 		lblCadstroDeAnamnese.setBounds(140, 51, 220, 14);
 		frame.getContentPane().add(lblCadstroDeAnamnese);
 		
-		JLabel lblCdigoDoExame = new JLabel("C\u00F3digo do Exame:");
+		JLabel lblCdigoDoExame = new JLabel("Exame: ");
 		lblCdigoDoExame.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCdigoDoExame.setBounds(20, 104, 114, 14);
+		lblCdigoDoExame.setBounds(20, 104, 50, 14);
 		frame.getContentPane().add(lblCdigoDoExame);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(144, 102, 61, 20);
-		frame.getContentPane().add(textField);
+		JComboBox<Object> comboBox = new JComboBox<Object>(exames);
+		comboBox.setBounds(114, 102, 134, 20);
+		frame.getContentPane().add(comboBox);
 		
 		JLabel lblSintomas = new JLabel("Sintomas:");
 		lblSintomas.setFont(new Font("Tahoma", Font.BOLD, 13));

@@ -1,11 +1,9 @@
 package clinica.model;
 
 import java.io.Serializable;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.util.Date;
 
+import clinica.model.dados.Dados;
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.SexoEnum;
 
@@ -54,49 +52,11 @@ public class Secretaria extends Funcionario implements Serializable {
 	}
 	
 	public boolean cadastrarPaciente(Object obj, String path) {
-		File dir = new File("./" + "\\database");
-		
-		if(!dir.exists()) {
-			boolean sucesso = dir.mkdir();
-			
-			if(!sucesso) {
-				return false;
-			}
-		} 
-		
-		try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path, true))) {
-			bw.writeObject(obj);
-			bw.flush();
-			bw.close();
-			
-		} catch(Exception e) {
-			return false;
-		}
-		return true;
+		return Dados.cadastrar(obj, path);
 	}
 	
 	public boolean cadastrarExame(Object obj, String path) {
-		
-		File dir = new File("./" + "\\database");
-		
-		if(!dir.exists()) {
-			boolean sucesso = dir.mkdir();
-			
-			if(!sucesso) {
-				return false;
-			}
-		} 
-		
-		try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path, true))) {
-			bw.writeObject(obj);
-			bw.flush();
-			bw.close();
-			
-		} catch(Exception e) {
-			return false;
-		}
-		return true;
-		
+		return Dados.cadastrar(obj, path);
 	}
 	
 }

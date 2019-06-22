@@ -2,34 +2,15 @@ package clinica.model;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+
+import clinica.model.dados.Dados;
 
 public class GerenteGeral {
 	
 	public boolean cadastrarFuncionario(Object obj, String path) {
-		File dir = new File("./" + "\\database");
-		
-		if(!dir.exists()) {
-			boolean sucesso = dir.mkdir();
-			
-			if(!sucesso) {
-				return false;
-			}
-		} 
-		
-		try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path, true))) {
-			bw.writeObject(obj);
-			bw.flush();
-			bw.close();
-			
-		} catch(Exception e) {
-			return false;
-		}
-		
-		return true;
+		return Dados.cadastrar(obj, path);
 	}
 	
 	public boolean criarLoginFuncionario(String[] atributosLogin) {
