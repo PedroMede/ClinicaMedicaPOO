@@ -74,4 +74,29 @@ public class Secretaria extends Funcionario implements Serializable {
 		}
 		return true;
 	}
+	
+	public boolean cadastrarExame(Object obj, String path) {
+		
+		File dir = new File("./" + "\\database");
+		
+		if(!dir.exists()) {
+			boolean sucesso = dir.mkdir();
+			
+			if(!sucesso) {
+				return false;
+			}
+		} 
+		
+		try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path, true))) {
+			bw.writeObject(obj);
+			bw.flush();
+			bw.close();
+			
+		} catch(Exception e) {
+			return false;
+		}
+		return true;
+		
+	}
+	
 }

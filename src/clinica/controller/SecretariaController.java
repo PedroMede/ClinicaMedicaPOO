@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import clinica.model.Exame;
 import clinica.model.Paciente;
 import clinica.model.Secretaria;
 
@@ -42,7 +43,7 @@ public class SecretariaController {
 			
 
 		if(!validarDados(atributos)) {
-			return "Alguns atributos estão em branco, tente novamente";
+			return "Alguns atributos estï¿½o em branco, tente novamente";
 		}
 		
 		if(secretaria.cadastrarPaciente(pac, "./database/pacientes.txt") ) {
@@ -50,6 +51,30 @@ public class SecretariaController {
 		} else {
 			return "Houve um erro ao cadastrar o paciente, tente novamente em alguns minutos";
 		}
+	}
+	
+	public String cadastrarExame (Exame exam) {
+		
+			List <String> atributos = new ArrayList<String>();
+			
+			atributos.add(exam.getCodigo().toString());
+			atributos.add(exam.getNome());
+			atributos.add(exam.getObsGeral());
+			atributos.add(exam.getTempDuracao());
+			atributos.add(exam.getTempResultado());
+			atributos.add(exam.getTipoExame());
+			atributos.add(exam.getClassificacao().toString());
+			
+			if(!validarDados(atributos)) {
+				return "Alguns atributos estï¿½o em branco, tente novamente";
+			}
+			
+			if(secretaria.cadastrarExame(exam, "./database/exames.txt") ) {
+				return "Paciente cadastrado com sucesso";
+			} else {
+				return "Houve um erro ao cadastrar exame, tente novamente em alguns minutos";
+			}
+	
 	}
 	
 	private static boolean validarDados(List<String> dados) {
