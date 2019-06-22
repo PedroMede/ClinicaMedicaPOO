@@ -5,18 +5,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.text.ParseException;
 
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JFormattedTextField;
 
 public class MarcarConsultaView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private JTextField textField;
 	private String[] pessoas = { "Fulano", "Sicrano", "Beltrano"};
 
 	/**
@@ -37,8 +38,9 @@ public class MarcarConsultaView extends JFrame {
 
 	/**
 	 * Create the application.
+	 * @throws ParseException 
 	 */
-	public MarcarConsultaView() {
+	public MarcarConsultaView() throws ParseException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 528, 344);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,10 +75,9 @@ public class MarcarConsultaView extends JFrame {
 		lblHora.setBounds(319, 112, 42, 18);
 		frame.getContentPane().add(lblHora);
 		
-		textField = new JTextField();
-		textField.setBounds(362, 112, 86, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		JFormattedTextField formattedTextField = new JFormattedTextField(new MaskFormatter("##:##"));
+		formattedTextField.setBounds(359, 112, 89, 20);
+		frame.getContentPane().add(formattedTextField);
 		
 		JLabel lblDia = new JLabel("Dia:");
 		lblDia.setFont(new Font("Tahoma", Font.BOLD, 13));

@@ -5,7 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.text.ParseException;
+
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -14,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JFormattedTextField;
 
 public class CadastroMedicoView extends JFrame {
 
@@ -25,9 +30,6 @@ public class CadastroMedicoView extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_2;
-	private JTextField textField_9;
 	private JTextField textField_10;
 	private ButtonGroup grupo1;
 	private JTextField textField_11;
@@ -84,8 +86,9 @@ public class CadastroMedicoView extends JFrame {
 
 	/**
 	 * Create the application.
+	 * @throws ParseException 
 	 */
-	public CadastroMedicoView() {
+	public CadastroMedicoView() throws ParseException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 733, 631);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,6 +135,10 @@ public class CadastroMedicoView extends JFrame {
 		lblCep.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCep.setBounds(409, 146, 41, 14);
 		frame.getContentPane().add(lblCep);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField(new MaskFormatter("##.###-###"));
+	  	formattedTextField.setBounds(447, 144, 192, 20);
+	  	frame.getContentPane().add(formattedTextField);
 		
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -192,20 +199,14 @@ public class CadastroMedicoView extends JFrame {
 		textField_7.setBounds(91, 275, 192, 20);
 		frame.getContentPane().add(textField_7);
 		
-		JLabel lblTelefone = new JLabel("Telefone:");
+		JLabel lblTelefone = new JLabel("Celular:");
 		lblTelefone.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTelefone.setBounds(293, 277, 65, 14);
 		frame.getContentPane().add(lblTelefone);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(356, 275, 147, 20);
-		frame.getContentPane().add(textField_8);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(447, 145, 192, 20);
-		frame.getContentPane().add(textField_2);
+		JFormattedTextField formattedTextField_1 = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+	  	formattedTextField_1.setBounds(347, 275, 147, 20);
+	  	frame.getContentPane().add(formattedTextField_1);
 		
 		JLabel lblCor = new JLabel("Etnia:");
 		lblCor.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -221,10 +222,9 @@ public class CadastroMedicoView extends JFrame {
 		lblCpf.setBounds(44, 303, 32, 14);
 		frame.getContentPane().add(lblCpf);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(91, 301, 192, 20);
-		frame.getContentPane().add(textField_9);
+		JFormattedTextField formattedTextField_2 = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+	  	formattedTextField_2.setBounds(91, 301, 192, 20);
+	  	frame.getContentPane().add(formattedTextField_2);
 		
 		JLabel lblRg = new JLabel("RG:");
 		lblRg.setFont(new Font("Tahoma", Font.BOLD, 13));
