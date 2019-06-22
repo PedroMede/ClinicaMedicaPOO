@@ -5,13 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
-public class DesmarcarConsultaView extends JFrame {
+public class ExamesView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -23,7 +23,7 @@ public class DesmarcarConsultaView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DesmarcarConsultaView frame = new DesmarcarConsultaView();
+					ExamesView frame = new ExamesView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,28 +35,33 @@ public class DesmarcarConsultaView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DesmarcarConsultaView() {
+	public ExamesView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 524, 379);
+		setBounds(100, 100, 572, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblDesmarcarConsulta = new JLabel("Desmarcar Consulta");
-		lblDesmarcarConsulta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDesmarcarConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblDesmarcarConsulta.setBounds(143, 11, 220, 26);
-		contentPane.add(lblDesmarcarConsulta);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(46, 48, 404, 220);
+		scrollPane.setBounds(66, 48, 423, 266);
 		contentPane.add(scrollPane);
 		
-		JButton button = new JButton();
-		button.setText("Desmarcar");
-		button.setBounds(198, 295, 110, 23);
-		contentPane.add(button);
+		JLabel lblExames = new JLabel("Exames");
+		lblExames.setHorizontalAlignment(SwingConstants.CENTER);
+		lblExames.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblExames.setBounds(157, 11, 220, 26);
+		contentPane.add(lblExames);
+		
+		JButton btnNovoExame = new JButton();
+		btnNovoExame.setText("Novo Exame");
+		btnNovoExame.setBounds(115, 347, 120, 23);
+		contentPane.add(btnNovoExame);
+		
+		JButton btnRemoverExame = new JButton();
+		btnRemoverExame.setText("Deletar Exame");
+		btnRemoverExame.setBounds(303, 347, 142, 23);
+		contentPane.add(btnRemoverExame);
 	}
 
 }
