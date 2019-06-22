@@ -10,8 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
-public class Login {
+public class Login extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -36,13 +37,6 @@ public class Login {
 	 * Create the application.
 	 */
 	public Login() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 500, 423);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

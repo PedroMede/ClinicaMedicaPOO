@@ -12,8 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
-public class MarcarConsultaView {
+public class MarcarConsultaView extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField textField;
 	private String[] pessoas = { "Fulano", "Sicrano", "Beltrano"};
@@ -38,13 +39,6 @@ public class MarcarConsultaView {
 	 * Create the application.
 	 */
 	public MarcarConsultaView() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 528, 344);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

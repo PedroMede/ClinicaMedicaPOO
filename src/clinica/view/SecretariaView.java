@@ -9,8 +9,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class SecretariaView {
+public class SecretariaView extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 
 	/**
@@ -33,13 +34,6 @@ public class SecretariaView {
 	 * Create the application.
 	 */
 	public SecretariaView() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 519, 397);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,5 +83,4 @@ public class SecretariaView {
 		btnBaseDeExames.setBounds(186, 284, 144, 23);
 		frame.getContentPane().add(btnBaseDeExames);
 	}
-
 }

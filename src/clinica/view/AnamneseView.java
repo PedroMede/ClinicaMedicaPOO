@@ -10,8 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
-public class AnamneseView {
+public class AnamneseView extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField textField;
 
@@ -35,13 +36,6 @@ public class AnamneseView {
 	 * Create the application.
 	 */
 	public AnamneseView() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 503, 632);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,5 +88,4 @@ public class AnamneseView {
 		button.setBounds(199, 548, 109, 23);
 		frame.getContentPane().add(button);
 	}
-
 }
