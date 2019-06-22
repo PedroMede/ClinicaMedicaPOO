@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class GerenteGeral {
-
 	
 	public boolean cadastrarFuncionario(Object obj, String path) {
 		File dir = new File("./" + "\\database");
