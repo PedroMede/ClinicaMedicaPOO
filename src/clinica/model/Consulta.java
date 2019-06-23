@@ -1,22 +1,27 @@
 package clinica.model;
 
-import java.util.Date;
-
 public class Consulta {
 
+	private Integer id;
 	private String hora;
-	private Date dia;
+	private String dia;
 	private Medico medico;
 	private Paciente paciente;
-	private Integer id = 0;
 
-	public Consulta(Date dia, String hora, Medico medico, Paciente paciente) {
+	public Consulta(String dia, String hora, Medico medico, Paciente paciente) {
         this.hora = hora;
         this.dia = dia;
 		this.medico = medico;
 		this.paciente = paciente;
-		this.id++;
     }
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getHora() {
 		return hora;
@@ -26,11 +31,11 @@ public class Consulta {
 		this.hora = hora;
 	}
 
-	public Date getDia() {
+	public String getDia() {
 		return dia;
 	}
 
-	public void setDia(Date dia) {
+	public void setDia(String dia) {
 		this.dia = dia;
 	}
 
@@ -49,6 +54,4 @@ public class Consulta {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-    
-    
 }

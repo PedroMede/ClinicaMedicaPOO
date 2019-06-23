@@ -2,9 +2,32 @@ package clinica.model.dados;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
-public class Dados {
+public class Dados extends ObjectOutputStream {
+
+	public Dados(OutputStream out) throws IOException {
+		super(out);
+	}
+	
+	@Override
+	protected void writeStreamHeader() throws IOException {
+		reset();
+	}
+	
+	public static ObjectOutputStream openStream(File f) throws Exception {
+	   ObjectOutputStream oos = null;
+	   if (f.exists()) {
+	      FileOutputStream fos = new FileOutputStream(f, true);
+	      oos = new Dados(fos);
+	   } else {
+	      FileOutputStream fos = new FileOutputStream(f);
+	      oos = new ObjectOutputStream(fos);
+	   }
+	   return oos;
+	}
 
 	public static boolean cadastrar(Object obj, String path) {
 		File dir = new File("./" + "\\database");
@@ -17,11 +40,10 @@ public class Dados {
 			}
 		} 
 		
-		try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(path, true))) {
+		File arq = new File(path);
+		
+		try (ObjectOutputStream bw = openStream(arq)) {
 			bw.writeObject(obj);
-			bw.flush();
-			bw.close();
-			
 		} catch(Exception e) {
 			return false;
 		}

@@ -1,7 +1,10 @@
 package clinica.main;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import clinica.controller.GerenteController;
 import clinica.controller.SecretariaController;
@@ -35,19 +38,26 @@ public class Principal {
 		//System.out.println(gerenteController.cadastrarSecretaria(sec));
 		
 		System.out.println(gerenteController.cadastrarMedico(med));*/
+		List<Secretaria> list = new ArrayList<Secretaria>();
 		
 		System.out.println("Recuperando objeto: ");
-		try {
-			FileInputStream fis = new FileInputStream("./database/secretarias.txt");
-			ObjectInputStream objLeitura = new ObjectInputStream(fis);
-				Object obj = objLeitura.readObject();
-				System.out.println(obj);
+		try (ObjectInputStream objLeitura = new ObjectInputStream(new FileInputStream("./database/secretarias.txt"))) {
 			
-			objLeitura.close();
-			fis.close();
+			for(int i = 0; ;i++) {
+				list.add((Secretaria) objLeitura.readObject());
+				System.out.println(list.get(i));
+			}
+			
+				//Object obj = objLeitura.readObject();
+				//System.out.println(obj);
+			
+			//objLeitura.close();
+		} catch (EOFException e2) {
+			System.out.println();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Arquivo não encontrado");
 		}
+		
 	}
 
 }

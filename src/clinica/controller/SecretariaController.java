@@ -3,6 +3,7 @@ package clinica.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import clinica.model.Consulta;
 import clinica.model.Exame;
 import clinica.model.Paciente;
 import clinica.model.Secretaria;
@@ -43,8 +44,8 @@ public class SecretariaController {
 		}
 	}
 	
-	public boolean cadastrarExame (Exame exam) {
-		List <String> atributos = new ArrayList<String>();
+	public boolean cadastrarExame(Exame exam) {
+		List<String> atributos = new ArrayList<String>();
 		
 		atributos.add(exam.getCodigo().toString());
 		atributos.add(exam.getNome());
@@ -64,6 +65,18 @@ public class SecretariaController {
 			return false;
 		}
 	
+	}
+	
+	public boolean marcarConsulta(Consulta con) {
+		List<String> atributos = new ArrayList<String>();
+		
+		atributos.add(con.getDia());
+		atributos.add(con.getHora());
+		atributos.add(con.getMedico().toString());
+		atributos.add(con.getPaciente().toString());
+		
+		
+		return true;
 	}
 	
 	private static boolean validarDados(List<String> dados) {

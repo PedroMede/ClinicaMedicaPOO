@@ -1,7 +1,6 @@
 package clinica.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import clinica.model.dados.Dados;
 import clinica.model.enums.EtniaEnum;
@@ -41,9 +40,8 @@ public class Secretaria extends Funcionario implements Serializable {
 		this.horaSaida = horaSaida;
 	}
 
-	public int marcarConsulta(Date dia, String hora, Medico medico, Paciente paciente) {
-		//Consulta con =  new Consulta(dia, hora, medico, paciente);
-		return 1; //Fazer implement��o de salvamento de arquivo;
+	public boolean marcarConsulta(Object obj, String path) {
+		return Dados.cadastrar(obj, path);
 	}
 
 	public int descarmarConsulta() {
