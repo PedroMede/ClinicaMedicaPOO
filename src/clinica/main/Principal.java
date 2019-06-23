@@ -6,13 +6,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import clinica.controller.GerenteController;
-import clinica.controller.SecretariaController;
-import clinica.model.Medico;
-import clinica.model.Paciente;
 import clinica.model.Secretaria;
-import clinica.model.enums.EtniaEnum;
-import clinica.model.enums.SexoEnum;
 
 public class Principal {
 
