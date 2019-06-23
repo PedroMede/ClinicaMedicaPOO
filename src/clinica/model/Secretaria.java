@@ -16,7 +16,7 @@ public class Secretaria extends Funcionario implements Serializable {
 	public Secretaria() {}
 	
 	public Secretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endere�o
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
+			String nome, String cpf, String rg, String telefone, String anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
 			String carteiraTrab, String login, String senha,																					//dados de funcionario
 			String horaEntrada, String horaSaida) {																								//dados de secretaria
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia,
@@ -58,5 +58,20 @@ public class Secretaria extends Funcionario implements Serializable {
 	public boolean cadastrarExame(Object obj, String path) {
 		return Dados.cadastrar(obj, path);
 	}
+
+	@Override
+	public String toString() {
+		return "Secretaria [horaEntrada=" + horaEntrada + ", horaSaida=" + horaSaida + ", getHoraEntrada()="
+				+ getHoraEntrada() + ", getHoraSaida()=" + getHoraSaida() + ", descarmarConsulta()="
+				+ descarmarConsulta() + ", getCarteiraTrab()=" + getCarteiraTrab() + ", getDataAdmissao()="
+				+ getDataAdmissao() + ", getLogin()=" + getLogin() + ", getSenha()=" + getSenha() + ", getPerfilEnum()="
+				+ getPerfilEnum() + ", getNome()=" + getNome() + ", getCpf()=" + getCpf() + ", getRg()=" + getRg()
+				+ ", getTelefone()=" + getTelefone() + ", getDataNascimento()=" + getDataNascimento()
+				+ ", getEstadoCivil()=" + getEstadoCivil() + ", getSexo()=" + getSexo() + ", getEtnia()=" + getEtnia()
+				+ ", getLogradouro()=" + getLogradouro() + ", getNumero()=" + getNumero() + ", getCep()=" + getCep()
+				+ ", getBairro()=" + getBairro() + ", getCidade()=" + getCidade() + ", getEstado()=" + getEstado()
+				+ ", getComplemento()=" + getComplemento();
+	}
+
 	
 }

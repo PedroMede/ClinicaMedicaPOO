@@ -8,9 +8,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 public class GerenteView extends JFrame {
 
@@ -42,14 +43,36 @@ public class GerenteView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnSecretria = new JButton("Secret\u00E1ria");
-		btnSecretria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnSecretria.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CadastroSecretariaView sec;
+				try {
+					sec = new CadastroSecretariaView();
+					sec.setVisible(true);
+					dispose();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnSecretria.setBounds(86, 116, 101, 23);
 		contentPane.add(btnSecretria);
 		
 		JButton btnMdico = new JButton("M\u00E9dico");
+		btnMdico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CadastroMedicoView med;
+				try {
+					med = new CadastroMedicoView();
+					med.setVisible(true);
+					dispose();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnMdico.setBounds(241, 116, 101, 23);
 		contentPane.add(btnMdico);
 		

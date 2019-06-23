@@ -14,7 +14,7 @@ public class Paciente extends Pessoa implements Serializable {
 	private String localNascimento;
 
 	public Paciente(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento, 			//dados de endereço
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia, 	//dados de pessoa
+			String nome, String cpf, String rg, String telefone, String anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia, 	//dados de pessoa
 			String telefoneAcompanhante, String localNascimento) {																				//dados de paciente
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia);
 		this.telefoneAcompanhante = telefoneAcompanhante;

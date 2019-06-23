@@ -1,13 +1,15 @@
 package clinica.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
 
-public class Funcionario extends Pessoa {
-	
+public class Funcionario extends Pessoa implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String carteiraTrab;
 	private Date dataAdmissao;
 	private String login;
@@ -17,9 +19,9 @@ public class Funcionario extends Pessoa {
 	public Funcionario() {}
 	
 	public Funcionario(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endere�o
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
+			String nome, String cpf, String rg, String telefone, String dataNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
 			String carteiraTrab, String login, String senha) {																					//dados de funcionario
-		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia);
+		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, dataNascimento, estadoCivil, sexo, etnia);
 		this.carteiraTrab = carteiraTrab;
 		this.login = login;
 		this.senha = senha;

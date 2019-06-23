@@ -1,15 +1,18 @@
 package clinica.model;
 
+import java.io.Serializable;
+
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.SexoEnum;
 
-public class Pessoa extends Endereco {
-	
+public class Pessoa extends Endereco implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String cpf;
 	private String rg;
 	private String telefone;
-	private Integer anoNascimento;
+	private String dataNascimento;
 	private String estadoCivil;
 	private SexoEnum sexo;
 	private EtniaEnum etnia;
@@ -17,13 +20,13 @@ public class Pessoa extends Endereco {
 	public Pessoa() {}
 	
 	public Pessoa(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endere�o
-			String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia) {	//dados de pessoa
+			String nome, String cpf, String rg, String telefone, String dataNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia) {	//dados de pessoa
 		super(logradouro, numero, cep, bairro, cidade, estado, complemento);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
 		this.telefone = telefone;
-		this.anoNascimento = anoNascimento;
+		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
 		this.sexo = sexo;
 		this.etnia = etnia;
@@ -60,15 +63,15 @@ public class Pessoa extends Endereco {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	public Integer getAnoNascimento() {
-		return anoNascimento;
+
+	public String getDataNascimento() {
+		return dataNascimento;
 	}
-	
-	public void setAnoNascimento(Integer anoNascimento) {
-		this.anoNascimento = anoNascimento;
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
-	
+
 	public String getEstadoCivil() {
 		return estadoCivil;
 	}

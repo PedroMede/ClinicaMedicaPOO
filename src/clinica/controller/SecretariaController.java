@@ -25,7 +25,7 @@ public class SecretariaController {
 		atributos.add(pac.getCpf());
 		atributos.add(pac.getRg());
 		atributos.add(pac.getTelefone());
-		atributos.add(pac.getAnoNascimento().toString());
+		atributos.add(pac.getDataNascimento());
 		atributos.add(pac.getEstadoCivil());
 		atributos.add(pac.getSexo().toString());
 		atributos.add(pac.getEtnia().toString());

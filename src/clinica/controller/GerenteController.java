@@ -14,7 +14,7 @@ public class GerenteController {
 	
 	private GerenteGeral gerente = new GerenteGeral();
 	
-	public String cadastrarSecretaria(Secretaria sec) {
+	public boolean cadastrarSecretaria(Secretaria sec) {
 		
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
@@ -28,7 +28,7 @@ public class GerenteController {
 		atributos.add(sec.getCpf());
 		atributos.add(sec.getRg());
 		atributos.add(sec.getTelefone());
-		atributos.add(sec.getAnoNascimento().toString());
+		atributos.add(sec.getDataNascimento());
 		atributos.add(sec.getEstadoCivil());
 		atributos.add(sec.getSexo().toString());
 		atributos.add(sec.getEtnia().toString());
@@ -48,13 +48,13 @@ public class GerenteController {
 		atributosLogin[2] = sec.getPerfilEnum().toString();
 		
 		if(!validarDados(atributos)) {
-			return "Alguns atributos estão em branco, tente novamente";
+			return false;
 		}
 		
 		if(gerente.cadastrarFuncionario(sec, "./database/secretarias.txt") && gerente.criarLoginFuncionario(atributosLogin)) {
-			return "Secretária cadastrada com sucesso";
+			return true;
 		} else {
-			return "Houve um erro ao cadastrar a secretária,  tente novamente em alguns minutos";
+			return false;
 		}
 	}
 	
@@ -72,7 +72,7 @@ public class GerenteController {
 		atributos.add(med.getCpf());
 		atributos.add(med.getRg());
 		atributos.add(med.getTelefone());
-		atributos.add(med.getAnoNascimento().toString());
+		atributos.add(med.getDataNascimento());
 		atributos.add(med.getEstadoCivil());
 		atributos.add(med.getSexo().toString());
 		atributos.add(med.getEtnia().toString());
