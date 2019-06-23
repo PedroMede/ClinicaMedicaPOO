@@ -62,9 +62,8 @@ public class Secretaria extends Funcionario implements Serializable {
 	@Override
 	public String toString() {
 		return "Secretaria [horaEntrada=" + horaEntrada + ", horaSaida=" + horaSaida + ", getHoraEntrada()="
-				+ getHoraEntrada() + ", getHoraSaida()=" + getHoraSaida() + ", descarmarConsulta()="
-				+ descarmarConsulta() + ", getCarteiraTrab()=" + getCarteiraTrab() + ", getDataAdmissao()="
-				+ getDataAdmissao() + ", getLogin()=" + getLogin() + ", getSenha()=" + getSenha() + ", getPerfilEnum()="
+				+ getHoraEntrada() + ", getHoraSaida()=" + getHoraSaida()  + ", getCarteiraTrab()=" + getCarteiraTrab() + ", getDataAdmissao()=" + getDataAdmissao()
+				+ ", getLogin()=" + getLogin() + ", getSenha()=" + getSenha() + ", getPerfilEnum()="
 				+ getPerfilEnum() + ", getNome()=" + getNome() + ", getCpf()=" + getCpf() + ", getRg()=" + getRg()
 				+ ", getTelefone()=" + getTelefone() + ", getDataNascimento()=" + getDataNascimento()
 				+ ", getEstadoCivil()=" + getEstadoCivil() + ", getSexo()=" + getSexo() + ", getEtnia()=" + getEtnia()
@@ -72,6 +71,4 @@ public class Secretaria extends Funcionario implements Serializable {
 				+ ", getBairro()=" + getBairro() + ", getCidade()=" + getCidade() + ", getEstado()=" + getEstado()
 				+ ", getComplemento()=" + getComplemento();
 	}
-
-	
 }

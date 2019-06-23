@@ -17,12 +17,13 @@ public class GerenteView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private static GerenteView frame;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GerenteView frame = new GerenteView();
+					frame = new GerenteView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +51,6 @@ public class GerenteView extends JFrame {
 				try {
 					sec = new CadastroSecretariaView();
 					sec.setVisible(true);
-					dispose();
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
@@ -67,7 +67,6 @@ public class GerenteView extends JFrame {
 				try {
 					med = new CadastroMedicoView();
 					med.setVisible(true);
-					dispose();
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}

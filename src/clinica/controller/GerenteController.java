@@ -21,7 +21,7 @@ public class GerenteController {
 		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		sec.setDataAdmissao(dataAdmissao);
+		sec.setDataAdmissao(sdf.format(dataAdmissao));
 		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
 		
 		atributos.add(sec.getNome());
@@ -33,7 +33,7 @@ public class GerenteController {
 		atributos.add(sec.getSexo().toString());
 		atributos.add(sec.getEtnia().toString());
 		atributos.add(sec.getCarteiraTrab());
-		atributos.add(sdf.format(sec.getDataAdmissao()));
+		atributos.add(sec.getDataAdmissao());
 		atributos.add(sec.getLogradouro());
 		atributos.add(sec.getNumero().toString());
 		atributos.add(sec.getCep());
@@ -58,14 +58,14 @@ public class GerenteController {
 		}
 	}
 	
-	public String cadastrarMedico(Medico med) {
+	public boolean cadastrarMedico(Medico med) {
 		
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
 		String atributosLogin[] = new String[3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		med.setDataAdmissao(dataAdmissao);
+		med.setDataAdmissao(sdf.format(dataAdmissao));
 		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
 		
 		atributos.add(med.getNome());
@@ -77,7 +77,7 @@ public class GerenteController {
 		atributos.add(med.getSexo().toString());
 		atributos.add(med.getEtnia().toString());
 		atributos.add(med.getCarteiraTrab());
-		atributos.add(sdf.format(med.getDataAdmissao()));
+		atributos.add(med.getDataAdmissao());
 		atributos.add(med.getLogradouro());
 		atributos.add(med.getNumero().toString());
 		atributos.add(med.getCep());
@@ -92,19 +92,19 @@ public class GerenteController {
 		atributosLogin[2] = med.getPerfilEnum().toString();
 		
 		if(!validarDados(atributos)) {
-			return "Alguns atributos estão em branco, tente novamente";
+			return false;
 		}
 		
 		if(gerente.cadastrarFuncionario(med, "./database/medicos.txt") && gerente.criarLoginFuncionario(atributosLogin)) {
-			return "Médico cadastrado com sucesso";
+			return true;
 		} else {
-			return "Houve um erro ao cadastrar o médico, verifique os dados e tente novamente";
+			return false;
 		}
 	}
 	
 	private static boolean validarDados(List<String> dados) {
 		for(String dado : dados) {
-			if(dado == null || dado == "") {
+			if(dado == null || dado.isEmpty()) {
 				return false;
 			}
 		}

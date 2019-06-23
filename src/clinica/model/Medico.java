@@ -1,7 +1,6 @@
 package clinica.model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 
 import clinica.model.enums.EspecialidadeEnum;
 import clinica.model.enums.EtniaEnum;
@@ -12,7 +11,6 @@ public class Medico extends Funcionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String crm;
 	private EspecialidadeEnum especialidade;
-	SimpleDateFormat teste = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 	public Medico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endereço
 			String nome, String cpf, String rg, String telefone, String dataNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
@@ -44,7 +42,7 @@ public class Medico extends Funcionario implements Serializable {
 	public String toString() {
 		return "Medico [crm=" + crm + ", especialidade=" + especialidade + ", getCrm()=" + getCrm()
 				+ ", getEspecialidade()=" + getEspecialidade() + ", getCarteiraTrab()=" + getCarteiraTrab()
-				+ ", getDataAdmissao()=" + teste.format(getDataAdmissao()) + ", getLogin()=" + getLogin() + ", getSenha()="
+				+ ", getDataAdmissao()=" + getDataAdmissao() + ", getLogin()=" + getLogin() + ", getSenha()="
 				+ getSenha() + ", getPerfilEnum()=" + getPerfilEnum() + ", getNome()=" + getNome() + ", getCpf()="
 				+ getCpf() + ", getRg()=" + getRg() + ", getTelefone()=" + getTelefone() + ", getAnoNascimento()="
 				+ getDataNascimento() + ", getEstadoCivil()=" + getEstadoCivil() + ", getSexo()=" + getSexo()

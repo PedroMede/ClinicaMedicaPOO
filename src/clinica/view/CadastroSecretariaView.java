@@ -92,7 +92,7 @@ public class CadastroSecretariaView extends JFrame {
 	 * @throws ParseException 
 	 */
 	public CadastroSecretariaView() throws ParseException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 733, 631);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -344,7 +344,7 @@ public class CadastroSecretariaView extends JFrame {
 					JOptionPane.showMessageDialog(null, "Cadastrado(a) " + sec.getNome() + " com sucesso", "Sucesso", JOptionPane.DEFAULT_OPTION);
 					limparCampos();
 				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Erro ao cadastrar secretária", "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao cadastrar o(a) secretário(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -360,10 +360,8 @@ public class CadastroSecretariaView extends JFrame {
 		bairro.setText("");
 		complemento.setText("");
 		cidade.setText("");
-		estados.setAction(null);
 		nome.setText("");
 		celular.setText("");
-		etnia.setAction(null);
 		cpf.setText("");
 		rg.setText("");
 		dataNascimento.setDate(null);

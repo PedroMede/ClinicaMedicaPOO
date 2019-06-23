@@ -1,7 +1,6 @@
 package clinica.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
@@ -11,7 +10,7 @@ public class Funcionario extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String carteiraTrab;
-	private Date dataAdmissao;
+	private String dataAdmissao;
 	private String login;
 	private String senha;
 	private PerfilEnum perfilEnum;
@@ -35,11 +34,11 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.carteiraTrab = carteiraTrab;
 	}
 
-	public Date getDataAdmissao() {
+	public String getDataAdmissao() {
 		return dataAdmissao;
 	}
 
-	public void setDataAdmissao(Date dataAdmissao) {
+	public void setDataAdmissao(String dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
 	}
 
