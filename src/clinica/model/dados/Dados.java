@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 public class Dados extends ObjectOutputStream {
 
@@ -29,7 +30,7 @@ public class Dados extends ObjectOutputStream {
 	   return oos;
 	}
 
-	public static boolean cadastrar(Object obj, String path) {
+	public static boolean cadastrar(List<Object> obj, String path) {
 		File dir = new File("./" + "\\database");
 		
 		if(!dir.exists()) {

@@ -1,6 +1,7 @@
 package clinica.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import clinica.model.dados.Dados;
 import clinica.model.enums.EtniaEnum;
@@ -40,7 +41,7 @@ public class Secretaria extends Funcionario implements Serializable {
 		this.horaSaida = horaSaida;
 	}
 
-	public boolean marcarConsulta(Object obj, String path) {
+	public boolean marcarConsulta(List<Object> obj, String path) {
 		return Dados.cadastrar(obj, path);
 	}
 
@@ -49,11 +50,11 @@ public class Secretaria extends Funcionario implements Serializable {
 		return 1;
 	}
 	
-	public boolean cadastrarPaciente(Object obj, String path) {
+	public boolean cadastrarPaciente(List<Object> obj, String path) {
 		return Dados.cadastrar(obj, path);
 	}
 	
-	public boolean cadastrarExame(Object obj, String path) {
+	public boolean cadastrarExame(List<Object> obj, String path) {
 		return Dados.cadastrar(obj, path);
 	}
 

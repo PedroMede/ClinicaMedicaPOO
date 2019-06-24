@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
@@ -18,8 +20,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 
-import clinica.controller.GerenteController;
 import clinica.model.Secretaria;
+import clinica.model.dados.Repositorio;
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.SexoEnum;
 
@@ -55,8 +57,8 @@ public class CadastroSecretariaView extends JFrame {
 	private JRadioButton sexoM;
 	private JRadioButton sexoF;
 	private JDateChooser dataNascimento;
-	private GerenteController gerente = new GerenteController();
-	private Secretaria sec = new Secretaria();
+	private Secretaria sec;
+	private List<Object> secretarias = new ArrayList<Object>();
 	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
@@ -89,9 +91,8 @@ public class CadastroSecretariaView extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
 	 */
-	public CadastroSecretariaView() throws ParseException {
+	public CadastroSecretariaView(Repositorio repo) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 733, 631);
 		contentPane = new JPanel();
@@ -141,7 +142,11 @@ public class CadastroSecretariaView extends JFrame {
 		label_6.setBounds(419, 144, 41, 14);
 		contentPane.add(label_6);
 		
-		cep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		try {
+			cep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		cep.setBounds(457, 142, 192, 20);
 		contentPane.add(cep);
 
@@ -209,7 +214,11 @@ public class CadastroSecretariaView extends JFrame {
 		label_13.setBounds(303, 275, 65, 14);
 		contentPane.add(label_13);
 		
-		celular = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		try {
+			celular = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		celular.setBounds(357, 273, 147, 20);
 		contentPane.add(celular);
 		
@@ -227,7 +236,11 @@ public class CadastroSecretariaView extends JFrame {
 		label_11.setBounds(54, 301, 32, 14);
 		contentPane.add(label_11);
 		
-		cpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		try {
+			cpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		cpf.setBounds(101, 299, 192, 20);
 		contentPane.add(cpf);
 
@@ -302,7 +315,11 @@ public class CadastroSecretariaView extends JFrame {
 		label_23.setBounds(269, 403, 65, 14);
 		contentPane.add(label_23);
 		
-		entrada = new JFormattedTextField(new MaskFormatter("##:##"));
+		try {
+			entrada = new JFormattedTextField(new MaskFormatter("##:##"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		entrada.setBounds(328, 400, 103, 20);
 		contentPane.add(entrada);
 		
@@ -311,7 +328,11 @@ public class CadastroSecretariaView extends JFrame {
 		label_24.setBounds(441, 402, 53, 14);
 		contentPane.add(label_24);
 
-		saida = new JFormattedTextField(new MaskFormatter("##:##"));
+		try {
+			saida = new JFormattedTextField(new MaskFormatter("##:##"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		saida.setBounds(488, 400, 103, 20);
 		contentPane.add(saida);
 		
@@ -340,8 +361,8 @@ public class CadastroSecretariaView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					cadastrar();
-					JOptionPane.showMessageDialog(null, "Cadastrado(a) " + sec.getNome() + " com sucesso", "Sucesso", JOptionPane.DEFAULT_OPTION);
+					cadastrar(repo);
+					JOptionPane.showMessageDialog(null, sec.getNome() + " cadastrado(a) com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
 					limparCampos();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Erro ao cadastrar secretário(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
@@ -373,7 +394,9 @@ public class CadastroSecretariaView extends JFrame {
 		saida.setText("");
 	}
 	
-	private boolean cadastrar() {
+	private void cadastrar(Repositorio repo) {
+		sec = new Secretaria();
+		
 		//Registros de endereço
 		sec.setLogradouro(rua.getText());
 		sec.setNumero(Integer.parseInt(numero.getText()));
@@ -412,6 +435,7 @@ public class CadastroSecretariaView extends JFrame {
 		sec.setHoraEntrada(entrada.getText());
 		sec.setHoraSaida(saida.getText());
 		
-		return gerente.cadastrarSecretaria(sec);
+		secretarias.add(sec);
+		repo.setSecretarias(secretarias);
 	}
 }

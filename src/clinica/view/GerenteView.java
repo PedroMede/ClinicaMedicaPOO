@@ -1,42 +1,31 @@
 package clinica.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import clinica.model.dados.Repositorio;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 
 public class GerenteView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private static GerenteView frame;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new GerenteView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public GerenteView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public GerenteView(Repositorio repo) {
+		CadastroMedicoView med = new CadastroMedicoView(repo);
+		CadastroSecretariaView sec = new CadastroSecretariaView(repo);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -47,13 +36,7 @@ public class GerenteView extends JFrame {
 		btnSecretria.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				CadastroSecretariaView sec;
-				try {
-					sec = new CadastroSecretariaView();
-					sec.setVisible(true);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
+				sec.setVisible(true);
 			}
 		});
 		btnSecretria.setBounds(86, 116, 101, 23);
@@ -63,13 +46,7 @@ public class GerenteView extends JFrame {
 		btnMdico.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				CadastroMedicoView med;
-				try {
-					med = new CadastroMedicoView();
-					med.setVisible(true);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
+				med.setVisible(true);
 			}
 		});
 		btnMdico.setBounds(241, 116, 101, 23);

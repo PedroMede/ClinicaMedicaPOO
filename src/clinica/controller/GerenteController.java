@@ -14,8 +14,8 @@ public class GerenteController {
 	
 	private GerenteGeral gerente = new GerenteGeral();
 	
-	public boolean cadastrarSecretaria(Secretaria sec) {
-		
+	/*public boolean cadastrarSecretaria(List<Object> list) {
+		Secretaria sec = new Secretaria();
 		Date dataAdmissao = new Date();
 		List<String> atributos = new ArrayList<String>();
 		String atributosLogin[] = new String[3];
@@ -56,53 +56,25 @@ public class GerenteController {
 		} else {
 			return false;
 		}
-	}
+	}*/
 	
-	public boolean cadastrarMedico(Medico med) {
-		
-		Date dataAdmissao = new Date();
+	public boolean cadastrarMedico(List<Object> medicos) {
 		List<String> atributos = new ArrayList<String>();
-		String atributosLogin[] = new String[3];
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		med.setDataAdmissao(sdf.format(dataAdmissao));
-		med.setPerfilEnum(PerfilEnum.ROLE_MEDICO);
-		
-		atributos.add(med.getNome());
-		atributos.add(med.getCpf());
-		atributos.add(med.getRg());
-		atributos.add(med.getTelefone());
-		atributos.add(med.getDataNascimento());
-		atributos.add(med.getEstadoCivil());
-		atributos.add(med.getSexo().toString());
-		atributos.add(med.getEtnia().toString());
-		atributos.add(med.getCarteiraTrab());
-		atributos.add(med.getDataAdmissao());
-		atributos.add(med.getLogradouro());
-		atributos.add(med.getNumero().toString());
-		atributos.add(med.getCep());
-		atributos.add(med.getBairro());
-		atributos.add(med.getCidade());
-		atributos.add(med.getEstado());
-		atributos.add(med.getLogin());
-		atributos.add(med.getSenha());
-		
-		atributosLogin[0] = med.getLogin();
-		atributosLogin[1] = med.getSenha();
-		atributosLogin[2] = med.getPerfilEnum().toString();
-		
-		if(!validarDados(atributos)) {
-			return false;
+		for(Object medico : medicos) {
+			atributos.add(((Medico) medico).getLogin());
+			atributos.add(((Medico)medico).getSenha());
+			atributos.add(((Medico)medico).getPerfilEnum().toString());
 		}
 		
-		if(gerente.cadastrarFuncionario(med, "./database/medicos.txt") && gerente.criarLoginFuncionario(atributosLogin)) {
+		if(gerente.cadastrarFuncionario(medicos, "./database/medicos.txt") && gerente.criarLoginFuncionario(atributos)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	private static boolean validarDados(List<String> dados) {
+	public static boolean validarDados(List<String> dados) {
 		for(String dado : dados) {
 			if(dado == null || dado.isEmpty()) {
 				return false;

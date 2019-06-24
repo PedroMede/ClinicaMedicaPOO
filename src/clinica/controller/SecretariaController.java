@@ -12,7 +12,7 @@ public class SecretariaController {
 	
 	private Secretaria secretaria = new Secretaria();
 	
-	public boolean cadastrarPaciente(Paciente pac) {
+	/*public boolean cadastrarPaciente(Paciente pac) {
 		List<String> atributos = new ArrayList<String>();
 		
 		atributos.add(pac.getNome());
@@ -86,5 +86,5 @@ public class SecretariaController {
 			}
 		}	
 		return true;
-	}
+	}*/
 }
