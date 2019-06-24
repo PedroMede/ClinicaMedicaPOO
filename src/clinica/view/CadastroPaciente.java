@@ -1,62 +1,49 @@
 package clinica.view;
 
+import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
-import java.awt.Font;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 
-import clinica.controller.GerenteController;
-import clinica.model.Secretaria;
-import clinica.model.enums.EtniaEnum;
-import clinica.model.enums.SexoEnum;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.text.ParseException;
 
-import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class CadastroSecretariaView extends JFrame {
+public class CadastroPaciente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ButtonGroup grupo1;
-	private JTextField numero;
 	private JTextField rua;
+	private JTextField numero;
 	private JTextField bairro;
-	private JTextField cidade;
 	private JTextField complemento;
+	private JTextField cidade;
 	private JTextField nome;
 	private JTextField rg;
 	private JTextField estadoCivil;
-	private JTextField ctps;
-	private JTextField login;
-	private JTextField senha;
 	private JFormattedTextField cpf;
 	private JFormattedTextField celular;
 	private JFormattedTextField cep;
-	private JFormattedTextField entrada;
-	private JFormattedTextField saida;
 	private JComboBox<Object> etnia;
 	private JComboBox<Object> estados;
 	private JRadioButton sexoM;
 	private JRadioButton sexoF;
 	private JDateChooser dataNascimento;
-	private GerenteController gerente = new GerenteController();
-	private Secretaria sec = new Secretaria();
 	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
@@ -86,25 +73,42 @@ public class CadastroSecretariaView extends JFrame {
 			"SP",
 			"SE",
 			"TO"};
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CadastroPaciente frame = new CadastroPaciente();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public CadastroSecretariaView() throws ParseException {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 733, 631);
+	public CadastroPaciente() throws ParseException {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 733, 505);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCadastroDeSecretrias = new JLabel("Cadastro de Secret\u00E1rias");
-		lblCadastroDeSecretrias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCadastroDeSecretrias.setForeground(Color.BLACK);
-		lblCadastroDeSecretrias.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblCadastroDeSecretrias.setBounds(224, 50, 285, 34);
-		contentPane.add(lblCadastroDeSecretrias);
+		JLabel lblCadastroDePacientes = new JLabel("Cadastro de Pacientes");
+		lblCadastroDePacientes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCadastroDePacientes.setForeground(Color.BLACK);
+		lblCadastroDePacientes.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblCadastroDePacientes.setBounds(210, 46, 285, 34);
+		contentPane.add(lblCadastroDePacientes);
 		
 		JLabel label_1 = new JLabel("Endere\u00E7o");
 		label_1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -276,142 +280,28 @@ public class CadastroSecretariaView extends JFrame {
 		estadoCivil.setColumns(10);
 		estadoCivil.setBounds(377, 324, 127, 20);
 		contentPane.add(estadoCivil);
-
-		JLabel label_18 = new JLabel("Dados Corporativos");
-		label_18.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_18.setBounds(54, 370, 147, 17);
-		contentPane.add(label_18);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBounds(54, 390, 616, 2);
-		contentPane.add(separator_1);
+		JLabel lblCelularAcompanhante = new JLabel("Celular Acompanhante:");
+		lblCelularAcompanhante.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblCelularAcompanhante.setBounds(54, 357, 160, 14);
+		contentPane.add(lblCelularAcompanhante);
 		
-		JLabel label_19 = new JLabel("CTPS:");
-		label_19.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_19.setBounds(54, 402, 41, 14);
-		contentPane.add(label_19);
+		JFormattedTextField formattedTextField = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		formattedTextField.setBounds(210, 355, 123, 20);
+		contentPane.add(formattedTextField);
 		
-		ctps = new JTextField();
-		ctps.setColumns(10);
-		ctps.setBounds(101, 400, 147, 20);
-		contentPane.add(ctps);
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(480, 355, 160, 20);
+		contentPane.add(textField);
 		
-		JLabel label_23 = new JLabel("Entrada:");
-		label_23.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_23.setBounds(269, 403, 65, 14);
-		contentPane.add(label_23);
-		
-		entrada = new JFormattedTextField(new MaskFormatter("##:##"));
-		entrada.setBounds(328, 400, 103, 20);
-		contentPane.add(entrada);
-		
-		JLabel label_24 = new JLabel("Sa\u00EDda:");
-		label_24.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_24.setBounds(441, 402, 53, 14);
-		contentPane.add(label_24);
-
-		saida = new JFormattedTextField(new MaskFormatter("##:##"));
-		saida.setBounds(488, 400, 103, 20);
-		contentPane.add(saida);
-		
-		JLabel label_20 = new JLabel("Login:");
-		label_20.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_20.setBounds(54, 455, 41, 14);
-		contentPane.add(label_20);
-		
-		login = new JTextField();
-		login.setColumns(10);
-		login.setBounds(101, 453, 147, 20);
-		contentPane.add(login);
-		
-		JLabel label_21 = new JLabel("Senha:");
-		label_21.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_21.setBounds(258, 456, 53, 14);
-		contentPane.add(label_21);
-		
-		senha = new JTextField();
-		senha.setColumns(10);
-		senha.setBounds(313, 453, 147, 20);
-		contentPane.add(senha);
+		JLabel lblLocalDeNascimento = new JLabel("Local de Nascimento:");
+		lblLocalDeNascimento.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblLocalDeNascimento.setBounds(340, 357, 147, 14);
+		contentPane.add(lblLocalDeNascimento);
 		
 		JButton button = new JButton("Cadastrar");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					cadastrar();
-					JOptionPane.showMessageDialog(null, "Cadastrado(a) " + sec.getNome() + " com sucesso", "Sucesso", JOptionPane.DEFAULT_OPTION);
-					limparCampos();
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Erro ao cadastrar o(a) secretário(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-		});
-		button.setBounds(318, 527, 109, 23);
+		button.setBounds(303, 416, 109, 23);
 		contentPane.add(button);
-	}
-	
-	private void limparCampos() {
-		rua.setText("");
-		numero.setText("");
-		cep.setText("");
-		bairro.setText("");
-		complemento.setText("");
-		cidade.setText("");
-		nome.setText("");
-		celular.setText("");
-		cpf.setText("");
-		rg.setText("");
-		dataNascimento.setDate(null);
-		estadoCivil.setText("");
-		ctps.setText("");
-		login.setText("");
-		senha.setText("");
-		entrada.setText("");
-		saida.setText("");
-	}
-	
-	private boolean cadastrar() {
-		//Registros de endereço
-		sec.setLogradouro(rua.getText());
-		sec.setNumero(Integer.parseInt(numero.getText()));
-		sec.setCep(cep.getText());
-		sec.setBairro(bairro.getText());
-		sec.setComplemento(complemento.getText());
-		sec.setCidade(cidade.getText());
-		sec.setEstado(estados.getSelectedItem().toString());
-		
-		//Registros de dados pessoais
-		sec.setNome(nome.getText());
-		sec.setTelefone(celular.getText());
-		if (etnia.getSelectedItem() == "Branco(a)") {
-			sec.setEtnia(EtniaEnum.BRANCO); 
-		} else if (etnia.getSelectedItem() == "Pardo(a)") {
-			sec.setEtnia(EtniaEnum.PARDO); 
-		} else if (etnia.getSelectedItem() == "Negro(a)") {
-			sec.setEtnia(EtniaEnum.NEGRO); 
-		} else {
-			sec.setEtnia(EtniaEnum.INDIGENA);
-		}
-		sec.setCpf(cpf.getText());
-		sec.setRg(rg.getText());
-		if (sexoM.isSelected()) {
-			sec.setSexo(SexoEnum.MASCULINO);
-		} else {
-			sec.setSexo(SexoEnum.FEMININO);
-		}
-		sec.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
-		sec.setEstadoCivil(estadoCivil.getText());
-		
-		//Registros de dados corporativos
-		sec.setCarteiraTrab(ctps.getText());
-		sec.setLogin(login.getText());
-		sec.setSenha(senha.getText());
-		sec.setHoraEntrada(entrada.getText());
-		sec.setHoraSaida(saida.getText());
-		
-		return gerente.cadastrarSecretaria(sec);
 	}
 }

@@ -47,7 +47,7 @@ public class Principal {
 			
 			//objLeitura.close();
 		} catch (EOFException e2) {
-			System.out.println();
+			System.out.println("Dados recuperados com sucesso!");
 		} catch (Exception e) {
 			System.out.println("Arquivo não encontrado");
 		}
