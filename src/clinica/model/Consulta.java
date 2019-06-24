@@ -7,7 +7,11 @@ public class Consulta {
 	private String dia;
 	private Medico medico;
 	private Paciente paciente;
-
+	
+	private String nomePac;
+	private String nomeMed;
+	
+	public Consulta () {};
 	public Consulta(String dia, String hora, Medico medico, Paciente paciente) {
         this.hora = hora;
         this.dia = dia;
@@ -53,5 +57,13 @@ public class Consulta {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+	
+	public void setNomePac(String nome) {
+		this.nomePac = nome;
+	}
+	
+	public void setNomeMedico(String nome) {
+		this.nomeMed = nome;
 	}
 }
