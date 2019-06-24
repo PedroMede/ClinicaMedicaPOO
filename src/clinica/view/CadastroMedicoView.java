@@ -7,8 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
@@ -17,25 +20,45 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
+
+import clinica.controller.GerenteController;
+import clinica.model.Medico;
+import clinica.model.enums.EtniaEnum;
+import clinica.model.enums.SexoEnum;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CadastroMedicoView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
+	private ButtonGroup grupo1;
+	private JTextField rua;
+	private JTextField bairro;
+	private JTextField cidade;
+	private JTextField numero;
+	private JTextField complemento;
+	private JTextField nome;
+	private JTextField rg;
+	private JTextField ctps;
+	private JFormattedTextField cpf;
+	private JFormattedTextField celular;
+	private JFormattedTextField cep;
+	private JDateChooser dataNascimento;
+	private JTextField estadoCivil;
+	private JComboBox<Object> etnia;
+	private JComboBox<Object> estados;
+	private JRadioButton sexoM;
+	private JRadioButton sexoF;
+	private JTextField crm;
+	private JTextField login;
+	private JTextField senha;
+	private JTextField especialidade;
+	private GerenteController gerente = new GerenteController();
+	private Medico med = new Medico();
 	private String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
@@ -116,54 +139,54 @@ public class CadastroMedicoView extends JFrame {
 		label_2.setBounds(64, 151, 41, 14);
 		contentPane.add(label_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(111, 149, 182, 20);
-		contentPane.add(textField);
+		rua = new JTextField();
+		rua.setColumns(10);
+		rua.setBounds(111, 149, 182, 20);
+		contentPane.add(rua);
 		
 		JLabel label_3 = new JLabel("Bairro:");
 		label_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_3.setBounds(64, 180, 53, 14);
 		contentPane.add(label_3);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(111, 178, 182, 20);
-		contentPane.add(textField_1);
+		bairro = new JTextField();
+		bairro.setColumns(10);
+		bairro.setBounds(111, 178, 182, 20);
+		contentPane.add(bairro);
 		
 		JLabel label_4 = new JLabel("Cidade:");
 		label_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_4.setBounds(64, 205, 48, 14);
 		contentPane.add(label_4);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(121, 205, 172, 20);
-		contentPane.add(textField_2);
+		cidade = new JTextField();
+		cidade.setColumns(10);
+		cidade.setBounds(121, 205, 172, 20);
+		contentPane.add(cidade);
 		
 		JLabel label_5 = new JLabel("N\u00FAmero:");
 		label_5.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_5.setBounds(303, 152, 61, 14);
 		contentPane.add(label_5);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(367, 151, 41, 20);
-		contentPane.add(textField_3);
+		numero = new JTextField();
+		numero.setColumns(10);
+		numero.setBounds(367, 151, 41, 20);
+		contentPane.add(numero);
 		
 		JLabel label_6 = new JLabel("CEP:");
 		label_6.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_6.setBounds(429, 152, 41, 14);
 		contentPane.add(label_6);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField(new MaskFormatter("#####-###"));
-		formattedTextField.setBounds(467, 150, 192, 20);
-		contentPane.add(formattedTextField);
+		cep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		cep.setBounds(467, 150, 192, 20);
+		contentPane.add(cep);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(467, 177, 192, 20);
-		contentPane.add(textField_4);
+		complemento = new JTextField();
+		complemento.setColumns(10);
+		complemento.setBounds(467, 177, 192, 20);
+		contentPane.add(complemento);
 		
 		JLabel label_7 = new JLabel("Complemento:");
 		label_7.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -175,14 +198,14 @@ public class CadastroMedicoView extends JFrame {
 		label_8.setBounds(513, 211, 53, 14);
 		contentPane.add(label_8);
 		
-		JComboBox<Object> comboBox = new JComboBox<Object>(siglasEstados);
-		comboBox.setBounds(573, 208, 73, 20);
-		contentPane.add(comboBox);
+		JComboBox<Object> estados = new JComboBox<Object>(siglasEstados);
+		estados.setBounds(573, 208, 73, 20);
+		contentPane.add(estados);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(111, 278, 192, 20);
-		contentPane.add(textField_5);
+		nome = new JTextField();
+		nome.setColumns(10);
+		nome.setBounds(111, 278, 192, 20);
+		contentPane.add(nome);
 		
 		JLabel label_9 = new JLabel("Nome:");
 		label_9.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -199,9 +222,9 @@ public class CadastroMedicoView extends JFrame {
 		separator_1.setBounds(64, 271, 616, 2);
 		contentPane.add(separator_1);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
-		formattedTextField_1.setBounds(367, 278, 147, 20);
-		contentPane.add(formattedTextField_1);
+		celular = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		celular.setBounds(367, 278, 147, 20);
+		contentPane.add(celular);
 		
 		JLabel label_11 = new JLabel("Celular:");
 		label_11.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -213,32 +236,36 @@ public class CadastroMedicoView extends JFrame {
 		label_12.setBounds(533, 280, 41, 14);
 		contentPane.add(label_12);
 		
-		JComboBox<Object> comboBox_1 = new JComboBox<Object>(etnias);
-		comboBox_1.setBounds(573, 278, 86, 20);
-		contentPane.add(comboBox_1);
+		JComboBox<Object> etnia = new JComboBox<Object>(etnias);
+		etnia.setBounds(573, 278, 86, 20);
+		contentPane.add(etnia);
 		
-		JRadioButton radioButton = new JRadioButton("M", false);
-		radioButton.setBounds(576, 303, 41, 23);
-		contentPane.add(radioButton);
+		sexoM = new JRadioButton("M", false);
+		sexoM.setBounds(576, 303, 41, 23);
+		contentPane.add(sexoM);
 		
-		JRadioButton radioButton_1 = new JRadioButton("F", false);
-		radioButton_1.setBounds(618, 303, 41, 23);
-		contentPane.add(radioButton_1);
+		sexoF = new JRadioButton("F", false);
+		sexoF.setBounds(618, 303, 41, 23);
+		contentPane.add(sexoF);
+		
+		grupo1 = new ButtonGroup();
+		grupo1.add(sexoM);
+	  	grupo1.add(sexoF);
 		
 		JLabel label_13 = new JLabel("Sexo:");
 		label_13.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_13.setBounds(533, 306, 41, 14);
 		contentPane.add(label_13);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(338, 304, 147, 20);
-		contentPane.add(textField_6);
+		rg = new JTextField();
+		rg.setColumns(10);
+		rg.setBounds(338, 304, 147, 20);
+		contentPane.add(rg);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(379, 329, 118, 20);
-		contentPane.add(textField_7);
+		estadoCivil = new JTextField();
+		estadoCivil.setColumns(10);
+		estadoCivil.setBounds(379, 329, 118, 20);
+		contentPane.add(estadoCivil);
 		
 		JLabel label_14 = new JLabel("RG:");
 		label_14.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -250,9 +277,9 @@ public class CadastroMedicoView extends JFrame {
 		label_15.setBounds(291, 331, 84, 14);
 		contentPane.add(label_15);
 		
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-		formattedTextField_2.setBounds(111, 304, 192, 20);
-		contentPane.add(formattedTextField_2);
+		cpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		cpf.setBounds(111, 304, 192, 20);
+		contentPane.add(cpf);
 		
 		JLabel label_16 = new JLabel("CPF:");
 		label_16.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -264,9 +291,9 @@ public class CadastroMedicoView extends JFrame {
 		label_17.setBounds(64, 331, 134, 14);
 		contentPane.add(label_17);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(202, 329, 84, 20);
-		contentPane.add(dateChooser);
+		dataNascimento = new JDateChooser();
+		dataNascimento.setBounds(202, 329, 84, 20);
+		contentPane.add(dataNascimento);
 		
 		JLabel label_18 = new JLabel("Dados Corporativos");
 		label_18.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -278,15 +305,15 @@ public class CadastroMedicoView extends JFrame {
 		separator_2.setBounds(64, 389, 616, 2);
 		contentPane.add(separator_2);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(111, 399, 147, 20);
-		contentPane.add(textField_8);
+		ctps = new JTextField();
+		ctps.setColumns(10);
+		ctps.setBounds(111, 399, 147, 20);
+		contentPane.add(ctps);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(303, 399, 134, 20);
-		contentPane.add(textField_9);
+		crm = new JTextField();
+		crm.setColumns(10);
+		crm.setBounds(303, 399, 134, 20);
+		contentPane.add(crm);
 		
 		JLabel label_19 = new JLabel("CTPS:");
 		label_19.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -303,33 +330,104 @@ public class CadastroMedicoView extends JFrame {
 		label_21.setBounds(64, 454, 41, 14);
 		contentPane.add(label_21);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(111, 452, 147, 20);
-		contentPane.add(textField_10);
+		login = new JTextField();
+		login.setColumns(10);
+		login.setBounds(111, 452, 147, 20);
+		contentPane.add(login);
 		
 		JLabel label_22 = new JLabel("Senha:");
 		label_22.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_22.setBounds(268, 455, 53, 14);
 		contentPane.add(label_22);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
-		textField_11.setBounds(313, 452, 147, 20);
-		contentPane.add(textField_11);
+		senha = new JTextField();
+		senha.setColumns(10);
+		senha.setBounds(313, 452, 147, 20);
+		contentPane.add(senha);
 		
 		JLabel label_23 = new JLabel("Especialidade:");
 		label_23.setFont(new Font("Tahoma", Font.BOLD, 13));
 		label_23.setBounds(447, 402, 93, 14);
 		contentPane.add(label_23);
 		
-		textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setBounds(546, 399, 134, 20);
-		contentPane.add(textField_12);
+		especialidade = new JTextField();
+		especialidade.setColumns(10);
+		especialidade.setBounds(546, 399, 134, 20);
+		contentPane.add(especialidade);
 		
 		JButton button = new JButton("Cadastrar");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					cadastrar();
+					JOptionPane.showMessageDialog(null, "Cadastrado(a) " + med.getNome() + " com sucesso", "Sucesso", JOptionPane.DEFAULT_OPTION);
+					limparCampos();
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Erro ao cadastrar médico(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		button.setBounds(328, 526, 109, 23);
 		contentPane.add(button);
+	}
+	
+	private void limparCampos() {
+		rua.setText("");
+		numero.setText("");
+		cep.setText("");
+		bairro.setText("");
+		complemento.setText("");
+		cidade.setText("");
+		nome.setText("");
+		celular.setText("");
+		cpf.setText("");
+		rg.setText("");
+		dataNascimento.setDate(null);
+		estadoCivil.setText("");
+		ctps.setText("");
+		login.setText("");
+		senha.setText("");
+	}
+	
+	private boolean cadastrar() {
+		//Registros de endereço
+		med.setLogradouro(rua.getText());
+		med.setNumero(Integer.parseInt(numero.getText()));
+		med.setCep(cep.getText());
+		med.setBairro(bairro.getText());
+		med.setComplemento(complemento.getText());
+		med.setCidade(cidade.getText());
+		med.setEstado(estados.getSelectedItem().toString());
+		
+		//Registros de dados pessoais
+		med.setNome(nome.getText());
+		med.setTelefone(celular.getText());
+		if (etnia.getSelectedItem() == "Branco(a)") {
+			med.setEtnia(EtniaEnum.BRANCO); 
+		} else if (etnia.getSelectedItem() == "Pardo(a)") {
+			med.setEtnia(EtniaEnum.PARDO); 
+		} else if (etnia.getSelectedItem() == "Negro(a)") {
+			med.setEtnia(EtniaEnum.NEGRO); 
+		} else {
+			med.setEtnia(EtniaEnum.INDIGENA);
+		}
+		med.setCpf(cpf.getText());
+		med.setRg(rg.getText());
+		if (sexoM.isSelected()) {
+			med.setSexo(SexoEnum.MASCULINO);
+		} else {
+			med.setSexo(SexoEnum.FEMININO);
+		}
+		med.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
+		med.setEstadoCivil(estadoCivil.getText());
+		
+		//Registros de dados corporativos
+		med.setCarteiraTrab(ctps.getText());
+		med.setCrm(crm.getText());
+		med.setLogin(login.getText());
+		med.setSenha(senha.getText());
+		
+		return gerente.cadastrarMedico(med);
 	}
 }

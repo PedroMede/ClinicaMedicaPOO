@@ -12,6 +12,9 @@ public class Medico extends Funcionario implements Serializable {
 	private String crm;
 	private EspecialidadeEnum especialidade;
 
+	public Medico() {		
+	}
+	
 	public Medico(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endereço
 			String nome, String cpf, String rg, String telefone, String dataNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
 			String carteiraTrab, String login, String senha,																					//dados de funcionario

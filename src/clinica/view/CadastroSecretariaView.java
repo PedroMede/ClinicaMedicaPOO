@@ -344,7 +344,7 @@ public class CadastroSecretariaView extends JFrame {
 					JOptionPane.showMessageDialog(null, "Cadastrado(a) " + sec.getNome() + " com sucesso", "Sucesso", JOptionPane.DEFAULT_OPTION);
 					limparCampos();
 				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Erro ao cadastrar o(a) secretário(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao cadastrar secretário(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
