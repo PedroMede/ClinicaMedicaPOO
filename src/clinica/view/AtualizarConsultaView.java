@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
+import javax.swing.JLabel;
 
 public class AtualizarConsultaView extends JFrame{
 	
@@ -68,7 +69,7 @@ public class AtualizarConsultaView extends JFrame{
 					tabela.removeRow(table.getSelectedRow());
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Selecione a linha");
+					JOptionPane.showMessageDialog(null, "Selecione a linha a ser deletada");
 				}
 				
 				txtHora.setText(null);
@@ -97,7 +98,7 @@ public class AtualizarConsultaView extends JFrame{
 					tabela.setValueAt(txtMedico.getText(), table.getSelectedRow(), 2);
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada");
+					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada.");
 				
 				}
 				
@@ -119,6 +120,26 @@ public class AtualizarConsultaView extends JFrame{
 		txtId.setBounds(25, 46, 96, 20);
 		getContentPane().add(txtId);
 		txtId.setColumns(10);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setBounds(25, 31, 48, 14);
+		getContentPane().add(lblId);
+		
+		JLabel lblHorrio = new JLabel("Hor\u00E1rio");
+		lblHorrio.setBounds(131, 31, 48, 14);
+		getContentPane().add(lblHorrio);
+		
+		JLabel lblData = new JLabel("Data");
+		lblData.setBounds(228, 31, 48, 14);
+		getContentPane().add(lblData);
+		
+		JLabel lblMedico = new JLabel("Medico");
+		lblMedico.setBounds(341, 31, 48, 14);
+		getContentPane().add(lblMedico);
+		
+		JLabel lblPaciente = new JLabel("Paciente");
+		lblPaciente.setBounds(447, 31, 48, 14);
+		getContentPane().add(lblPaciente);
 		
 	}
 	public static void main(String[] args) {

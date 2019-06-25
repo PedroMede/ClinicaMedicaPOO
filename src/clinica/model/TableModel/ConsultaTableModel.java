@@ -70,11 +70,11 @@ public class ConsultaTableModel extends AbstractTableModel {
 		case 2:
 			 dados.get(linha).setDia((String)valor);
 			 break;
-		case 3:
-			 dados.get(linha).setNomeMedico((String)valor);
+		case 3:			 
+			 dados.get(linha).getMedico().setNome((String)valor);
 			 break;
 		case 4:
-			 dados.get(linha).setNomePac((String)valor);
+			 dados.get(linha).getPaciente().setNome((String)valor);
 			 break;
 		}
 	}

@@ -8,8 +8,6 @@ public class Consulta {
 	private Medico medico;
 	private Paciente paciente;
 	
-	private String nomePac;
-	private String nomeMed;
 	
 	public Consulta () {};
 	public Consulta(String dia, String hora, Medico medico, Paciente paciente) {
@@ -59,11 +57,5 @@ public class Consulta {
 		this.paciente = paciente;
 	}
 	
-	public void setNomePac(String nome) {
-		this.nomePac = nome;
-	}
 	
-	public void setNomeMedico(String nome) {
-		this.nomeMed = nome;
-	}
 }
