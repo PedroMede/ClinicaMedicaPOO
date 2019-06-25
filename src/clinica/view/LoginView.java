@@ -43,13 +43,13 @@ public class LoginView extends JFrame {
 					//gravar nos exames
 				}
 				if(repo.getMedicos() != null) {
-					gerenteController.cadastrarMedico(repo.getMedicos(), repo.getLogin());
+					gerenteController.cadastrarFuncionario(repo.getMedicos(), "./database/medicos.txt", repo.getLogin());
 				}
 				if(repo.getPacientes() != null) {
 					//gravar nos pacientes
 				}
 				if(repo.getSecretarias() != null) {
-					gerenteController.cadastrarSecretaria(repo.getSecretarias(), repo.getLogin());
+					gerenteController.cadastrarFuncionario(repo.getSecretarias(),"./database/secretarias.txt", repo.getLogin());
 				}
 				
 			}
