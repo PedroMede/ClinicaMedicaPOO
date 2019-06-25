@@ -23,7 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-public class CadastroPaciente extends JFrame {
+public class CadastroPacienteView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -82,7 +82,7 @@ public class CadastroPaciente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroPaciente frame = new CadastroPaciente();
+					CadastroPacienteView frame = new CadastroPacienteView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -95,7 +95,7 @@ public class CadastroPaciente extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public CadastroPaciente() throws ParseException {
+	public CadastroPacienteView() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 733, 505);
 		contentPane = new JPanel();

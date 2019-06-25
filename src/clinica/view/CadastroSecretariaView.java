@@ -25,6 +25,7 @@ import clinica.controller.GerenteController;
 import clinica.model.Secretaria;
 import clinica.model.dados.Repositorio;
 import clinica.model.enums.EtniaEnum;
+import clinica.model.enums.HorarioEnum;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
 import clinica.model.login.Login;
@@ -34,12 +35,16 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.swing.JPasswordField;
 
 public class CadastroSecretariaView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ButtonGroup grupo1;
+	private ButtonGroup grupo2;
 	private JTextField numero;
 	private JTextField rua;
 	private JTextField bairro;
@@ -50,20 +55,21 @@ public class CadastroSecretariaView extends JFrame {
 	private JTextField estadoCivil;
 	private JTextField ctps;
 	private JTextField login;
-	private JTextField senha;
 	private JFormattedTextField cpf;
 	private JFormattedTextField celular;
 	private JFormattedTextField cep;
-	private JFormattedTextField entrada;
-	private JFormattedTextField saida;
 	private JComboBox<Object> etnia;
 	private JComboBox<Object> estados;
 	private JRadioButton sexoM;
 	private JRadioButton sexoF;
+	private JRadioButton rdbtnManh;
+	private JRadioButton rdbtnTarde;
+	private JRadioButton rdbtnNoite;
 	private JDateChooser dataNascimento;
 	private Secretaria sec;
+	private GerenteController gerenteController = new GerenteController();
 	private List<Object> logins = new ArrayList<Object>();
-	private List<Object> secretarias = new ArrayList<Object>();
+	private List<Object> secretarias;
 	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
@@ -93,11 +99,21 @@ public class CadastroSecretariaView extends JFrame {
 			"SP",
 			"SE",
 			"TO"};
+	private JPasswordField senha;
 
 	/**
 	 * Create the frame.
 	 */
 	public CadastroSecretariaView(Repositorio repo) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				JOptionPane.showMessageDialog(null, "Manhã: 08:00 - 12:00\n" + "Tarde: 12:00 - 16:00\n" + "Noite: 16:00 - 18:00", "Turnos", JOptionPane.DEFAULT_OPTION);
+				secretarias = gerenteController.recuperarFuncionario("./database/secretarias.txt");
+				
+				verificaHorarios(secretarias, repo);
+			}
+		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 733, 631);
 		contentPane = new JPanel();
@@ -315,31 +331,27 @@ public class CadastroSecretariaView extends JFrame {
 		ctps.setBounds(101, 400, 147, 20);
 		contentPane.add(ctps);
 		
-		JLabel label_23 = new JLabel("Entrada:");
-		label_23.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_23.setBounds(269, 403, 65, 14);
-		contentPane.add(label_23);
+		JLabel lblTurnoDeTrabalho = new JLabel("Turno de trabalho:");
+		lblTurnoDeTrabalho.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblTurnoDeTrabalho.setBounds(258, 402, 124, 14);
+		contentPane.add(lblTurnoDeTrabalho);
 		
-		try {
-			entrada = new JFormattedTextField(new MaskFormatter("##:##"));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		entrada.setBounds(328, 400, 103, 20);
-		contentPane.add(entrada);
+		rdbtnManh = new JRadioButton("Manh\u00E3", false);
+		rdbtnManh.setBounds(377, 399, 67, 23);
+		contentPane.add(rdbtnManh);
 		
-		JLabel label_24 = new JLabel("Sa\u00EDda:");
-		label_24.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_24.setBounds(441, 402, 53, 14);
-		contentPane.add(label_24);
-
-		try {
-			saida = new JFormattedTextField(new MaskFormatter("##:##"));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		saida.setBounds(488, 400, 103, 20);
-		contentPane.add(saida);
+		rdbtnTarde = new JRadioButton("Tarde", false);
+		rdbtnTarde.setBounds(442, 399, 67, 23);
+		contentPane.add(rdbtnTarde);
+		
+		rdbtnNoite = new JRadioButton("Noite", false);
+		rdbtnNoite.setBounds(503, 399, 67, 23);
+		contentPane.add(rdbtnNoite);
+		
+		grupo2 = new ButtonGroup();
+		grupo2.add(rdbtnManh);
+		grupo2.add(rdbtnTarde);
+		grupo2.add(rdbtnNoite);
 		
 		JLabel label_20 = new JLabel("Login:");
 		label_20.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -356,9 +368,8 @@ public class CadastroSecretariaView extends JFrame {
 		label_21.setBounds(258, 456, 53, 14);
 		contentPane.add(label_21);
 		
-		senha = new JTextField();
-		senha.setColumns(10);
-		senha.setBounds(313, 453, 147, 20);
+		senha = new JPasswordField();
+		senha.setBounds(314, 453, 113, 20);
 		contentPane.add(senha);
 		
 		JButton button = new JButton("Cadastrar");
@@ -369,12 +380,14 @@ public class CadastroSecretariaView extends JFrame {
 					setDados(repo);
 					JOptionPane.showMessageDialog(null, sec.getNome() + " cadastrado(a) com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
 					limparCampos();
+					verificaHorarios(secretarias, repo);
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Erro ao cadastrar secretário(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
 		});
+		
 		button.setBounds(318, 527, 109, 23);
 		contentPane.add(button);
 	}
@@ -395,8 +408,8 @@ public class CadastroSecretariaView extends JFrame {
 		ctps.setText("");
 		login.setText("");
 		senha.setText("");
-		entrada.setText("");
-		saida.setText("");
+		grupo1.clearSelection();
+		grupo2.clearSelection();
 	}
 	
 	private void setDados(Repositorio repo) {
@@ -405,6 +418,7 @@ public class CadastroSecretariaView extends JFrame {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		sec = new Secretaria();
 		List<String> atributos;
+		List<Object> secretarias = new ArrayList<Object>();
 		
 		//Registros de endereço
 		sec.setLogradouro(rua.getText());
@@ -440,17 +454,21 @@ public class CadastroSecretariaView extends JFrame {
 		//Registros de dados corporativos
 		sec.setCarteiraTrab(ctps.getText());
 		sec.setLogin(login.getText());
-		sec.setSenha(senha.getText());
+		sec.setSenha(new String(senha.getPassword()));
 		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
 		sec.setDataAdmissao(sdf.format(dataAdmissao));
-		sec.setHoraEntrada(entrada.getText());
-		sec.setHoraSaida(saida.getText());
+		if(rdbtnManh.isSelected()) {
+			sec.setHorarioTrab(HorarioEnum.MANHA);
+		} else if(rdbtnTarde.isSelected()) {
+			sec.setHorarioTrab(HorarioEnum.TARDE);
+		} else {
+			sec.setHorarioTrab(HorarioEnum.NOITE);
+		}
 		
 		secretarias.add(sec);
 		
 		atributos = GerenteController.gerarListaAtributos(sec);
-		atributos.add(sec.getHoraEntrada());
-		atributos.add(sec.getHoraSaida());
+		atributos.add(sec.getHorarioTrab().toString());
 		if(GerenteController.validarDados(atributos)) {
 			repo.setSecretarias(secretarias);
 			
@@ -461,6 +479,56 @@ public class CadastroSecretariaView extends JFrame {
 			logins.add(log);
 			
 			repo.setLogin(logins);
+		}
+	}
+	
+	private void verificaHorarios(List<Object> objects, Repositorio repo) {
+		int manha = 0;
+		int tarde = 0;
+		int noite = 0;
+		
+		if(objects != null) {
+			for(Object sec : objects) {
+				if(((Secretaria) sec).getHorarioTrab().equals(HorarioEnum.MANHA)) {
+					manha++;
+				} else if(((Secretaria) sec).getHorarioTrab().equals(HorarioEnum.TARDE)) {
+					tarde++;
+				} else {
+					noite++;
+				}
+			}
+		}
+		if(repo.getSecretarias() != null) {
+			for(Object sec : repo.getSecretarias()) {
+				if(((Secretaria) sec).getHorarioTrab().equals(HorarioEnum.MANHA)) {
+					manha++;
+				} else if(((Secretaria) sec).getHorarioTrab().equals(HorarioEnum.TARDE)) {
+					tarde++;
+				} else {
+					noite++;
+				}
+			}
+		}
+		
+		if(manha == 0 && tarde == 0 && noite > 0) {
+			rdbtnNoite.setEnabled(false);
+		} else if(manha == 0 && tarde > 0 && noite == 0) {
+			rdbtnTarde.setEnabled(false);
+		} else if(manha > 0 && tarde == 0 && noite == 0) {
+			rdbtnManh.setEnabled(false);
+		} else if(manha == 0 && tarde > 0 && noite > 0) {
+			rdbtnNoite.setEnabled(false);
+			rdbtnTarde.setEnabled(false);
+		} else if(manha > 0 && tarde == 0 && noite > 0) {
+			rdbtnManh.setEnabled(false);
+			rdbtnNoite.setEnabled(false);
+		} else if(manha > 0 && tarde > 0 && noite == 0) {
+			rdbtnManh.setEnabled(false);
+			rdbtnTarde.setEnabled(false);
+		} else {
+			rdbtnManh.setEnabled(true);
+			rdbtnTarde.setEnabled(true);
+			rdbtnNoite.setEnabled(true);
 		}
 	}
 }

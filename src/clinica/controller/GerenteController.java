@@ -20,6 +20,10 @@ public class GerenteController {
 		}
 	}
 	
+	public List<Object> recuperarFuncionario(String path) {
+		return gerente.recuperarFuncionario(path);
+	}
+	
 	public static boolean validarDados(List<String> atributos) {
 		for(String atributo : atributos) {
 			if(atributo == null || atributo.isEmpty()) {

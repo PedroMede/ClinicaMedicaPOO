@@ -1,10 +1,14 @@
 package clinica.model.dados;
 
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dados extends ObjectOutputStream {
@@ -52,5 +56,23 @@ public class Dados extends ObjectOutputStream {
 			return false;
 		}
 		return true;
+	}
+	
+	public static List<Object> recuperar(String path) {
+		List<Object> objects = new ArrayList<Object>();
+		
+		try (ObjectInputStream objLeitura = new ObjectInputStream(new FileInputStream(path))) {
+			while(true) {
+				Object obj = objLeitura.readObject();
+				objects.add(obj);
+				System.out.println(obj);
+			}
+		} catch (EOFException e2) {
+			System.out.println("Dados recuperados com sucesso!");
+		} catch (Exception e) {
+			System.out.println("Arquivo não encontrado");
+		}
+		
+		return objects;
 	}
 }
