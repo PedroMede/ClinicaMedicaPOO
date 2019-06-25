@@ -9,9 +9,9 @@ import clinica.model.Consulta;
 
 public class ConsultaTableModel extends AbstractTableModel {
 
-	
+	private static final long serialVersionUID = 1L;
 	private List<Consulta> dados = new ArrayList<>();
-	
+
 	// array para os nomes das colunas
 	private String[] colunas = {"ID","Hora","Dia","Medico","Paciente"};
 	

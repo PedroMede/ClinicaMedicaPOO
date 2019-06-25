@@ -19,19 +19,6 @@ public class Principal {
 		frame.setVisible(true);
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		/*Secretaria sec = new Secretaria("Rua tal", 32, "38401572", "Pacaembu", "Uberlandia", "MG", "fundos", 
 				"Fulano", "12345678911", "121231231", "999999999", "xx/xx/xxxx", "solteiro", SexoEnum.valueOf("MASCULINO"), EtniaEnum.valueOf("PARDO"), 
 				"987654321", "secretaria@teste.com", "123456", "08:00", "14:00");
@@ -55,7 +42,7 @@ public class Principal {
 		System.out.println(gerenteController.cadastrarMedico(med));
 		
 		System.out.println("Recuperando objeto: ");
-		try (ObjectInputStream objLeitura = new ObjectInputStream(new FileInputStream("./database/medicos.txt"))) {
+		try (ObjectInputStream objLeitura = new ObjectInputStream(new FileInputStream("./database/secretarias.txt"))) {
 			while(true) {
 				Object obj = objLeitura.readObject();
 				System.out.println(obj);

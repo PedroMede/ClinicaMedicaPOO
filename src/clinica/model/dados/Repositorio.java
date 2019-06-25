@@ -8,6 +8,7 @@ public class Repositorio {
 	private List<Object> pacientes;
 	private List<Object> exames;
 	private List<Object> consultas;
+	private List<Object> login;
 	
 	public List<Object> getSecretarias() {
 		return secretarias;
@@ -47,5 +48,13 @@ public class Repositorio {
 	
 	public void setConsultas(List<Object> consultas) {
 		this.consultas = consultas;
+	}
+
+	public List<Object> getLogin() {
+		return login;
+	}
+
+	public void setLogin(List<Object> login) {
+		this.login = login;
 	}
 }

@@ -27,6 +27,7 @@ import clinica.model.dados.Repositorio;
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
+import clinica.model.login.Login;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -66,8 +67,9 @@ public class CadastroMedicoView extends JFrame {
 	private JTextField especialidade;
 	private JPasswordField senha;
 	private Medico med;
+	private List<Object> logins = new ArrayList<Object>();
 	private List<Object> medicos = new ArrayList<Object>();
-	private List<String> especialidades = new ArrayList<String>();
+	private List<String> especs = new ArrayList<String>();
 	private String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
@@ -362,7 +364,7 @@ public class CadastroMedicoView extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyChar() == '\n') {
-					especialidades.add(especialidade.getText());
+					especs.add(especialidade.getText());
 					System.out.println(especialidade.getText());
 					especialidade.setText("");
 				}
@@ -381,9 +383,9 @@ public class CadastroMedicoView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					cadastrar(repo, especialidades);
+					setDados(repo, especs);
 					JOptionPane.showMessageDialog(null,  med.getNome() + " cadastrado(a) com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
-					limparCampos();
+					limparCampos(especs);
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Erro ao cadastrar médico(a), alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
 				}
@@ -393,8 +395,8 @@ public class CadastroMedicoView extends JFrame {
 		contentPane.add(cadastrar);
 	}
 	
-	private void limparCampos() {
-		rua.setText("");
+	private void limparCampos(List<String> especs) {
+		/*rua.setText("");
 		numero.setText("");
 		cep.setText("");
 		bairro.setText("");
@@ -409,17 +411,18 @@ public class CadastroMedicoView extends JFrame {
 		ctps.setText("");
 		crm.setText("");
 		login.setText("");
-		senha.setText("");
+		senha.setText("");*/
+		System.out.println(especs);
+		especs.clear();
+		System.out.println(especs);
 	}
 	
-	private void cadastrar(Repositorio repo, List<String> especialidades) {
+	private void setDados(Repositorio repo, List<String> especs) {
+		Login log = new Login();
 		Date dataAdmissao = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		med = new Medico();
 		List<String> atributos;
-		
-		
-		
 		
 		//Registros de endereço
 		med.setLogradouro(rua.getText());
@@ -455,7 +458,7 @@ public class CadastroMedicoView extends JFrame {
 		//Registros de dados corporativos
 		med.setCarteiraTrab(ctps.getText());
 		med.setCrm(crm.getText());
-		med.setEspecialidade(especialidades);
+		med.setEspecialidade(getEspecs(especs));
 		med.setLogin(login.getText());
 		med.setSenha(new String(senha.getPassword()));
 		med.setDataAdmissao(sdf.format(dataAdmissao));
@@ -463,39 +466,32 @@ public class CadastroMedicoView extends JFrame {
 		
 		medicos.add(med);
 		
-		atributos = listaAtributos(med);
-		
-		if(GerenteController.validarDados(atributos))
-		repo.setMedicos(medicos);
-	}
-	
-	private List<String> listaAtributos(Medico med) {
-		List<String> atributos = new ArrayList<String>();
-		
-		atributos.add(med.getNome());
-		atributos.add(med.getCpf());
-		atributos.add(med.getRg());
-		atributos.add(med.getTelefone());
-		atributos.add(med.getDataNascimento());
-		atributos.add(med.getEstadoCivil());
-		atributos.add(med.getSexo().toString());
-		atributos.add(med.getEtnia().toString());
-		atributos.add(med.getCarteiraTrab());
+		atributos = GerenteController.gerarListaAtributos(med);
 		atributos.add(med.getCrm());
-		
 		for(String especialidade : med.getEspecialidade()) {
 			atributos.add(especialidade);
 		}
 		
-		atributos.add(med.getLogradouro());
-		atributos.add(med.getNumero().toString());
-		atributos.add(med.getCep());
-		atributos.add(med.getBairro());
-		atributos.add(med.getCidade());
-		atributos.add(med.getEstado());
-		atributos.add(med.getLogin());
-		atributos.add(med.getSenha());
+		if(GerenteController.validarDados(atributos)) {
+			repo.setMedicos(medicos);
+			
+			log.setPerfil(med.getPerfilEnum().toString());
+			log.setUsuario(med.getLogin());
+			log.setSenha(med.getSenha());
+			
+			logins.add(log);
+			
+			repo.setLogin(logins);
+		}
+	}
+	
+	private List<String> getEspecs(List<String> especialidades) {
+		List<String> especs = new ArrayList<String>();
 		
-		return atributos;
+		for(String espec : especialidades) {
+			especs.add(espec);
+		}
+		
+		return especs;
 	}
 }

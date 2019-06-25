@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,16 +12,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
 import javax.swing.JLabel;
 
 public class AtualizarConsultaView extends JFrame{
 	
-	
-	ConsultaTableModel tabela = new ConsultaTableModel();
-	
-	
+	private static final long serialVersionUID = 1L;
+	private ConsultaTableModel tabela = new ConsultaTableModel();
 	private JTextField txtPaciente;
 	private JTextField txtMedico;
 	private JTextField txtHora;
@@ -45,7 +40,7 @@ public class AtualizarConsultaView extends JFrame{
 
 		
 		JScrollPane pane  = new JScrollPane(table);
-		pane.setBounds(25, 111, 511, 197);
+		pane.setBounds(25, 90, 511, 218);
 		getContentPane().add(pane);
 		
 		txtPaciente = new JTextField();
@@ -57,30 +52,6 @@ public class AtualizarConsultaView extends JFrame{
 		txtMedico.setBounds(341, 46, 96, 20);
 		getContentPane().add(txtMedico);
 		txtMedico.setColumns(10);
-		
-		JButton btnDeletar = new JButton("Deletar");
-		
-		btnDeletar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//verificar de não esta selecionada
-				if (table.getSelectedRow()!= -1) {
-					
-					tabela.removeRow(table.getSelectedRow());
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Selecione a linha a ser deletada");
-				}
-				
-				txtHora.setText(null);
-				txtPaciente.setText(null);
-				txtMedico.setText(null);
-				txtDia.setText(null);
-				txtId.setText(null);
-			}
-		});
-		btnDeletar.setBounds(25, 77, 89, 23);
-		getContentPane().add(btnDeletar);
 		
 		txtHora = new JTextField();
 		txtHora.setBounds(131, 46, 87, 20);
@@ -108,7 +79,7 @@ public class AtualizarConsultaView extends JFrame{
 			}
 		});
 		
-		btnAlterar.setBounds(447, 77, 89, 23);
+		btnAlterar.setBounds(25, 319, 89, 23);
 		getContentPane().add(btnAlterar);
 		
 		txtDia = new JTextField();
@@ -138,8 +109,12 @@ public class AtualizarConsultaView extends JFrame{
 		getContentPane().add(lblMedico);
 		
 		JLabel lblPaciente = new JLabel("Paciente");
-		lblPaciente.setBounds(447, 31, 48, 14);
+		lblPaciente.setBounds(447, 31, 64, 14);
 		getContentPane().add(lblPaciente);
+		
+		JButton button = new JButton("Deletar");
+		button.setBounds(447, 319, 89, 23);
+		getContentPane().add(button);
 		
 	}
 	public static void main(String[] args) {

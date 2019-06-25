@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -20,10 +21,13 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 
+import clinica.controller.GerenteController;
 import clinica.model.Secretaria;
 import clinica.model.dados.Repositorio;
 import clinica.model.enums.EtniaEnum;
+import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
+import clinica.model.login.Login;
 
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -58,6 +62,7 @@ public class CadastroSecretariaView extends JFrame {
 	private JRadioButton sexoF;
 	private JDateChooser dataNascimento;
 	private Secretaria sec;
+	private List<Object> logins = new ArrayList<Object>();
 	private List<Object> secretarias = new ArrayList<Object>();
 	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
@@ -361,7 +366,7 @@ public class CadastroSecretariaView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					cadastrar(repo);
+					setDados(repo);
 					JOptionPane.showMessageDialog(null, sec.getNome() + " cadastrado(a) com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
 					limparCampos();
 				} catch (Exception e2) {
@@ -394,8 +399,12 @@ public class CadastroSecretariaView extends JFrame {
 		saida.setText("");
 	}
 	
-	private void cadastrar(Repositorio repo) {
+	private void setDados(Repositorio repo) {
+		Login log = new Login();
+		Date dataAdmissao = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		sec = new Secretaria();
+		List<String> atributos;
 		
 		//Registros de endereço
 		sec.setLogradouro(rua.getText());
@@ -409,11 +418,11 @@ public class CadastroSecretariaView extends JFrame {
 		//Registros de dados pessoais
 		sec.setNome(nome.getText());
 		sec.setTelefone(celular.getText());
-		if (etnia.getSelectedItem() == "Branco(a)") {
+		if (etnia.getSelectedItem().equals("Branco(a)")) {
 			sec.setEtnia(EtniaEnum.BRANCO); 
-		} else if (etnia.getSelectedItem() == "Pardo(a)") {
+		} else if (etnia.getSelectedItem().equals("Pardo(a)")) {
 			sec.setEtnia(EtniaEnum.PARDO); 
-		} else if (etnia.getSelectedItem() == "Negro(a)") {
+		} else if (etnia.getSelectedItem().equals("Negro(a)")) {
 			sec.setEtnia(EtniaEnum.NEGRO); 
 		} else {
 			sec.setEtnia(EtniaEnum.INDIGENA);
@@ -432,10 +441,26 @@ public class CadastroSecretariaView extends JFrame {
 		sec.setCarteiraTrab(ctps.getText());
 		sec.setLogin(login.getText());
 		sec.setSenha(senha.getText());
+		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
+		sec.setDataAdmissao(sdf.format(dataAdmissao));
 		sec.setHoraEntrada(entrada.getText());
 		sec.setHoraSaida(saida.getText());
 		
 		secretarias.add(sec);
-		repo.setSecretarias(secretarias);
+		
+		atributos = GerenteController.gerarListaAtributos(sec);
+		atributos.add(sec.getHoraEntrada());
+		atributos.add(sec.getHoraSaida());
+		if(GerenteController.validarDados(atributos)) {
+			repo.setSecretarias(secretarias);
+			
+			log.setPerfil(sec.getPerfilEnum().toString());
+			log.setUsuario(sec.getLogin());
+			log.setSenha(sec.getSenha());
+			
+			logins.add(log);
+			
+			repo.setLogin(logins);
+		}
 	}
 }

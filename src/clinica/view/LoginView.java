@@ -26,7 +26,7 @@ public class LoginView extends JFrame {
 	private JPanel contentPane;
 	private JTextField usuario;
 	private JPasswordField senha;
-	private GerenteController gerente = new GerenteController();
+	private GerenteController gerenteController = new GerenteController();
 
 	/**
 	 * Create the frame.
@@ -43,13 +43,13 @@ public class LoginView extends JFrame {
 					//gravar nos exames
 				}
 				if(repo.getMedicos() != null) {
-					gerente.cadastrarMedico(repo.getMedicos());
+					gerenteController.cadastrarMedico(repo.getMedicos(), repo.getLogin());
 				}
 				if(repo.getPacientes() != null) {
 					//gravar nos pacientes
 				}
 				if(repo.getSecretarias() != null) {
-					//gerente.cadastrarSecretaria(repo.getSecretarias());
+					gerenteController.cadastrarSecretaria(repo.getSecretarias(), repo.getLogin());
 				}
 				
 			}
