@@ -4,24 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import clinica.model.dados.Dados;
-import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.HorarioEnum;
-import clinica.model.enums.SexoEnum;
 
 public class Secretaria extends Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private HorarioEnum horarioTrab;
 	
-	public Secretaria() {}
-	
-	public Secretaria(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,			//dados de endere�o
-			String nome, String cpf, String rg, String telefone, String anoNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia,		//dados de pessoa
-			String carteiraTrab, String login, String senha,																					//dados de funcionario
-			HorarioEnum horarioTrab) {																								//dados de secretaria
-		super(logradouro, numero, cep, bairro, cidade, estado, complemento, nome, cpf, rg, telefone, anoNascimento, estadoCivil, sexo, etnia,
-				carteiraTrab, login, senha);
-		this.horarioTrab = horarioTrab;
+	public Secretaria() {
 	}
 
 	public HorarioEnum getHorarioTrab() {
@@ -38,11 +28,6 @@ public class Secretaria extends Funcionario implements Serializable {
 	
 	public List<Object> recuperarObjeto(String path) {
 		return Dados.recuperar(path);
-	}
-
-	public int descarmarConsulta() {
-		//Abrir o arquivo de consultas e deletar a consulta 
-		return 1;
 	}
 
 	@Override

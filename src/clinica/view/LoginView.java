@@ -46,7 +46,7 @@ public class LoginView extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(null, "Salvando dados...", "Salvando", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, "Dados Salvos !", "Salvos", JOptionPane.INFORMATION_MESSAGE);
 				if(repo.getConsultas() != null) {
 					Dados.apagarArquivo("./database/consultas.txt");
 					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt");
@@ -64,7 +64,7 @@ public class LoginView extends JFrame {
 					gerenteController.cadastrarFuncionario(repo.getSecretarias(),"./database/secretarias.txt", repo.getLogin());
 				}
 				if(repo.getAnamneses() != null) {
-					//gravar nas anamneses
+					secretariaController.cadastrarObjeto(repo.getAnamneses(), "./database/anamneses.txt");
 				}
 				
 			}

@@ -2,13 +2,13 @@ package clinica.controller;
 
 import java.util.List;
 
-import clinica.model.Exame;
+import clinica.model.Secretaria;
 
 public class ExameController {
-	private Exame exame = new Exame();
+	private Secretaria secretaria = new Secretaria();
 	
 	public boolean cadastrarExame(List<Object> exame, String path) {
-		if((this.exame.cadastrarExame(exame, path))) {
+		if((this.secretaria.cadastrarObjeto(exame, path))) {
 			return true;
 		} else {
 			return false;
@@ -16,6 +16,6 @@ public class ExameController {
 	}
 	
 	public List<Object> recuperarExame(String path) {
-		return this.exame.recuperarExames(path);
+		return this.secretaria.recuperarObjeto(path);
 	}
 }

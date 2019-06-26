@@ -26,11 +26,14 @@ import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
 import clinica.model.dados.Repositorio;
 import clinica.model.login.Login;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MedicoView extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private ConsultaTableModel tabela = new ConsultaTableModel();
+	private JTable table;
 	private List<Object> consultas;
 	private ConsultaController consultaController = new ConsultaController();
 	private JTextField txtFiltro;
@@ -65,14 +68,24 @@ public class MedicoView extends JFrame{
 					JOptionPane.showMessageDialog(null, "Nenhuma consulta agendada!", "Consultas", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				int linha;
+				if(repo.getConsultas() != null) {
+					for(linha = repo.getConsultas().size() - 1; linha >= 0 ; linha--) {
+						tabela.removeRow(linha);
+					}
+					consultas.clear();
+				}
+			}
 		});
 		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
 	
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
-		JTable table = new JTable();
+		table = new JTable();
 		table.setPreferredScrollableViewportSize(new Dimension(100,80));
 		table.setModel(tabela);
 
@@ -121,8 +134,33 @@ public class MedicoView extends JFrame{
 		getContentPane().add(btnBuscar);
 		
 		JButton btnIniciarConsulta = new JButton("Iniciar Consulta");
+		btnIniciarConsulta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(table.getSelectedRow() != -1) {
+					Consulta consulta = (Consulta) getConsulta(repo);
+					AnamneseView anamense = new AnamneseView(repo, consulta);
+					anamense.setVisible(true);
+					
+				}
+			}
+		});
 		btnIniciarConsulta.setBounds(370, 377, 142, 23);
 		getContentPane().add(btnIniciarConsulta);
 		
+	}
+	
+	private Object getConsulta(Repositorio repo) {
+		Object con = null;
+		
+		for(Object consulta : repo.getConsultas()) {
+			if(((Consulta) consulta).getHora().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
+				con = consulta;
+				break;
+			}
+
+		}
+		
+		return con;
 	}
 }

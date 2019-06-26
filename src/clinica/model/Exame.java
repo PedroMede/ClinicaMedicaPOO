@@ -18,17 +18,6 @@ public class Exame {
 	public Exame() {
 	}
 
-	public Exame(Integer codigo, String nome, String obsGeral, String tempDuracao, String tempResultado, String tipoExame, ExameEnum classificacao) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.obsGeral = obsGeral;
-		this.tempDuracao = tempDuracao;
-		this.tempResultado = tempResultado;
-		this.tipoExame = tipoExame;
-		this.classificacao = classificacao;
-	}
-
 	public Integer getCodigo() {
 		return codigo;
 	}

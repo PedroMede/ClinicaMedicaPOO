@@ -17,19 +17,7 @@ public class Pessoa extends Endereco implements Serializable {
 	private SexoEnum sexo;
 	private EtniaEnum etnia;
 	
-	public Pessoa() {}
-	
-	public Pessoa(String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento,				//dados de endere�o
-			String nome, String cpf, String rg, String telefone, String dataNascimento, String estadoCivil, SexoEnum sexo, EtniaEnum etnia) {	//dados de pessoa
-		super(logradouro, numero, cep, bairro, cidade, estado, complemento);
-		this.nome = nome;
-		this.cpf = cpf;
-		this.rg = rg;
-		this.telefone = telefone;
-		this.dataNascimento = dataNascimento;
-		this.estadoCivil = estadoCivil;
-		this.sexo = sexo;
-		this.etnia = etnia;
+	public Pessoa() {
 	}
 
 	public String getNome() {

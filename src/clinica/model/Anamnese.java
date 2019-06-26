@@ -1,7 +1,10 @@
 package clinica.model;
 
-public class Anamnese {
-	
+import java.io.Serializable;
+
+public class Anamnese implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private Paciente paciente;
 	private Medico medico;
 	private String prescricao;
@@ -10,15 +13,6 @@ public class Anamnese {
 
 	
 	public Anamnese() {
-	}
-
-	public Anamnese(Paciente paciente, Medico medico, String prescricao, String sintomas, String diagnosticoDefinitivo) {
-		super();
-		this.paciente = paciente;
-		this.medico = medico;
-		this.prescricao = prescricao;
-		this.sintomas = sintomas;
-		this.diagnosticoDefinitivo = diagnosticoDefinitivo;
 	}
 
 	public Paciente getPaciente() {
