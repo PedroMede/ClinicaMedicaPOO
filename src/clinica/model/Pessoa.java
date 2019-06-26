@@ -83,10 +83,4 @@ public class Pessoa extends Endereco implements Serializable {
 	public void setEtnia(EtniaEnum etnia) {
 		this.etnia = etnia;
 	}
-	
-	public int cadastrar(String nome, String cpf, String rg, String telefone, Integer anoNascimento, String estadoCivil, char sexo, EtniaEnum etnia,
-			String logradouro, Integer numero, String cep, String bairro, String cidade, String estado, String complemento) {
-		
-		return 0;
-	}
 }
