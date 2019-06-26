@@ -3,6 +3,8 @@ package clinica.model;
 import java.io.Serializable;
 import java.util.List;
 
+import clinica.model.dados.Dados;
+
 public class Medico extends Funcionario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -31,5 +33,13 @@ public class Medico extends Funcionario implements Serializable {
 	@Override
 	public String toString() {
 		return getNome();
+	}
+	
+	public boolean cadastrarAnamnese(List<Object> obj, String path) {
+		return Dados.cadastrar(obj, path);
+	}
+	
+	public List<Object> recuperarAnamnese(String path) {
+		return Dados.recuperar(path);
 	}
 }

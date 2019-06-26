@@ -1,6 +1,9 @@
 package clinica.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import clinica.model.dados.Dados;
 
 public class Anamnese implements Serializable{
 
@@ -10,6 +13,7 @@ public class Anamnese implements Serializable{
 	private String prescricao;
 	private String sintomas;
 	private String diagnosticoDefinitivo;
+	private Exame exame;
 
 	
 	public Anamnese() {
@@ -53,5 +57,17 @@ public class Anamnese implements Serializable{
 
 	public void setDiagnosticoDefinitivo(String diagnosticoDefinitivo) {
 		this.diagnosticoDefinitivo = diagnosticoDefinitivo;
+	}
+
+	public Exame getExame() {
+		return exame;
+	}
+
+	public void setExame(Exame exame) {
+		this.exame = exame;
+	}
+	
+	public List<Object> solicitarExame(String path) {
+		return Dados.recuperar(path);
 	}
 }

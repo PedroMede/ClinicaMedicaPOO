@@ -44,7 +44,7 @@ public class AnamneseView extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				examesList = exameController.recuperarExame("./database/exames.txt");
+				examesList = exameController.recuperarExame("./database/examesCadastrados.txt");
 				
 				for(Object exame : examesList) {	
 					exames.addItem(((Exame) exame).getNome());
