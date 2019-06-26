@@ -1,5 +1,8 @@
 package clinica.model;
 
+import java.util.List;
+
+import clinica.model.dados.Dados;
 import clinica.model.enums.ExameEnum;
 
 public class Exame {
@@ -80,5 +83,13 @@ public class Exame {
 
 	public void setClassificacao(ExameEnum classificacao) {
 		this.classificacao = classificacao;
+	}
+	
+	public boolean cadastrarExame(List<Object> exames, String path) {
+		return Dados.cadastrar(exames, path);
+	}
+	
+	public List<Object> recuperarExames(String path) {
+		return Dados.recuperar(path);
 	}
 }

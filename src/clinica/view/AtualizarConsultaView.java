@@ -96,7 +96,7 @@ public class AtualizarConsultaView extends JFrame{
 					tabela.setValueAt(txtMedico.getText(), table.getSelectedRow(), 3);
 					tabela.setValueAt(txtPaciente.getText(), table.getSelectedRow(), 4);
 					
-				
+					
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada.");
@@ -113,7 +113,7 @@ public class AtualizarConsultaView extends JFrame{
 		
 		btnAlterar.setBounds(25, 319, 89, 23);
 		getContentPane().add(btnAlterar);
-		
+
 		txtDia = new JTextField();
 		txtDia.setBounds(228, 46, 96, 20);
 		getContentPane().add(txtDia);
