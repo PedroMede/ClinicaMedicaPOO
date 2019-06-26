@@ -35,12 +35,16 @@ import java.awt.event.ComponentEvent;
 public class MarcarConsultaView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private Consulta con;
 	private JPanel contentPane;
+	private JFormattedTextField hora;
+	private JDateChooser dia;
+	private Consulta con;
 	private JComboBox<Object> medicos = new JComboBox<Object>();
 	private JComboBox<Object> pacientes = new JComboBox<Object>();
 	private List<Object> medicosList;
 	private List<Object> pacientesList;
+	private List<Object> consultasList;
+	private List<Object> consultas = new ArrayList<Object>();
 	private GerenteController gerenteController = new GerenteController();
 	private SecretariaController secretariaController = new SecretariaController();
 
@@ -53,6 +57,7 @@ public class MarcarConsultaView extends JFrame {
 			public void componentShown(ComponentEvent e) {
 				medicosList = gerenteController.recuperarFuncionario("./database/medicos.txt");
 				pacientesList = secretariaController.recuperarObjeto("./database/pacientes.txt");
+				consultasList = secretariaController.recuperarObjeto("./database/consultas.txt");
 				
 				if(medicosList != null) {
 					for(Object medico : medicosList) {
@@ -61,6 +66,11 @@ public class MarcarConsultaView extends JFrame {
 				}
 				if(pacientesList != null) {
 					for(Object paciente : pacientesList) {
+						pacientes.addItem(((Paciente) paciente).getNome());
+					}
+				}
+				if(repo.getPacientes() != null) {
+					for(Object paciente : repo.getPacientes()) {
 						pacientes.addItem(((Paciente) paciente).getNome());
 					}
 				}
@@ -85,13 +95,13 @@ public class MarcarConsultaView extends JFrame {
 		lblMdico.setBounds(60, 123, 53, 14);
 		contentPane.add(lblMdico);
 		
+		medicos.setBounds(115, 121, 113, 20);
+		contentPane.add(medicos);
+		
 		JLabel lblPacientes = new JLabel("Pacientes:");
 		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblPacientes.setBounds(40, 183, 73, 14);
 		contentPane.add(lblPacientes);
-		
-		medicos.setBounds(115, 121, 113, 20);
-		contentPane.add(medicos);
 		
 		pacientes.setBounds(115, 181, 113, 20);
 		contentPane.add(pacientes);
@@ -101,7 +111,15 @@ public class MarcarConsultaView extends JFrame {
 		lblDia.setBounds(322, 123, 25, 14);
 		contentPane.add(lblDia);
 		
-		JFormattedTextField hora = null;
+		dia = new JDateChooser();
+		dia.setBounds(357, 121, 93, 20);
+		contentPane.add(dia);
+		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblHora.setBounds(315, 184, 43, 14);
+		contentPane.add(lblHora);
+		
 		try {
 			hora = new JFormattedTextField(new MaskFormatter("##:##"));
 		} catch (ParseException e) {
@@ -109,15 +127,6 @@ public class MarcarConsultaView extends JFrame {
 		}
 		hora.setBounds(356, 181, 92, 20);
 		contentPane.add(hora);
-		
-		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHora.setBounds(315, 184, 43, 14);
-		contentPane.add(lblHora);
-		
-		JDateChooser dia = new JDateChooser();
-		dia.setBounds(357, 121, 93, 20);
-		contentPane.add(dia);
 		
 		JButton button = new JButton("Cadastrar");
 		button.addMouseListener(new MouseAdapter() {
@@ -127,7 +136,9 @@ public class MarcarConsultaView extends JFrame {
 					setDados(repo);
 					JOptionPane.showMessageDialog(null, con.getId() + " marcada com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
 					//limparCampos();
-				} catch (Exception e2) {
+				} catch (RuntimeException re) {
+					JOptionPane.showMessageDialog(null, "Horário indisponível", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "Erro ao marcar consulta, alguns dados são inválidos!", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -137,12 +148,37 @@ public class MarcarConsultaView extends JFrame {
 	}
 	
 	private void setDados(Repositorio repo) {
-		Date dataAdmissao = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		List<String> atributos;
-		List<Object> secretarias = new ArrayList<Object>();
+		String horaSub = hora.getText().substring(3, 5);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		/*List<String> atributos;
+		List<Object> consultas = new ArrayList<Object>();*/
 		
-
-
+		if(!(horaSub.equals("00") || horaSub.equals("30"))) {
+			throw new RuntimeException();
+		}
+		
+		if(repo.getConsultas() != null) {
+			for(Object consulta : repo.getConsultas()) {
+				if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(dia.getDate()))) {
+					throw new RuntimeException();
+				}
+			}
+		}
+		
+		if(consultasList != null) {
+			for(Object consulta : consultasList) {
+				if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(dia.getDate()))) {
+					throw new RuntimeException();
+				}
+			}
+		}
+		
+		for(Object medico : medicosList) {
+			if(((Medico) medico).getNome() == medicos.getSelectedItem()) {
+				con.setMedico((Medico) medico);
+				break;
+			}
+		}
+		
 	}
 }
