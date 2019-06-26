@@ -71,26 +71,27 @@ public class ExameTableModel extends AbstractTableModel{
 		
 		case 0:
 			 dados.get(linha).setCodigo(Integer.parseInt((String)valor));
-			
+			 break;
 		case 1:
 			 dados.get(linha).setNome((String)valor);
-			
+			 break;
 		case 2:
 			 dados.get(linha).setObsGeral((String)valor);
-			
+			 break;
 		case 3:
 			 dados.get(linha).setTempDuracao((String)valor);
-		
+			 break;
 		case 4:
 			 dados.get(linha).setTempResultado((String)valor);
-			
+			 break;
 		case 5:
 			 dados.get(linha).setTipoExame((String)valor);
-			
+			 break;
 		case 6:
 			
 			 dados.get(linha).setClassificacao(Enum.valueOf(enumType,(String) valor) );
-
+			 
+			 break;
 		}
 	}
 	

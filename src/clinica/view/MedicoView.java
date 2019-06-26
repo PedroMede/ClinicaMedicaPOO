@@ -1,62 +1,93 @@
 package clinica.view;
 
-import java.awt.EventQueue;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
-public class MedicoView extends JFrame {
+import clinica.controller.ConsultaController;
+import clinica.model.Consulta;
+import clinica.model.TableModel.ConsultaTableModel;
+import clinica.model.dados.Repositorio;
 
+import javax.swing.JLabel;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.Font;
+
+public class MedicoView extends JFrame{
+	
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MedicoView frame = new MedicoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+	private ConsultaTableModel tabela = new ConsultaTableModel();
+	private List<Object> consultas;
+	private ConsultaController consultaController = new ConsultaController();
+	private JTextField txtFiltro;
+	
+	
+	public MedicoView(Repositorio repo) {
+		super("Remarcar/Desmarcar Consulta");
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				consultas = consultaController.recuperarConsultas("./database/consultas.txt");
+				
+				if(consultas != null) {
+					for(Object consulta : consultas) {
+						tabela.addRow((Consulta) consulta);
+					}
+				}
+				if(repo.getConsultas() != null) {
+					for(Object consulta : repo.getConsultas()) {
+						tabela.addRow((Consulta) consulta);
+					}
 				}
 			}
 		});
-	}
+		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
+	
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		getContentPane().setLayout(null);
+		
+		JTable table = new JTable();
+		table.setPreferredScrollableViewportSize(new Dimension(100,80));
+		table.setModel(tabela);
 
-	/**
-	 * Create the frame.
-	 */
-	public MedicoView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 471, 347);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		
+		JScrollPane pane  = new JScrollPane(table);
+		pane.setBounds(36, 136, 511, 218);
+		getContentPane().add(pane);
 		
 		JLabel lblConsultas = new JLabel("Consultas");
-		lblConsultas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConsultas.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblConsultas.setBounds(107, 11, 220, 26);
-		contentPane.add(lblConsultas);
+		lblConsultas.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblConsultas.setBounds(203, 26, 167, 32);
+		getContentPane().add(lblConsultas);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 48, 379, 211);
-		contentPane.add(scrollPane);
+		JLabel lblFiltro = new JLabel("Filtro:");
+		lblFiltro.setBounds(42, 79, 48, 14);
+		getContentPane().add(lblFiltro);
 		
-		JButton button = new JButton();
-		button.setText("Iniciar Consulta");
-		button.setBounds(158, 274, 145, 23);
-		contentPane.add(button);
+		txtFiltro = new JTextField();
+		txtFiltro.setBounds(82, 76, 167, 20);
+		getContentPane().add(txtFiltro);
+		txtFiltro.setColumns(10);
+		
 	}
-
+	public static void main(String[] args) {
+		Repositorio repo = null;
+		MedicoView  update = new MedicoView(repo);
+		
+		update.setVisible(true);
+		update.setSize(576, 427);
+		
+		
+	}
 }
