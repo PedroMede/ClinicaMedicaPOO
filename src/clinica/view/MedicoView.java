@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import clinica.controller.ConsultaController;
 import clinica.model.Consulta;
@@ -79,6 +83,33 @@ public class MedicoView extends JFrame{
 		txtFiltro.setBounds(82, 76, 167, 20);
 		getContentPane().add(txtFiltro);
 		txtFiltro.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tabela);
+				table.setRowSorter(sorter);
+				
+				String texto = txtFiltro.getText();
+				
+				if (texto.length()==0) {
+					sorter.setRowFilter(null);
+					
+				}else {
+					
+					try {
+						sorter.setRowFilter(RowFilter.regexFilter(texto, 2));
+						table.setModel(tabela);
+					}catch (PatternSyntaxException pse) {
+						JOptionPane.showMessageDialog(null, "ERRO");
+						// TODO: handle exception
+					}
+				}
+			}
+				
+		});
+		btnBuscar.setBounds(286, 75, 89, 23);
+		getContentPane().add(btnBuscar);
 		
 	}
 	public static void main(String[] args) {
