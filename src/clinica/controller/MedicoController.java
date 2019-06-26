@@ -34,4 +34,13 @@ public class MedicoController {
 	
 		return atributos;
 	}
+	
+	public static boolean validarDados(List<String> dados) {
+		for(String dado : dados) {
+			if(dado == null || dado.isEmpty()) {
+				return false;
+			}
+		}	
+		return true;
+	}
 }
