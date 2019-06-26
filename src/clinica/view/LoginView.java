@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import clinica.controller.ConsultaController;
 import clinica.controller.GerenteController;
 import clinica.controller.SecretariaController;
 import clinica.model.dados.Repositorio;
@@ -29,6 +30,7 @@ public class LoginView extends JFrame {
 	private JPasswordField senha;
 	private GerenteController gerenteController = new GerenteController();
 	private SecretariaController secretariaController = new SecretariaController();
+	private ConsultaController consultaController = new ConsultaController();
 
 	/**
 	 * Create the frame.
@@ -39,7 +41,7 @@ public class LoginView extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				JOptionPane.showMessageDialog(null, "Salvando dados...", "Salvando", JOptionPane.DEFAULT_OPTION);
 				if(repo.getConsultas() != null) {
-					//gravar nas consultar;
+					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt");
 				}
 				if(repo.getExames() != null) {
 					//gravar nos exames

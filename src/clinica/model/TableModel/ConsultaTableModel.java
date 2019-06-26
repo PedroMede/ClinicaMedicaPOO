@@ -13,7 +13,7 @@ public class ConsultaTableModel extends AbstractTableModel {
 	private List<Consulta> dados = new ArrayList<>();
 
 	// array para os nomes das colunas
-	private String[] colunas = {"ID","Hora","Dia","Medico","Paciente"};
+	private String[] colunas = {"Hora","Dia","Medico","Paciente"};
 	
 	
 	
@@ -35,18 +35,15 @@ public class ConsultaTableModel extends AbstractTableModel {
 	public Object getValueAt(int linha, int coluna) {
 		switch (coluna) {
 			case 0:
-				return dados.get(linha).getId();
-				
-			case 1:
 				return dados.get(linha).getHora();
 				
-			case 2:
+			case 1:
 				return dados.get(linha).getDia();
 				
-			case 3:
+			case 2:
 				return dados.get(linha).getMedico();
 				
-			case 4:
+			case 3:
 				return dados.get(linha).getPaciente();
 		}
 	
@@ -56,11 +53,7 @@ public class ConsultaTableModel extends AbstractTableModel {
 	
 	public void setValueAt(Object valor, int linha, int coluna) {
 		
-		switch (coluna) {
-		case 0:
-			 dados.get(linha).setId(Integer.parseInt((String)valor));
-			 break;
-			
+		switch (coluna) {	
 		case 1:
 			 dados.get(linha).setHora((String)valor);
 			 break;

@@ -55,7 +55,7 @@ public class AtualizarConsultaView extends JFrame{
 		});
 		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
 	
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
@@ -135,15 +135,6 @@ public class AtualizarConsultaView extends JFrame{
 		JButton button = new JButton("Deletar");
 		button.setBounds(447, 319, 89, 23);
 		getContentPane().add(button);
-		
-	}
-	public static void main(String[] args) {
-		Repositorio repo = null;
-		AtualizarConsultaView  update = new AtualizarConsultaView(repo);
-		
-		update.setVisible(true);
-		update.setSize(576, 427);
-		
 		
 	}
 }

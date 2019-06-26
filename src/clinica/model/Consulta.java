@@ -1,34 +1,16 @@
 package clinica.model;
 
-import java.util.List;
+import java.io.Serializable;
 
-import clinica.model.dados.Dados;
+public class Consulta implements Serializable{
 
-public class Consulta {
-
-	private Integer id;
+	private static final long serialVersionUID = 1L;
 	private String hora;
 	private String dia;
 	private Medico medico;
 	private Paciente paciente;
 	
-	
-	public Consulta () {
-	}
-	
-	public Consulta(String dia, String hora, Medico medico, Paciente paciente) {
-        this.hora = hora;
-        this.dia = dia;
-		this.medico = medico;
-		this.paciente = paciente;
-    }
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public Consulta() {
 	}
 
 	public String getHora() {
@@ -62,12 +44,9 @@ public class Consulta {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	
-	public boolean cadastrarConsulta(List<Object> consultas, String path) {
-		return Dados.cadastrar(consultas, path);
-	}
-	
-	public List<Object> recuperarConsultas(String path) {
-		return Dados.recuperar(path);
+
+	@Override
+	public String toString() {
+		return "Consulta [hora=" + hora + ", dia=" + dia + ", medico=" + medico + ", paciente=" + paciente + "]";
 	}
 }

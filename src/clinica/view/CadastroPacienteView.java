@@ -365,13 +365,13 @@ public class CadastroPacienteView extends JFrame {
 		//Registros de dados pessoais
 		pac.setNome(nome.getText());
 		pac.setTelefone(celular.getText());
-		if (etnia.getSelectedItem() == "Branco(a)") {
+		if (etnia.getSelectedItem().equals("Branco(a)")) {
 			pac.setEtnia(EtniaEnum.BRANCO); 
-		} else if (etnia.getSelectedItem() == "Pardo(a)") {
+		} else if (etnia.getSelectedItem().equals("Pardo(a)")) {
 			pac.setEtnia(EtniaEnum.PARDO); 
-		} else if (etnia.getSelectedItem() == "Negro(a)") {
+		} else if (etnia.getSelectedItem().equals("Negro(a)")) {
 			pac.setEtnia(EtniaEnum.NEGRO); 
-		} else if (etnia.getSelectedItem() == "Indigeno(a)") {
+		} else if (etnia.getSelectedItem().equals("Indigeno(a)")) {
 			pac.setEtnia(EtniaEnum.INDIGENA);
 		} else {
 			pac.setEtnia(EtniaEnum.AMARELO);

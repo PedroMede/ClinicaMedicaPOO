@@ -25,6 +25,7 @@ public class SecretariaView extends JFrame {
 	public SecretariaView(Repositorio repo) {
 		MarcarConsultaView consulta = new MarcarConsultaView(repo);
 		CadastroPacienteView cadPac = new CadastroPacienteView(repo);
+		AtualizarConsultaView attCon = new AtualizarConsultaView(repo);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 519, 397);
@@ -58,10 +59,24 @@ public class SecretariaView extends JFrame {
 		contentPane.add(marcar);
 		
 		JButton desmarcar = new JButton("Desmarcar");
+		desmarcar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				attCon.setVisible(true);
+				attCon.setSize(576, 427);
+			}
+		});
 		desmarcar.setBounds(197, 96, 116, 23);
 		contentPane.add(desmarcar);
 		
 		JButton remarcar = new JButton("Remarcar");
+		remarcar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				attCon.setVisible(true);
+				attCon.setSize(576, 427);
+			}
+		});
 		remarcar.setBounds(351, 96, 99, 23);
 		contentPane.add(remarcar);
 		

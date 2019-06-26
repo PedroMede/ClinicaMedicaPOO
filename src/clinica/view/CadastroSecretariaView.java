@@ -458,7 +458,7 @@ public class CadastroSecretariaView extends JFrame {
 		} else {
 			sec.setSexo(SexoEnum.FEMININO);
 		}
-		sec.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
+		sec.setDataNascimento(sdf.format(dataNascimento.getDate()));
 		sec.setEstadoCivil(estadoCivil.getText());
 		
 		//Registros de dados corporativos

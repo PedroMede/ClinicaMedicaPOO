@@ -43,15 +43,6 @@ public class Medico extends Funcionario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Medico [crm=" + crm + ", especialidade=" + especialidade + ", getCrm()=" + getCrm()
-				+ ", getEspecialidade()=" + getEspecialidade() + ", getCarteiraTrab()=" + getCarteiraTrab()
-				+ ", getDataAdmissao()=" + getDataAdmissao() + ", getLogin()=" + getLogin() + ", getSenha()="
-				+ getSenha() + ", getPerfilEnum()=" + getPerfilEnum() + ", getNome()=" + getNome() + ", getCpf()="
-				+ getCpf() + ", getRg()=" + getRg() + ", getTelefone()=" + getTelefone() + ", getAnoNascimento()="
-				+ getDataNascimento() + ", getEstadoCivil()=" + getEstadoCivil() + ", getSexo()=" + getSexo()
-				+ ", getEtnia()=" + getEtnia() + ", getLogradouro()=" + getLogradouro() + ", getNumero()=" + getNumero()
-				+ ", getCep()=" + getCep() + ", getBairro()=" + getBairro() + ", getCidade()=" + getCidade()
-				+ ", getEstado()=" + getEstado() + ", getComplemento()=" + getComplemento() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return getNome();
 	}
 }

@@ -1,36 +1,38 @@
 package clinica.view;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.awt.Color;
-import javax.swing.SwingConstants;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
 import com.toedter.calendar.JDateChooser;
 
+import clinica.controller.ConsultaController;
 import clinica.controller.GerenteController;
 import clinica.controller.SecretariaController;
 import clinica.model.Consulta;
 import clinica.model.Medico;
 import clinica.model.Paciente;
 import clinica.model.dados.Repositorio;
-
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class MarcarConsultaView extends JFrame {
 
@@ -47,6 +49,7 @@ public class MarcarConsultaView extends JFrame {
 	private List<Object> consultas = new ArrayList<Object>();
 	private GerenteController gerenteController = new GerenteController();
 	private SecretariaController secretariaController = new SecretariaController();
+	private ConsultaController consultaController = new ConsultaController();
 
 	/**
 	 * Create the frame.
@@ -57,14 +60,14 @@ public class MarcarConsultaView extends JFrame {
 			public void componentShown(ComponentEvent e) {
 				medicosList = gerenteController.recuperarFuncionario("./database/medicos.txt");
 				pacientesList = secretariaController.recuperarObjeto("./database/pacientes.txt");
-				consultasList = secretariaController.recuperarObjeto("./database/consultas.txt");
-				
-				if(medicosList != null) {
+				consultasList = consultaController.recuperarConsultas("./database/consultas.txt");
+
+				if(medicosList.size() > 0) {
 					for(Object medico : medicosList) {
 						medicos.addItem(((Medico) medico).getNome());
 					}
 				}
-				if(pacientesList != null) {
+				if(pacientesList.size() > 0) {
 					for(Object paciente : pacientesList) {
 						pacientes.addItem(((Paciente) paciente).getNome());
 					}
@@ -134,24 +137,39 @@ public class MarcarConsultaView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					setDados(repo);
-					JOptionPane.showMessageDialog(null, con.getId() + " marcada com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
-					//limparCampos();
+					JOptionPane.showMessageDialog(null,"Consulta marcada com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
+					limparCampos();
+				} catch (ParseException pe) {
+					JOptionPane.showMessageDialog(null, "Data inválida!", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
+				} catch (DateTimeException dte) {
+					JOptionPane.showMessageDialog(null, "Data inválida!", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
 				} catch (RuntimeException re) {
 					JOptionPane.showMessageDialog(null, "Horário indisponível", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "Erro ao marcar consulta, alguns dados são inválidos!", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
-				}
+				} 
 			}
 		});
 		button.setBounds(204, 273, 109, 23);
 		contentPane.add(button);
 	}
 	
-	private void setDados(Repositorio repo) {
+	private void limparCampos() {
+		
+	}
+	
+	private void setDados(Repositorio repo) throws ParseException {
 		String horaSub = hora.getText().substring(3, 5);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		/*List<String> atributos;
-		List<Object> consultas = new ArrayList<Object>();*/
+		List<String> atributos; 
+		con = new Consulta();
+
+		Date dataAtual = sdf.parse(sdf.format(new Date()));
+		Date data = sdf.parse(sdf.format(dia.getDate()));
+
+		if(data.before(dataAtual)) {
+			throw new DateTimeException(null);
+		}
 		
 		if(!(horaSub.equals("00") || horaSub.equals("30"))) {
 			throw new RuntimeException();
@@ -165,20 +183,37 @@ public class MarcarConsultaView extends JFrame {
 			}
 		}
 		
-		if(consultasList != null) {
-			for(Object consulta : consultasList) {
-				if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(dia.getDate()))) {
+		if(consultasList.size() > 0) {			
+			for(Object con : consultasList) {
+				if(((Consulta) con).getHora().equals(hora.getText()) && ((Consulta) con).getDia().equals(sdf.format(dia.getDate()))) {
 					throw new RuntimeException();
 				}
 			}
 		}
 		
+		con.setDia(sdf.format(dia.getDate()));
+		con.setHora(hora.getText());
+		
 		for(Object medico : medicosList) {
-			if(((Medico) medico).getNome() == medicos.getSelectedItem()) {
+			if(((Medico) medico).getNome().equals(medicos.getSelectedItem())) {
 				con.setMedico((Medico) medico);
 				break;
 			}
 		}
 		
+		for(Object paciente : pacientesList) {
+			if(((Paciente) paciente).getNome().equals(pacientes.getSelectedItem())) {
+				con.setPaciente((Paciente) paciente);
+				break;
+			}
+		}
+		
+		consultas.add(con);
+		
+		atributos = ConsultaController.gerarListaAtributosConsulta(con);
+		
+		if(ConsultaController.validarDados(atributos)) {
+			repo.setConsultas(consultas);
+		}
 	}
 }
