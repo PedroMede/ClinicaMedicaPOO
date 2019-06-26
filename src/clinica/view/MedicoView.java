@@ -98,7 +98,7 @@ public class MedicoView extends JFrame{
 				}else {
 					
 					try {
-						sorter.setRowFilter(RowFilter.regexFilter(texto, 2));
+						sorter.setRowFilter(RowFilter.regexFilter(texto, 3));
 						table.setModel(tabela);
 					}catch (PatternSyntaxException pse) {
 						JOptionPane.showMessageDialog(null, "ERRO");
