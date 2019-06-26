@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SecretariaView extends JFrame {
 
@@ -54,6 +56,11 @@ public class SecretariaView extends JFrame {
 		frame.getContentPane().add(separator_1);
 		
 		JButton btnMarcar = new JButton("Marcar");
+		btnMarcar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		btnMarcar.setBounds(61, 133, 89, 23);
 		frame.getContentPane().add(btnMarcar);
 		

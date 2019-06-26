@@ -12,8 +12,8 @@ public class GerenteController {
 	
 	private GerenteGeral gerente = new GerenteGeral();
 	
-	public boolean cadastrarFuncionario(List<Object> secretarias, String path, List<Object> login) {
-		if((gerente.cadastrarFuncionario(secretarias, path)) && (gerente.cadastrarFuncionario(login, "./database/login.txt"))) {
+	public boolean cadastrarFuncionario(List<Object> funcionarios, String path, List<Object> login) {
+		if((gerente.cadastrarFuncionario(funcionarios, path)) && (gerente.cadastrarFuncionario(login, "./database/login.txt"))) {
 			return true;
 		} else {
 			return false;

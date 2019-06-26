@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,8 +13,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import clinica.controller.ConsultaController;
+import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
+import clinica.model.dados.Repositorio;
+
 import javax.swing.JLabel;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AtualizarConsultaView extends JFrame{
 	
@@ -24,10 +31,29 @@ public class AtualizarConsultaView extends JFrame{
 	private JTextField txtHora;
 	private JTextField txtDia;
 	private JTextField txtId;
+	private List<Object> consultas;
+	private ConsultaController consultaController = new ConsultaController();
 	
 	
-	public AtualizarConsultaView() {
-		super();
+	public AtualizarConsultaView(Repositorio repo) {
+		super("Remarcar/Desmarcar Consulta");
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				consultas = consultaController.recuperarConsultas("./database/consultas.txt");
+				
+				if(consultas != null) {
+					for(Object consulta : consultas) {
+						tabela.addRow((Consulta) consulta);
+					}
+				}
+				if(repo.getConsultas() != null) {
+					for(Object consulta : repo.getConsultas()) {
+						tabela.addRow((Consulta) consulta);
+					}
+				}
+			}
+		});
 		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
 	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -118,7 +144,8 @@ public class AtualizarConsultaView extends JFrame{
 		
 	}
 	public static void main(String[] args) {
-		AtualizarConsultaView  update = new AtualizarConsultaView();
+		Repositorio repo = null;
+		AtualizarConsultaView  update = new AtualizarConsultaView(repo);
 		
 		update.setVisible(true);
 		update.setSize(576, 427);

@@ -1,5 +1,9 @@
 package clinica.model;
 
+import java.util.List;
+
+import clinica.model.dados.Dados;
+
 public class Consulta {
 
 	private Integer id;
@@ -9,7 +13,9 @@ public class Consulta {
 	private Paciente paciente;
 	
 	
-	public Consulta () {};
+	public Consulta () {
+	}
+	
 	public Consulta(String dia, String hora, Medico medico, Paciente paciente) {
         this.hora = hora;
         this.dia = dia;
@@ -57,5 +63,11 @@ public class Consulta {
 		this.paciente = paciente;
 	}
 	
+	public boolean cadastrarConsulta(List<Object> consultas, String path) {
+		return Dados.cadastrar(consultas, path);
+	}
 	
+	public List<Object> recuperarConsultas(String path) {
+		return Dados.recuperar(path);
+	}
 }

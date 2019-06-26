@@ -38,6 +38,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 
 public class CadastroSecretariaView extends JFrame {
 
@@ -108,7 +109,6 @@ public class CadastroSecretariaView extends JFrame {
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
-				JOptionPane.showMessageDialog(null, "Manhã: 08:00 - 12:00\n" + "Tarde: 12:00 - 16:00\n" + "Noite: 16:00 - 18:00", "Turnos", JOptionPane.DEFAULT_OPTION);
 				secretarias = gerenteController.recuperarFuncionario("./database/secretarias.txt");
 				
 				verificaHorarios(secretarias, repo);
@@ -390,6 +390,14 @@ public class CadastroSecretariaView extends JFrame {
 		
 		button.setBounds(318, 527, 109, 23);
 		contentPane.add(button);
+		
+		JTextArea turnos = new JTextArea();
+		turnos.setTabSize(6);
+		turnos.setEditable(false);
+		turnos.setLineWrap(true);
+		turnos.setText("Manha: 07:00 - 12:00\nTarde: 12:00 - 17:00\nNoite: 17:00 - 22:00");
+		turnos.setBounds(457, 436, 166, 58);
+		contentPane.add(turnos);
 	}
 	
 	private void limparCampos() {
@@ -511,24 +519,19 @@ public class CadastroSecretariaView extends JFrame {
 		}
 		
 		if(manha == 0 && tarde == 0 && noite > 0) {
-			rdbtnNoite.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Turnos recomendados:\nManhã\nTarde", "Turnos recomendados", JOptionPane.INFORMATION_MESSAGE);
 		} else if(manha == 0 && tarde > 0 && noite == 0) {
-			rdbtnTarde.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Turnos recomendados:\nManhã\nNoite", "Turnos recomendados", JOptionPane.INFORMATION_MESSAGE);
 		} else if(manha > 0 && tarde == 0 && noite == 0) {
-			rdbtnManh.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Turnos recomendados:\nTarde\nNoite", "Turnos recomendados", JOptionPane.INFORMATION_MESSAGE);
 		} else if(manha == 0 && tarde > 0 && noite > 0) {
-			rdbtnNoite.setEnabled(false);
-			rdbtnTarde.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Turno recomendado:\nManhã", "Turno recomendado", JOptionPane.INFORMATION_MESSAGE);
 		} else if(manha > 0 && tarde == 0 && noite > 0) {
-			rdbtnManh.setEnabled(false);
-			rdbtnNoite.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Turno recomendado:\nTarde", "Turno recomendado", JOptionPane.INFORMATION_MESSAGE);
 		} else if(manha > 0 && tarde > 0 && noite == 0) {
-			rdbtnManh.setEnabled(false);
-			rdbtnTarde.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Turno recomendado:\nNoite", "Turno recomendado", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			rdbtnManh.setEnabled(true);
-			rdbtnTarde.setEnabled(true);
-			rdbtnNoite.setEnabled(true);
+			JOptionPane.showMessageDialog(null, "Turno recomendados:\nTodos", "Turnos recomendados", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

@@ -55,6 +55,7 @@ public class LoginView extends JFrame {
 			}
 		});
 		GerenteView gerente = new GerenteView(repo);
+		SecretariaView secretaria = new SecretariaView();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 423);
@@ -105,7 +106,7 @@ public class LoginView extends JFrame {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				gerente.setVisible(true);
+				SecretariaView.main(null);
 			}
 		});
 		button.setBounds(281, 296, 89, 23);
