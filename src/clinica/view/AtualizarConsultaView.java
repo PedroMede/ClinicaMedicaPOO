@@ -90,16 +90,22 @@ public class AtualizarConsultaView extends JFrame{
 				
 				// diferente de menos -1, tem algo selecionado
 				if(table.getSelectedRow()!= -1) {
-					tabela.setValueAt(txtHora.getText(), table.getSelectedRow(), 0);
-					tabela.setValueAt(txtPaciente.getText(), table.getSelectedRow(), 1);
-					tabela.setValueAt(txtMedico.getText(), table.getSelectedRow(), 2);
+					tabela.setValueAt(txtId.getText(), table.getSelectedRow(), 0);
+					tabela.setValueAt(txtHora.getText(), table.getSelectedRow(), 1);
+					tabela.setValueAt(txtDia.getText(), table.getSelectedRow(), 2);
+					tabela.setValueAt(txtMedico.getText(), table.getSelectedRow(), 3);
+					tabela.setValueAt(txtPaciente.getText(), table.getSelectedRow(), 4);
+					
+				
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada.");
 				
 				}
 				
+				txtId.setText(null);
 				txtHora.setText(null);
+				txtDia.setText(null);
 				txtPaciente.setText(null);
 				txtMedico.setText(null);
 			}
