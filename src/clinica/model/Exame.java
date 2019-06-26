@@ -12,7 +12,6 @@ public class Exame {
 	private String obsGeral;
 	private String tempDuracao;
 	private String tempResultado;	
-	private String tipoExame;
 	private ExameEnum classificacao;
 
 	public Exame() {
@@ -56,14 +55,6 @@ public class Exame {
 
 	public void setTempResultado(String tempResultado) {
 		this.tempResultado = tempResultado;
-	}
-
-	public String getTipoExame() {
-		return tipoExame;
-	}
-
-	public void setTipoExame(String tipoExame) {
-		this.tipoExame = tipoExame;
 	}
 
 	public ExameEnum getClassificacao() {

@@ -51,12 +51,10 @@ public class SecretariaController {
 	public static List<String> gerarListaAtributosExame(Object obj) {
 		List<String> atributos = new ArrayList<String>();
 		
-		atributos.add(((Exame) obj).getCodigo().toString());
 		atributos.add(((Exame) obj).getNome());
 		atributos.add(((Exame) obj).getObsGeral());
 		atributos.add(((Exame) obj).getTempDuracao());
 		atributos.add(((Exame) obj).getTempResultado());
-		atributos.add(((Exame) obj).getTipoExame());
 		atributos.add(((Exame) obj).getClassificacao().toString());
 	
 		return atributos;

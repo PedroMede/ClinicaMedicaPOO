@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import clinica.controller.ConsultaController;
+import clinica.controller.ExameController;
 import clinica.controller.GerenteController;
 import clinica.controller.LoginController;
 import clinica.controller.SecretariaController;
@@ -36,8 +37,9 @@ public class LoginView extends JFrame {
 	private GerenteController gerenteController = new GerenteController();
 	private SecretariaController secretariaController = new SecretariaController();
 	private ConsultaController consultaController = new ConsultaController();
-	private List<Object> login;
 	private LoginController loginController = new LoginController();
+	private ExameController exameController = new ExameController();
+	private List<Object> login;
 
 	/**
 	 * Create the frame.
@@ -51,8 +53,11 @@ public class LoginView extends JFrame {
 					Dados.apagarArquivo("./database/consultas.txt");
 					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt");
 				}
-				if(repo.getExames() != null) {
-					//gravar nos exames
+				if(repo.getExamesCadastrados() != null) {
+					exameController.cadastrarExame(repo.getExamesCadastrados(), "./database/examesCadastrados.txt");
+				}
+				if(repo.getExamesMarcados() != null) {
+					secretariaController.cadastrarObjeto(repo.getExamesMarcados(), "./database/examesMarcados.txt");
 				}
 				if(repo.getMedicos() != null) {
 					gerenteController.cadastrarFuncionario(repo.getMedicos(), "./database/medicos.txt", repo.getLogin());

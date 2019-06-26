@@ -6,7 +6,8 @@ public class Repositorio {
 	private List<Object> secretarias;
 	private List<Object> medicos;
 	private List<Object> pacientes;
-	private List<Object> exames;
+	private List<Object> examesCadastrados;
+	private List<Object> examesMarcados;
 	private List<Object> consultas;
 	private List<Object> anamneses;
 	private List<Object> login;
@@ -35,14 +36,22 @@ public class Repositorio {
 		this.pacientes = pacientes;
 	}
 	
-	public List<Object> getExames() {
-		return exames;
+	public List<Object> getExamesCadastrados() {
+		return examesCadastrados;
 	}
-	
-	public void setExames(List<Object> exames) {
-		this.exames = exames;
+
+	public void setExamesCadastrados(List<Object> examesCadastrados) {
+		this.examesCadastrados = examesCadastrados;
 	}
-	
+
+	public List<Object> getExamesMarcados() {
+		return examesMarcados;
+	}
+
+	public void setExamesMarcados(List<Object> examesMarcados) {
+		this.examesMarcados = examesMarcados;
+	}
+
 	public List<Object> getConsultas() {
 		return consultas;
 	}

@@ -26,6 +26,7 @@ public class SecretariaView extends JFrame {
 		MarcarConsultaView consulta = new MarcarConsultaView(repo);
 		CadastroPacienteView cadPac = new CadastroPacienteView(repo);
 		AtualizarConsultaView attCon = new AtualizarConsultaView(repo);
+		CadastrarExameView cadExa = new CadastrarExameView(repo);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 519, 397);
@@ -84,7 +85,7 @@ public class SecretariaView extends JFrame {
 		contentPane.add(separator_3);
 		
 		JButton baseExames = new JButton("Base de Exames");
-		baseExames.setBounds(182, 198, 144, 23);
+		baseExames.setBounds(298, 204, 144, 23);
 		contentPane.add(baseExames);
 		
 		JSeparator separator_4 = new JSeparator();
@@ -110,5 +111,15 @@ public class SecretariaView extends JFrame {
 		});
 		cadastrarPac.setBounds(182, 299, 144, 23);
 		contentPane.add(cadastrarPac);
+		
+		JButton btnCadatrarExame = new JButton("Cadastrar Exame");
+		btnCadatrarExame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cadExa.setVisible(true);
+			}
+		});
+		btnCadatrarExame.setBounds(62, 204, 144, 23);
+		contentPane.add(btnCadatrarExame);
 	}
 }
