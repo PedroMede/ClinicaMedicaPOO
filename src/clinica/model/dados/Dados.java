@@ -75,4 +75,15 @@ public class Dados extends ObjectOutputStream {
 		
 		return objects;
 	}
+	
+	public static void apagarArquivo(String path) {
+		File arq = new File(path);
+		
+		if(arq.exists()) {
+			boolean sucesso = arq.delete();
+			
+			if(sucesso)
+				System.out.println("Apagado com sucesso!");
+		}
+	}
 }

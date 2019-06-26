@@ -48,37 +48,26 @@ public class SecretariaView extends JFrame {
 		separator_1.setBounds(300, 71, 174, 2);
 		contentPane.add(separator_1);
 		
-		JButton marcar = new JButton("Marcar");
+		JButton marcar = new JButton("Marcar Consulta");
 		marcar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				consulta.setVisible(true);
 			}
 		});
-		marcar.setBounds(62, 96, 89, 23);
+		marcar.setBounds(62, 96, 142, 23);
 		contentPane.add(marcar);
 		
-		JButton desmarcar = new JButton("Desmarcar");
-		desmarcar.addMouseListener(new MouseAdapter() {
+		JButton atualizar = new JButton("Atualizar Consulta");
+		atualizar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				attCon.setVisible(true);
 				attCon.setSize(576, 427);
 			}
 		});
-		desmarcar.setBounds(197, 96, 116, 23);
-		contentPane.add(desmarcar);
-		
-		JButton remarcar = new JButton("Remarcar");
-		remarcar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				attCon.setVisible(true);
-				attCon.setSize(576, 427);
-			}
-		});
-		remarcar.setBounds(351, 96, 99, 23);
-		contentPane.add(remarcar);
+		atualizar.setBounds(300, 96, 142, 23);
+		contentPane.add(atualizar);
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(30, 164, 186, 2);

@@ -57,7 +57,6 @@ public class ConsultaTableModel extends AbstractTableModel {
 		case 1:
 			 dados.get(linha).setHora((String)valor);
 			 break;
-			
 		case 2:
 			 dados.get(linha).setDia((String)valor);
 			 break;

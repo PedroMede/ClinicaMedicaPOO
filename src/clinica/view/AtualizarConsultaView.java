@@ -2,36 +2,44 @@ package clinica.view;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
+import com.toedter.calendar.JDateChooser;
 
 import clinica.controller.ConsultaController;
 import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
 import clinica.model.dados.Repositorio;
-
-import javax.swing.JLabel;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import javax.swing.JFormattedTextField;
 
 public class AtualizarConsultaView extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private ConsultaTableModel tabela = new ConsultaTableModel();
-	private JTextField txtPaciente;
-	private JTextField txtMedico;
-	private JTextField txtHora;
-	private JTextField txtDia;
-	private List<Object> consultas;
+	private JTable table;
+	private JDateChooser data;
+	private JFormattedTextField hora;
 	private ConsultaController consultaController = new ConsultaController();
+	private List<Object> consultas;
+	private List<Object> consultasList = new ArrayList<Object>();
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	
 	public AtualizarConsultaView(Repositorio repo) {
@@ -40,26 +48,42 @@ public class AtualizarConsultaView extends JFrame{
 			@Override
 			public void componentShown(ComponentEvent e) {
 				consultas = consultaController.recuperarConsultas("./database/consultas.txt");
-				
+			
 				if(consultas != null) {
-					for(Object consulta : consultas) {
-						tabela.addRow((Consulta) consulta);
+					if(repo.getConsultas() == null) {
+						repo.setConsultas(consultas);
+					} else {
+						if(repo.getConsultas().equals(consultas)) {
+							repo.setConsultas(consultas);
+						} else {
+							repo.getConsultas().addAll(consultas);
+						}
 					}
 				}
+				for(Object consulta : repo.getConsultas()) {
+					tabela.addRow((Consulta) consulta);
+				}
+				
+				JOptionPane.showMessageDialog(null, "Hora e Data são obrigatórias!", "Atualizar Consulta", JOptionPane.INFORMATION_MESSAGE);
+			}
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				int linha;
 				if(repo.getConsultas() != null) {
-					for(Object consulta : repo.getConsultas()) {
-						tabela.addRow((Consulta) consulta);
+					for(linha = repo.getConsultas().size() - 1; linha >= 0 ; linha--) {
+						tabela.removeRow(linha);
 					}
+					consultas.clear();
 				}
 			}
 		});
 		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
 	
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
-		JTable table = new JTable();
+		table = new JTable();
 		table.setPreferredScrollableViewportSize(new Dimension(100,80));
 		table.setModel(tabela);
 
@@ -68,73 +92,128 @@ public class AtualizarConsultaView extends JFrame{
 		pane.setBounds(25, 90, 511, 218);
 		getContentPane().add(pane);
 		
-		txtPaciente = new JTextField();
-		txtPaciente.setBounds(447, 46, 89, 20);
-		getContentPane().add(txtPaciente);
-		txtPaciente.setColumns(10);
-		
-		txtMedico = new JTextField();
-		txtMedico.setBounds(306, 46, 96, 20);
-		getContentPane().add(txtMedico);
-		txtMedico.setColumns(10);
-		
-		txtHora = new JTextField();
-		txtHora.setBounds(25, 46, 87, 20);
-		getContentPane().add(txtHora);
-		txtHora.setColumns(10);
+		JLabel lblHorrio = new JLabel("Hor\u00E1rio");
+		lblHorrio.setBounds(163, 30, 48, 14);
+		getContentPane().add(lblHorrio);
 		
 		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				// diferente de menos -1, tem algo selecionado
+		btnAlterar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if(table.getSelectedRow() != -1) {
-					tabela.setValueAt(txtHora.getText(), table.getSelectedRow(), 1);
-					tabela.setValueAt(txtDia.getText(), table.getSelectedRow(), 2);
-					tabela.setValueAt(txtMedico.getText(), table.getSelectedRow(), 3);
-					tabela.setValueAt(txtPaciente.getText(), table.getSelectedRow(), 4);
-					
-					
-				}
-				else {
+					try {
+						atualizar(repo);
+					} catch (DateTimeException dte) {
+						JOptionPane.showMessageDialog(null, "Data inválida!", "Erro ao atualizar!", JOptionPane.ERROR_MESSAGE);
+					} catch (ParseException e1) {
+						JOptionPane.showMessageDialog(null, "Data inválida!", "Erro ao atualizar!", JOptionPane.ERROR_MESSAGE);
+					} catch (RuntimeException re) {
+						JOptionPane.showMessageDialog(null, re.getMessage(), "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
 					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada.");
-				
 				}
 				
-				txtHora.setText(null);
-				txtDia.setText(null);
-				txtPaciente.setText(null);
-				txtMedico.setText(null);
+				hora.setText("");
+				data.setDate(null);
 			}
 		});
 		
-		btnAlterar.setBounds(25, 319, 89, 23);
-		getContentPane().add(btnAlterar);
+		try {
+			hora = new JFormattedTextField(new MaskFormatter("##:##"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		hora.setBounds(163, 45, 74, 20);
+		getContentPane().add(hora);
 
-		txtDia = new JTextField();
-		txtDia.setBounds(161, 46, 96, 20);
-		getContentPane().add(txtDia);
-		txtDia.setColumns(10);
-		
-		JLabel lblHorrio = new JLabel("Hor\u00E1rio");
-		lblHorrio.setBounds(25, 31, 48, 14);
-		getContentPane().add(lblHorrio);
 		
 		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(161, 31, 48, 14);
+		lblData.setBounds(299, 30, 48, 14);
 		getContentPane().add(lblData);
 		
-		JLabel lblMedico = new JLabel("Medico");
-		lblMedico.setBounds(306, 31, 48, 14);
-		getContentPane().add(lblMedico);
+		data = new JDateChooser();
+		data.setBounds(299, 45, 104, 20);
+		getContentPane().add(data);
 		
-		JLabel lblPaciente = new JLabel("Paciente");
-		lblPaciente.setBounds(447, 31, 64, 14);
-		getContentPane().add(lblPaciente);
+		btnAlterar.setBounds(25, 319, 89, 23);
+		getContentPane().add(btnAlterar);
 		
 		JButton button = new JButton("Deletar");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(table.getSelectedRow() != -1) {
+					desmarcar(repo);
+				}  else {
+					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada.");
+				}
+			}
+		});
 		button.setBounds(447, 319, 89, 23);
 		getContentPane().add(button);
+	}
+	
+	private void desmarcar(Repositorio repo) {
+		int i;
+		for(i = 0; i < repo.getConsultas().size(); i++) {
+			Object consulta = repo.getConsultas().get(i);
+			if(((Consulta) consulta).getHora().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
+				repo.getConsultas().remove(i);
+				tabela.removeRow(i);
+			}
+		}
 		
+		System.out.println("teste");
+	}
+	
+	private void atualizar(Repositorio repo) throws ParseException {
+		String horaSub = hora.getText().substring(3, 5);
+		Date dataAtual = sdf.parse(sdf.format(new Date()));
+		Date dataRemarcada = sdf.parse(sdf.format(data.getDate()));
+
+		if(dataRemarcada.before(dataAtual)) {
+			throw new DateTimeException(null);
+		}
+		
+		if(!(horaSub.equals("00") || horaSub.equals("30"))) {
+			throw new DateTimeException("Horario indisponível");
+		}
+		
+		if(repo.getConsultas() != null) {
+			if(marcada(repo.getConsultas())) {
+				throw new DateTimeException("Horario indisponível");
+			}
+			
+			int i;
+			for(i = 0; i < repo.getConsultas().size(); i++) {
+				Object consulta = repo.getConsultas().get(i);
+				if(((Consulta) consulta).getHora().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
+					((Consulta) consulta).setHora(hora.getText());
+					tabela.setValueAt(((Consulta) consulta).getHora(), table.getSelectedRow(), 0);
+				}
+				if(((Consulta) consulta).getDia().equals(tabela.getValueAt(table.getSelectedRow(), 1))) {
+					((Consulta) consulta).setDia(sdf.format(data.getDate()));
+					tabela.setValueAt(((Consulta) consulta).getDia(), table.getSelectedRow(), 0);
+				}
+				
+				consultasList.add(consulta);
+				repo.getConsultas().remove(i);
+				repo.getConsultas().add(i, consulta);
+			}
+		}
+		
+		System.out.println(repo.getConsultas());
+		
+	}
+	
+	private boolean marcada(List<Object> consultas) {
+		for(Object consulta : consultas) {
+			if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(data.getDate()))) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

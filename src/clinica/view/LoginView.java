@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import clinica.controller.ConsultaController;
 import clinica.controller.GerenteController;
 import clinica.controller.SecretariaController;
+import clinica.model.dados.Dados;
 import clinica.model.dados.Repositorio;
 
 import javax.swing.JLabel;
@@ -41,6 +42,7 @@ public class LoginView extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				JOptionPane.showMessageDialog(null, "Salvando dados...", "Salvando", JOptionPane.DEFAULT_OPTION);
 				if(repo.getConsultas() != null) {
+					Dados.apagarArquivo("./database/consultas.txt");
 					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt");
 				}
 				if(repo.getExames() != null) {
