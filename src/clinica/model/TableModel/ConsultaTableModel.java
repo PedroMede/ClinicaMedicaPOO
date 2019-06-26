@@ -23,7 +23,6 @@ public class ConsultaTableModel extends AbstractTableModel {
 	}
 	
 	public int getRowCount() {
-		// TODO Auto-generated method stub
 		return dados.size();
 	}
 
@@ -35,22 +34,21 @@ public class ConsultaTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int linha, int coluna) {
 		switch (coluna) {
-		
-		case 0:
-			return dados.get(linha).getId();
-			
-		case 1:
-			return dados.get(linha).getHora();
-			
-		case 2:
-			return dados.get(linha).getDia();
-			
-		case 3:
-			return dados.get(linha).getMedico();
-			
-		case 4:
-			return dados.get(linha).getPaciente();
-	}
+			case 0:
+				return dados.get(linha).getId();
+				
+			case 1:
+				return dados.get(linha).getHora();
+				
+			case 2:
+				return dados.get(linha).getDia();
+				
+			case 3:
+				return dados.get(linha).getMedico();
+				
+			case 4:
+				return dados.get(linha).getPaciente();
+		}
 	
 	return null;
 		

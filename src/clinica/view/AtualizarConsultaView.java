@@ -30,7 +30,6 @@ public class AtualizarConsultaView extends JFrame{
 	private JTextField txtMedico;
 	private JTextField txtHora;
 	private JTextField txtDia;
-	private JTextField txtId;
 	private List<Object> consultas;
 	private ConsultaController consultaController = new ConsultaController();
 	
@@ -75,12 +74,12 @@ public class AtualizarConsultaView extends JFrame{
 		txtPaciente.setColumns(10);
 		
 		txtMedico = new JTextField();
-		txtMedico.setBounds(341, 46, 96, 20);
+		txtMedico.setBounds(306, 46, 96, 20);
 		getContentPane().add(txtMedico);
 		txtMedico.setColumns(10);
 		
 		txtHora = new JTextField();
-		txtHora.setBounds(131, 46, 87, 20);
+		txtHora.setBounds(25, 46, 87, 20);
 		getContentPane().add(txtHora);
 		txtHora.setColumns(10);
 		
@@ -89,8 +88,7 @@ public class AtualizarConsultaView extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				// diferente de menos -1, tem algo selecionado
-				if(table.getSelectedRow()!= -1) {
-					tabela.setValueAt(txtId.getText(), table.getSelectedRow(), 0);
+				if(table.getSelectedRow() != -1) {
 					tabela.setValueAt(txtHora.getText(), table.getSelectedRow(), 1);
 					tabela.setValueAt(txtDia.getText(), table.getSelectedRow(), 2);
 					tabela.setValueAt(txtMedico.getText(), table.getSelectedRow(), 3);
@@ -103,7 +101,6 @@ public class AtualizarConsultaView extends JFrame{
 				
 				}
 				
-				txtId.setText(null);
 				txtHora.setText(null);
 				txtDia.setText(null);
 				txtPaciente.setText(null);
@@ -115,29 +112,20 @@ public class AtualizarConsultaView extends JFrame{
 		getContentPane().add(btnAlterar);
 		
 		txtDia = new JTextField();
-		txtDia.setBounds(228, 46, 96, 20);
+		txtDia.setBounds(161, 46, 96, 20);
 		getContentPane().add(txtDia);
 		txtDia.setColumns(10);
 		
-		txtId = new JTextField();
-		txtId.setBounds(25, 46, 96, 20);
-		getContentPane().add(txtId);
-		txtId.setColumns(10);
-		
-		JLabel lblId = new JLabel("ID");
-		lblId.setBounds(25, 31, 48, 14);
-		getContentPane().add(lblId);
-		
 		JLabel lblHorrio = new JLabel("Hor\u00E1rio");
-		lblHorrio.setBounds(131, 31, 48, 14);
+		lblHorrio.setBounds(25, 31, 48, 14);
 		getContentPane().add(lblHorrio);
 		
 		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(228, 31, 48, 14);
+		lblData.setBounds(161, 31, 48, 14);
 		getContentPane().add(lblData);
 		
 		JLabel lblMedico = new JLabel("Medico");
-		lblMedico.setBounds(341, 31, 48, 14);
+		lblMedico.setBounds(306, 31, 48, 14);
 		getContentPane().add(lblMedico);
 		
 		JLabel lblPaciente = new JLabel("Paciente");

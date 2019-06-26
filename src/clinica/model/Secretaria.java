@@ -32,21 +32,17 @@ public class Secretaria extends Funcionario implements Serializable {
 		this.horarioTrab = horarioTrab;
 	}
 
-	public boolean marcarConsulta(List<Object> obj, String path) {
+	public boolean cadastrarObjeto(List<Object> obj, String path) {
 		return Dados.cadastrar(obj, path);
+	}
+	
+	public List<Object> recuperarObjeto(String path) {
+		return Dados.recuperar(path);
 	}
 
 	public int descarmarConsulta() {
 		//Abrir o arquivo de consultas e deletar a consulta 
 		return 1;
-	}
-	
-	public boolean cadastrarPaciente(List<Object> obj, String path) {
-		return Dados.cadastrar(obj, path);
-	}
-	
-	public boolean cadastrarExame(List<Object> obj, String path) {
-		return Dados.cadastrar(obj, path);
 	}
 
 	@Override

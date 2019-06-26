@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import clinica.controller.GerenteController;
+import clinica.controller.SecretariaController;
 import clinica.model.dados.Repositorio;
 
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ public class LoginView extends JFrame {
 	private JTextField usuario;
 	private JPasswordField senha;
 	private GerenteController gerenteController = new GerenteController();
+	private SecretariaController secretariaController = new SecretariaController();
 
 	/**
 	 * Create the frame.
@@ -35,7 +37,7 @@ public class LoginView extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(null, "Salvando dados...", "Especialidade", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, "Salvando dados...", "Salvando", JOptionPane.DEFAULT_OPTION);
 				if(repo.getConsultas() != null) {
 					//gravar nas consultar;
 				}
@@ -46,16 +48,19 @@ public class LoginView extends JFrame {
 					gerenteController.cadastrarFuncionario(repo.getMedicos(), "./database/medicos.txt", repo.getLogin());
 				}
 				if(repo.getPacientes() != null) {
-					//gravar nos pacientes
+					secretariaController.cadastrarObjeto(repo.getPacientes(), "./database/pacientes.txt");
 				}
 				if(repo.getSecretarias() != null) {
 					gerenteController.cadastrarFuncionario(repo.getSecretarias(),"./database/secretarias.txt", repo.getLogin());
 				}
+				if(repo.getAnamneses() != null) {
+					//gravar nas anamneses
+				}
 				
 			}
 		});
-		GerenteView gerente = new GerenteView(repo);
-		SecretariaView secretaria = new SecretariaView();
+		//GerenteView gerente = new GerenteView(repo);
+		SecretariaView secretaria = new SecretariaView(repo);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 423);
@@ -106,7 +111,7 @@ public class LoginView extends JFrame {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SecretariaView.main(null);
+				secretaria.setVisible(true);
 			}
 		});
 		button.setBounds(281, 296, 89, 23);
