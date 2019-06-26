@@ -62,6 +62,7 @@ public class AnamneseView extends JFrame {
 		frame.getContentPane().add(lblSintomas);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setLineWrap(true);
 		textArea.setBounds(114, 146, 322, 117);
 		frame.getContentPane().add(textArea);
 		
@@ -71,10 +72,12 @@ public class AnamneseView extends JFrame {
 		frame.getContentPane().add(lblPrescrio);
 		
 		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setLineWrap(true);
 		textArea_1.setBounds(114, 274, 322, 117);
 		frame.getContentPane().add(textArea_1);
 		
 		JTextArea textArea_2 = new JTextArea();
+		textArea_2.setLineWrap(true);
 		textArea_2.setBounds(114, 402, 322, 117);
 		frame.getContentPane().add(textArea_2);
 		

@@ -6,9 +6,12 @@ import javax.swing.border.EmptyBorder;
 
 import clinica.controller.ConsultaController;
 import clinica.controller.GerenteController;
+import clinica.controller.LoginController;
 import clinica.controller.SecretariaController;
 import clinica.model.dados.Dados;
 import clinica.model.dados.Repositorio;
+import clinica.model.enums.PerfilEnum;
+import clinica.model.login.Login;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 public class LoginView extends JFrame {
 
@@ -32,11 +36,13 @@ public class LoginView extends JFrame {
 	private GerenteController gerenteController = new GerenteController();
 	private SecretariaController secretariaController = new SecretariaController();
 	private ConsultaController consultaController = new ConsultaController();
+	private List<Object> login;
+	private LoginController loginController = new LoginController();
 
 	/**
 	 * Create the frame.
 	 */
-	public LoginView(Repositorio repo) {
+	public LoginView(Repositorio repo, Login loginGerente) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -62,8 +68,14 @@ public class LoginView extends JFrame {
 				}
 				
 			}
+			@Override
+			public void windowOpened(WindowEvent e) {
+				login = loginController.recuperarLogin("./database/login.txt");
+				login.add(loginGerente);
+				System.out.println(login);
+			}
 		});
-		//GerenteView gerente = new GerenteView(repo);
+		GerenteView gerente = new GerenteView(repo);
 		SecretariaView secretaria = new SecretariaView(repo);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,9 +125,38 @@ public class LoginView extends JFrame {
 		
 		JButton button = new JButton("Logar");
 		button.addMouseListener(new MouseAdapter() {
+			int count = 0;
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				secretaria.setVisible(true);
+				for(Object log : login) {
+					if(((Login) log).getUsuario().equals(usuario.getText()) && ((Login) log).getSenha().equals(new String(senha.getPassword()))) {
+						if(((Login) log).getPerfil().equals(PerfilEnum.ROLE_MEDICO.toString())) {
+							count++;
+							usuario.setText("");
+							senha.setText("");
+							MedicoView medico = new MedicoView(repo, log);
+							medico.setVisible(true);
+							medico.setSize(600, 460);
+							break;
+						} else if(((Login) log).getPerfil().equals(PerfilEnum.ROLE_SECRETARIA.toString())) {
+							count++;
+							usuario.setText("");
+							senha.setText("");
+							secretaria.setVisible(true);
+							break;
+						} else {
+							count++;
+							usuario.setText("");
+							senha.setText("");
+							gerente.setVisible(true);
+							break;
+						}
+					}
+				}
+				if(count == 0) {
+					JOptionPane.showMessageDialog(null, "Usuario e/ou senha incorretos!", "Login incorreto", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		button.setBounds(281, 296, 89, 23);

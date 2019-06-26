@@ -8,6 +8,16 @@ public class Login implements Serializable {
 	private String usuario;
 	private String senha;
 	private String perfil;
+	
+	public Login() {
+	}
+	
+	public Login(String usuario, String senha, String perfil) {
+		super();
+		this.usuario = usuario;
+		this.senha = senha;
+		this.perfil = perfil;
+	}
 
 	public String getUsuario() {
 		return usuario;

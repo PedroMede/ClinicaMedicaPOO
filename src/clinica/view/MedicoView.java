@@ -1,14 +1,18 @@
 package clinica.view;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,11 +25,7 @@ import clinica.controller.ConsultaController;
 import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
 import clinica.model.dados.Repositorio;
-
-import javax.swing.JLabel;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.Font;
+import clinica.model.login.Login;
 
 public class MedicoView extends JFrame{
 	
@@ -36,7 +36,7 @@ public class MedicoView extends JFrame{
 	private JTextField txtFiltro;
 	
 	
-	public MedicoView(Repositorio repo) {
+	public MedicoView(Repositorio repo, Object login) {
 		super("Remarcar/Desmarcar Consulta");
 		addComponentListener(new ComponentAdapter() {
 			@Override
@@ -44,20 +44,31 @@ public class MedicoView extends JFrame{
 				consultas = consultaController.recuperarConsultas("./database/consultas.txt");
 				
 				if(consultas != null) {
-					for(Object consulta : consultas) {
+					if(repo.getConsultas() == null) {
+						repo.setConsultas(consultas);
+					} else {
+						if(repo.getConsultas().equals(consultas)) {
+							repo.setConsultas(consultas);
+						} else {
+							repo.getConsultas().addAll(consultas);
+						}
+					}
+				}
+				
+				for(Object consulta : repo.getConsultas()) {
+					if(((Login) login).getUsuario().equals(((Consulta) consulta).getMedico().getLogin())) {
 						tabela.addRow((Consulta) consulta);
 					}
 				}
-				if(repo.getConsultas() != null) {
-					for(Object consulta : repo.getConsultas()) {
-						tabela.addRow((Consulta) consulta);
-					}
+				
+				if(tabela.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(null, "Nenhuma consulta agendada!", "Consultas", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
 	
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
@@ -92,17 +103,15 @@ public class MedicoView extends JFrame{
 				
 				String texto = txtFiltro.getText();
 				
-				if (texto.length()==0) {
+				if (texto.length() == 0) {
 					sorter.setRowFilter(null);
 					
-				}else {
-					
+				} else {
 					try {
 						sorter.setRowFilter(RowFilter.regexFilter(texto, 3));
 						table.setModel(tabela);
 					}catch (PatternSyntaxException pse) {
 						JOptionPane.showMessageDialog(null, "ERRO");
-						// TODO: handle exception
 					}
 				}
 			}
@@ -111,14 +120,9 @@ public class MedicoView extends JFrame{
 		btnBuscar.setBounds(286, 75, 89, 23);
 		getContentPane().add(btnBuscar);
 		
-	}
-	public static void main(String[] args) {
-		Repositorio repo = null;
-		MedicoView  update = new MedicoView(repo);
-		
-		update.setVisible(true);
-		update.setSize(576, 427);
-		
+		JButton btnIniciarConsulta = new JButton("Iniciar Consulta");
+		btnIniciarConsulta.setBounds(370, 377, 142, 23);
+		getContentPane().add(btnIniciarConsulta);
 		
 	}
 }
