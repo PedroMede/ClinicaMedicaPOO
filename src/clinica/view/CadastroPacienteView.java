@@ -1,7 +1,5 @@
 package clinica.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -10,9 +8,20 @@ import javax.swing.text.MaskFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
+import clinica.controller.SecretariaController;
+import clinica.model.Paciente;
+import clinica.model.dados.Repositorio;
+import clinica.model.enums.EtniaEnum;
+import clinica.model.enums.SexoEnum;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JSeparator;
 import java.awt.Color;
@@ -22,6 +31,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CadastroPacienteView extends JFrame {
 
@@ -36,14 +47,18 @@ public class CadastroPacienteView extends JFrame {
 	private JTextField nome;
 	private JTextField rg;
 	private JTextField estadoCivil;
+	private JTextField localNascimento;
 	private JFormattedTextField cpf;
 	private JFormattedTextField celular;
 	private JFormattedTextField cep;
+	private JFormattedTextField celularAcompanhante;
 	private JComboBox<Object> etnia;
 	private JComboBox<Object> estados;
 	private JRadioButton sexoM;
 	private JRadioButton sexoF;
 	private JDateChooser dataNascimento;
+	private Paciente pac;
+	private List<Object> pacientes = new ArrayList<Object>();
 	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
 	private static String siglasEstados[] = {
 			"AC",
@@ -73,30 +88,13 @@ public class CadastroPacienteView extends JFrame {
 			"SP",
 			"SE",
 			"TO"};
-	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroPacienteView frame = new CadastroPacienteView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
 	 */
-	public CadastroPacienteView() throws ParseException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public CadastroPacienteView(Repositorio repo) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 733, 505);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -145,7 +143,11 @@ public class CadastroPacienteView extends JFrame {
 		label_6.setBounds(419, 144, 41, 14);
 		contentPane.add(label_6);
 		
-		cep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		try {
+			cep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		cep.setBounds(457, 142, 192, 20);
 		contentPane.add(cep);
 
@@ -187,16 +189,16 @@ public class CadastroPacienteView extends JFrame {
 		estados = new JComboBox<Object>(siglasEstados);
 		estados.setBounds(563, 200, 73, 20);
 		contentPane.add(estados);
+		
+		JLabel label_9 = new JLabel("Dados Pessoais");
+		label_9.setFont(new Font("Tahoma", Font.BOLD, 14));
+		label_9.setBounds(54, 238, 113, 17);
+		contentPane.add(label_9);
 
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBounds(54, 259, 616, 2);
 		contentPane.add(separator_2);
-
-		JLabel label_9 = new JLabel("Dados Pessoais");
-		label_9.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_9.setBounds(54, 238, 113, 17);
-		contentPane.add(label_9);
 		
 		JLabel label_10 = new JLabel("Nome:");
 		label_10.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -213,7 +215,11 @@ public class CadastroPacienteView extends JFrame {
 		label_13.setBounds(303, 275, 65, 14);
 		contentPane.add(label_13);
 		
-		celular = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		try {
+			celular = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		celular.setBounds(357, 273, 147, 20);
 		contentPane.add(celular);
 		
@@ -231,7 +237,11 @@ public class CadastroPacienteView extends JFrame {
 		label_11.setBounds(54, 301, 32, 14);
 		contentPane.add(label_11);
 		
-		cpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		try {
+			cpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		cpf.setBounds(101, 299, 192, 20);
 		contentPane.add(cpf);
 
@@ -247,15 +257,15 @@ public class CadastroPacienteView extends JFrame {
 		
 		JLabel label_16 = new JLabel("Sexo:");
 		label_16.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label_16.setBounds(523, 301, 41, 14);
+		label_16.setBounds(523, 320, 41, 14);
 		contentPane.add(label_16);
 
 		sexoM = new JRadioButton("M", false);
-		sexoM.setBounds(566, 298, 41, 23);
+		sexoM.setBounds(566, 317, 41, 23);
 		contentPane.add(sexoM);
 		
 		sexoF = new JRadioButton("F", false);
-		sexoF.setBounds(608, 298, 41, 23);
+		sexoF.setBounds(608, 317, 41, 23);
 		contentPane.add(sexoF);
 		
 		grupo1 = new ButtonGroup();
@@ -286,22 +296,102 @@ public class CadastroPacienteView extends JFrame {
 		lblCelularAcompanhante.setBounds(54, 357, 160, 14);
 		contentPane.add(lblCelularAcompanhante);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
-		formattedTextField.setBounds(210, 355, 123, 20);
-		contentPane.add(formattedTextField);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(480, 355, 160, 20);
-		contentPane.add(textField);
+		try {
+			celularAcompanhante = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		celularAcompanhante.setBounds(210, 355, 123, 20);
+		contentPane.add(celularAcompanhante);
 		
 		JLabel lblLocalDeNascimento = new JLabel("Local de Nascimento:");
 		lblLocalDeNascimento.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblLocalDeNascimento.setBounds(340, 357, 147, 14);
 		contentPane.add(lblLocalDeNascimento);
 		
+		localNascimento = new JTextField();
+		localNascimento.setColumns(10);
+		localNascimento.setBounds(480, 355, 160, 20);
+		contentPane.add(localNascimento);
+		
 		JButton button = new JButton("Cadastrar");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					setDados(repo);
+					JOptionPane.showMessageDialog(null,  pac.getNome() + " cadastrado(a) com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
+					limparCampos();
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Erro ao cadastrar paciente, alguns dados são inválidos!", "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		button.setBounds(303, 416, 109, 23);
 		contentPane.add(button);
+	}
+	
+	private void limparCampos() {
+		rua.setText("");
+		numero.setText("");
+		cep.setText("");
+		bairro.setText("");
+		complemento.setText("");
+		cidade.setText("");
+		nome.setText("");
+		celular.setText("");
+		cpf.setText("");
+		rg.setText("");
+		dataNascimento.setDate(null);
+		estadoCivil.setText("");
+		celularAcompanhante.setText("");
+		localNascimento.setText("");
+		grupo1.clearSelection();
+	}
+	
+	private void setDados(Repositorio repo) {
+		pac = new Paciente();
+		List<String> atributos;
+		
+		//Registros de endereço
+		pac.setLogradouro(rua.getText());
+		pac.setNumero(Integer.parseInt(numero.getText()));
+		pac.setCep(cep.getText());
+		pac.setBairro(bairro.getText());
+		pac.setComplemento(complemento.getText());
+		pac.setCidade(cidade.getText());
+		pac.setEstado(estados.getSelectedItem().toString());
+		
+		//Registros de dados pessoais
+		pac.setNome(nome.getText());
+		pac.setTelefone(celular.getText());
+		if (etnia.getSelectedItem() == "Branco(a)") {
+			pac.setEtnia(EtniaEnum.BRANCO); 
+		} else if (etnia.getSelectedItem() == "Pardo(a)") {
+			pac.setEtnia(EtniaEnum.PARDO); 
+		} else if (etnia.getSelectedItem() == "Negro(a)") {
+			pac.setEtnia(EtniaEnum.NEGRO); 
+		} else {
+			pac.setEtnia(EtniaEnum.INDIGENA);
+		}
+		pac.setCpf(cpf.getText());
+		pac.setRg(rg.getText());
+		if (sexoM.isSelected()) {
+			pac.setSexo(SexoEnum.MASCULINO);
+		} else {
+			pac.setSexo(SexoEnum.FEMININO);
+		}
+		pac.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
+		pac.setEstadoCivil(estadoCivil.getText());
+		pac.setTelefoneAcompanhante(celularAcompanhante.getText());
+		pac.setLocalNascimento(localNascimento.getText());
+		
+		pacientes.add(pac);
+		
+		atributos = SecretariaController.gerarListaAtributosPaciente(pac);
+		
+		if(SecretariaController.validarDados(atributos)) {
+			repo.setPacientes(pacientes);
+		}
 	}
 }

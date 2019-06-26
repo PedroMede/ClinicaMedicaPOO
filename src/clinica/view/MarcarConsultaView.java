@@ -1,7 +1,5 @@
 package clinica.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,29 +20,53 @@ import javax.swing.JFormattedTextField;
 import com.toedter.calendar.JDateChooser;
 
 import clinica.controller.GerenteController;
-import clinica.model.Secretaria;
+import clinica.controller.SecretariaController;
+import clinica.model.Consulta;
+import clinica.model.Medico;
+import clinica.model.Paciente;
 import clinica.model.dados.Repositorio;
-import clinica.model.enums.EtniaEnum;
-import clinica.model.enums.HorarioEnum;
-import clinica.model.enums.PerfilEnum;
-import clinica.model.enums.SexoEnum;
-import clinica.model.login.Login;
 
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MarcarConsultaView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private Consulta con;
 	private JPanel contentPane;
-	private String[] pessoas = { "Fulano", "Sicrano", "Beltrano"};
+	private JComboBox<Object> medicos = new JComboBox<Object>();
+	private JComboBox<Object> pacientes = new JComboBox<Object>();
+	private List<Object> medicosList;
+	private List<Object> pacientesList;
+	private GerenteController gerenteController = new GerenteController();
+	private SecretariaController secretariaController = new SecretariaController();
 
 	/**
 	 * Create the frame.
 	 */
 	public MarcarConsultaView(Repositorio repo) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				medicosList = gerenteController.recuperarFuncionario("./database/medicos.txt");
+				pacientesList = secretariaController.recuperarObjeto("./database/pacientes.txt");
+				
+				if(medicosList != null) {
+					for(Object medico : medicosList) {
+						medicos.addItem(((Medico) medico).getNome());
+					}
+				}
+				if(pacientesList != null) {
+					for(Object paciente : pacientesList) {
+						pacientes.addItem(((Paciente) paciente).getNome());
+					}
+				}
+			}
+		});
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 551, 385);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,11 +90,9 @@ public class MarcarConsultaView extends JFrame {
 		lblPacientes.setBounds(40, 183, 73, 14);
 		contentPane.add(lblPacientes);
 		
-		JComboBox<Object> medicos = new JComboBox<Object>(pessoas);
 		medicos.setBounds(115, 121, 113, 20);
 		contentPane.add(medicos);
 		
-		JComboBox<Object> pacientes = new JComboBox<Object>(pessoas);
 		pacientes.setBounds(115, 181, 113, 20);
 		contentPane.add(pacientes);
 		
@@ -106,7 +126,7 @@ public class MarcarConsultaView extends JFrame {
 				try {
 					setDados(repo);
 					JOptionPane.showMessageDialog(null, con.getId() + " marcada com sucesso!", "Sucesso", JOptionPane.DEFAULT_OPTION);
-					limparCampos();
+					//limparCampos();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Erro ao marcar consulta, alguns dados são inválidos!", "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
 				}
@@ -119,61 +139,10 @@ public class MarcarConsultaView extends JFrame {
 	private void setDados(Repositorio repo) {
 		Date dataAdmissao = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		sec = new Secretaria();
 		List<String> atributos;
 		List<Object> secretarias = new ArrayList<Object>();
 		
-		//Registros de endereço
-		sec.setLogradouro(rua.getText());
-		sec.setNumero(Integer.parseInt(numero.getText()));
-		sec.setCep(cep.getText());
-		sec.setBairro(bairro.getText());
-		sec.setComplemento(complemento.getText());
-		sec.setCidade(cidade.getText());
-		sec.setEstado(estados.getSelectedItem().toString());
-		
-		//Registros de dados pessoais
-		sec.setNome(nome.getText());
-		sec.setTelefone(celular.getText());
-		if (etnia.getSelectedItem().equals("Branco(a)")) {
-			sec.setEtnia(EtniaEnum.BRANCO); 
-		} else if (etnia.getSelectedItem().equals("Pardo(a)")) {
-			sec.setEtnia(EtniaEnum.PARDO); 
-		} else if (etnia.getSelectedItem().equals("Negro(a)")) {
-			sec.setEtnia(EtniaEnum.NEGRO); 
-		} else {
-			sec.setEtnia(EtniaEnum.INDIGENA);
-		}
-		sec.setCpf(cpf.getText());
-		sec.setRg(rg.getText());
-		if (sexoM.isSelected()) {
-			sec.setSexo(SexoEnum.MASCULINO);
-		} else {
-			sec.setSexo(SexoEnum.FEMININO);
-		}
-		sec.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
-		sec.setEstadoCivil(estadoCivil.getText());
-		
-		//Registros de dados corporativos
-		sec.setCarteiraTrab(ctps.getText());
-		sec.setLogin(login.getText());
-		sec.setSenha(new String(senha.getPassword()));
-		sec.setPerfilEnum(PerfilEnum.ROLE_SECRETARIA);
-		sec.setDataAdmissao(sdf.format(dataAdmissao));
-		if(rdbtnManh.isSelected()) {
-			sec.setHorarioTrab(HorarioEnum.MANHA);
-		} else if(rdbtnTarde.isSelected()) {
-			sec.setHorarioTrab(HorarioEnum.TARDE);
-		} else {
-			sec.setHorarioTrab(HorarioEnum.NOITE);
-		}
-		
-		secretarias.add(sec);
-		
-		atributos = GerenteController.gerarListaAtributos(sec);
-		atributos.add(sec.getHorarioTrab().toString());
-		if(GerenteController.validarDados(atributos)) {
-			repo.setSecretarias(secretarias);
-		}
+
+
 	}
 }
