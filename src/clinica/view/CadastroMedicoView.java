@@ -70,7 +70,7 @@ public class CadastroMedicoView extends JFrame {
 	private List<Object> logins = new ArrayList<Object>();
 	private List<Object> medicos = new ArrayList<Object>();
 	private List<String> especs = new ArrayList<String>();
-	private String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
+	private String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)", "Amarelo(a)"};
 	private static String siglasEstados[] = {
 			"AC",
 			"AL",
@@ -436,14 +436,16 @@ public class CadastroMedicoView extends JFrame {
 		//Registros de dados pessoais
 		med.setNome(nome.getText());
 		med.setTelefone(celular.getText());
-		if (etnia.getSelectedItem() == "Branco(a)") {
+		if (etnia.getSelectedItem().equals("Branco(a)")) {
 			med.setEtnia(EtniaEnum.BRANCO); 
-		} else if (etnia.getSelectedItem() == "Pardo(a)") {
+		} else if (etnia.getSelectedItem().equals("Pardo(a)")) {
 			med.setEtnia(EtniaEnum.PARDO); 
-		} else if (etnia.getSelectedItem() == "Negro(a)") {
+		} else if (etnia.getSelectedItem().equals("Negro(a)")) {
 			med.setEtnia(EtniaEnum.NEGRO); 
-		} else {
+		} else if (etnia.getSelectedItem().equals("Indigeno(a)")) {
 			med.setEtnia(EtniaEnum.INDIGENA);
+		} else {
+			med.setEtnia(EtniaEnum.AMARELO);
 		}
 		med.setCpf(cpf.getText());
 		med.setRg(rg.getText());

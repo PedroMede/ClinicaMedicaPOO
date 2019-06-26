@@ -4,5 +4,6 @@ public enum EtniaEnum {
 	BRANCO,
 	PARDO,
 	NEGRO,
-	INDIGENA
+	INDIGENA,
+	AMARELO
 }

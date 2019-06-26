@@ -71,7 +71,7 @@ public class CadastroSecretariaView extends JFrame {
 	private GerenteController gerenteController = new GerenteController();
 	private List<Object> logins = new ArrayList<Object>();
 	private List<Object> secretarias;
-	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
+	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)", "Amarelo(a)"};
 	private static String siglasEstados[] = {
 			"AC",
 			"AL",
@@ -446,8 +446,10 @@ public class CadastroSecretariaView extends JFrame {
 			sec.setEtnia(EtniaEnum.PARDO); 
 		} else if (etnia.getSelectedItem().equals("Negro(a)")) {
 			sec.setEtnia(EtniaEnum.NEGRO); 
-		} else {
+		} else if (etnia.getSelectedItem().equals("Amarelo(a")) {
 			sec.setEtnia(EtniaEnum.INDIGENA);
+		} else {
+			sec.setEtnia(EtniaEnum.AMARELO);
 		}
 		sec.setCpf(cpf.getText());
 		sec.setRg(rg.getText());

@@ -59,7 +59,7 @@ public class CadastroPacienteView extends JFrame {
 	private JDateChooser dataNascimento;
 	private Paciente pac;
 	private List<Object> pacientes = new ArrayList<Object>();
-	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)"};
+	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)", "Amarelo(a)"};
 	private static String siglasEstados[] = {
 			"AC",
 			"AL",
@@ -371,8 +371,10 @@ public class CadastroPacienteView extends JFrame {
 			pac.setEtnia(EtniaEnum.PARDO); 
 		} else if (etnia.getSelectedItem() == "Negro(a)") {
 			pac.setEtnia(EtniaEnum.NEGRO); 
-		} else {
+		} else if (etnia.getSelectedItem() == "Indigeno(a)") {
 			pac.setEtnia(EtniaEnum.INDIGENA);
+		} else {
+			pac.setEtnia(EtniaEnum.AMARELO);
 		}
 		pac.setCpf(cpf.getText());
 		pac.setRg(rg.getText());
