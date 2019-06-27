@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import clinica.controller.ExameController;
+import clinica.controller.MedicoController;
 import clinica.model.Anamnese;
 import clinica.model.Consulta;
 import clinica.model.Exame;
@@ -44,7 +45,7 @@ public class AnamneseView extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				examesList = exameController.recuperarExame("./database/exames.txt");
+				examesList = exameController.recuperarExame("./database/examesCadastrados.txt");
 				
 				for(Object exame : examesList) {	
 					exames.addItem(((Exame) exame).getNome());
@@ -63,11 +64,11 @@ public class AnamneseView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel label_1 = new JLabel("Cadastro de Anamnese");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		label_1.setBounds(150, 42, 220, 14);
-		contentPane.add(label_1);
+		JLabel lblConsulta = new JLabel("Consulta");
+		lblConsulta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblConsulta.setBounds(150, 42, 220, 14);
+		contentPane.add(lblConsulta);
 		
 		JLabel label = new JLabel("Exame: ");
 		label.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -124,6 +125,7 @@ public class AnamneseView extends JFrame {
 	}
 	
 	private void cadastrar(Repositorio repo, Consulta con) {
+		List<String> atributos;
 		anamnese = new Anamnese();
 		
 		anamnese.setSintomas(sintomas.getText());
@@ -134,8 +136,11 @@ public class AnamneseView extends JFrame {
 		anamnese.setPaciente(con.getPaciente());
 		
 		anamneses.add(anamnese);
+		atributos = MedicoController.gerarListaAtributos(anamnese);
 		
-		repo.setAnamneses(anamneses);
+		if(MedicoController.validarDados(atributos)) {
+			repo.setAnamneses(anamneses);
+		}
 		
 	}
 }

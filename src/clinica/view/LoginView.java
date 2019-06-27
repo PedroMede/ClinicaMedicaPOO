@@ -1,32 +1,32 @@
 package clinica.view;
 
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import clinica.controller.ConsultaController;
 import clinica.controller.ExameController;
 import clinica.controller.GerenteController;
 import clinica.controller.LoginController;
+import clinica.controller.MedicoController;
 import clinica.controller.SecretariaController;
 import clinica.model.dados.Dados;
 import clinica.model.dados.Repositorio;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.login.Login;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.List;
 
 public class LoginView extends JFrame {
 
@@ -39,6 +39,7 @@ public class LoginView extends JFrame {
 	private ConsultaController consultaController = new ConsultaController();
 	private LoginController loginController = new LoginController();
 	private ExameController exameController = new ExameController();
+	private MedicoController medicoController = new MedicoController();
 	private List<Object> login;
 
 	/**
@@ -69,7 +70,7 @@ public class LoginView extends JFrame {
 					gerenteController.cadastrarFuncionario(repo.getSecretarias(),"./database/secretarias.txt", repo.getLogin());
 				}
 				if(repo.getAnamneses() != null) {
-					secretariaController.cadastrarObjeto(repo.getAnamneses(), "./database/anamneses.txt");
+					medicoController.cadastrarObjeto(repo.getAnamneses(), "./database/anamneses.txt");
 				}
 				
 			}
