@@ -3,12 +3,11 @@ package clinica.view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,18 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
+import javax.swing.SwingConstants;
 
 import clinica.controller.ConsultaController;
 import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
 import clinica.model.dados.Repositorio;
 import clinica.model.login.Login;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MedicoView extends JFrame{
 	
@@ -36,7 +30,6 @@ public class MedicoView extends JFrame{
 	private JTable table;
 	private List<Object> consultas;
 	private ConsultaController consultaController = new ConsultaController();
-	private JTextField txtFiltro;
 	
 	
 	public MedicoView(Repositorio repo, Object login) {
@@ -85,43 +78,10 @@ public class MedicoView extends JFrame{
 		getContentPane().add(pane);
 		
 		JLabel lblConsultas = new JLabel("Consultas");
+		lblConsultas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConsultas.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblConsultas.setBounds(203, 26, 167, 32);
 		getContentPane().add(lblConsultas);
-		
-		JLabel lblFiltro = new JLabel("Filtro:");
-		lblFiltro.setBounds(42, 79, 48, 14);
-		getContentPane().add(lblFiltro);
-		
-		txtFiltro = new JTextField();
-		txtFiltro.setBounds(82, 76, 167, 20);
-		getContentPane().add(txtFiltro);
-		txtFiltro.setColumns(10);
-		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tabela);
-				table.setRowSorter(sorter);
-				
-				String texto = txtFiltro.getText();
-				
-				if (texto.length() == 0) {
-					sorter.setRowFilter(null);
-					
-				} else {
-					try {
-						sorter.setRowFilter(RowFilter.regexFilter(texto, 3));
-						table.setModel(tabela);
-					}catch (PatternSyntaxException pse) {
-						JOptionPane.showMessageDialog(null, "ERRO");
-					}
-				}
-			}
-				
-		});
-		btnBuscar.setBounds(286, 75, 89, 23);
-		getContentPane().add(btnBuscar);
 		
 		JButton btnIniciarConsulta = new JButton("Iniciar Consulta");
 		btnIniciarConsulta.addMouseListener(new MouseAdapter() {
@@ -135,7 +95,7 @@ public class MedicoView extends JFrame{
 				}
 			}
 		});
-		btnIniciarConsulta.setBounds(370, 377, 142, 23);
+		btnIniciarConsulta.setBounds(221, 376, 142, 23);
 		getContentPane().add(btnIniciarConsulta);
 		
 	}
