@@ -1,38 +1,34 @@
 package clinica.view;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
-import com.toedter.calendar.JDateChooser;
 
 import clinica.controller.SecretariaController;
 import clinica.model.Paciente;
 import clinica.model.dados.Repositorio;
 import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.SexoEnum;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JSeparator;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class CadastroPacienteView extends JFrame {
 
@@ -56,7 +52,7 @@ public class CadastroPacienteView extends JFrame {
 	private JComboBox<Object> estados;
 	private JRadioButton sexoM;
 	private JRadioButton sexoF;
-	private JDateChooser dataNascimento;
+	private JFormattedTextField dataNascimento;
 	private Paciente pac;
 	private List<Object> pacientes = new ArrayList<Object>();
 	private static String[] etnias = { "Branco(a)", "Pardo(a)", "Negro(a)", "Indígeno(a)", "Amarelo(a)"};
@@ -277,7 +273,11 @@ public class CadastroPacienteView extends JFrame {
 		label_12.setBounds(54, 326, 134, 14);
 		contentPane.add(label_12);
 		
-		dataNascimento = new JDateChooser();
+		try {
+			dataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		dataNascimento.setBounds(192, 324, 93, 20);
 		contentPane.add(dataNascimento);
 
@@ -342,7 +342,7 @@ public class CadastroPacienteView extends JFrame {
 		celular.setText("");
 		cpf.setText("");
 		rg.setText("");
-		dataNascimento.setDate(null);
+		dataNascimento.setText("");
 		estadoCivil.setText("");
 		celularAcompanhante.setText("");
 		localNascimento.setText("");
@@ -383,7 +383,7 @@ public class CadastroPacienteView extends JFrame {
 		} else {
 			pac.setSexo(SexoEnum.FEMININO);
 		}
-		pac.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
+		pac.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getText()));
 		pac.setEstadoCivil(estadoCivil.getText());
 		pac.setTelefoneAcompanhante(celularAcompanhante.getText());
 		pac.setLocalNascimento(localNascimento.getText());

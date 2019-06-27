@@ -1,25 +1,34 @@
 package clinica.view;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.awt.Color;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
-import com.toedter.calendar.JDateChooser;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import clinica.controller.GerenteController;
 import clinica.model.Medico;
@@ -28,17 +37,6 @@ import clinica.model.enums.EtniaEnum;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
 import clinica.model.login.Login;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class CadastroMedicoView extends JFrame {
 
@@ -56,7 +54,7 @@ public class CadastroMedicoView extends JFrame {
 	private JFormattedTextField cpf;
 	private JFormattedTextField celular;
 	private JFormattedTextField cep;
-	private JDateChooser dataNascimento;
+	private JFormattedTextField dataNascimento;
 	private JTextField estadoCivil;
 	private JComboBox<Object> etnia;
 	private JComboBox<Object> estados;
@@ -294,7 +292,11 @@ public class CadastroMedicoView extends JFrame {
 		label_12.setBounds(54, 326, 134, 14);
 		contentPane.add(label_12);
 		
-		dataNascimento = new JDateChooser();
+		try {
+			dataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		dataNascimento.setBounds(192, 324, 93, 20);
 		contentPane.add(dataNascimento);
 
@@ -396,7 +398,7 @@ public class CadastroMedicoView extends JFrame {
 	}
 	
 	private void limparCampos(List<String> especs) {
-		/*rua.setText("");
+		rua.setText("");
 		numero.setText("");
 		cep.setText("");
 		bairro.setText("");
@@ -406,15 +408,13 @@ public class CadastroMedicoView extends JFrame {
 		celular.setText("");
 		cpf.setText("");
 		rg.setText("");
-		dataNascimento.setDate(null);
+		dataNascimento.setText("");
 		estadoCivil.setText("");
 		ctps.setText("");
 		crm.setText("");
 		login.setText("");
-		senha.setText("");*/
-		System.out.println(especs);
+		senha.setText("");
 		especs.clear();
-		System.out.println(especs);
 	}
 	
 	private void setDados(Repositorio repo, List<String> especs) {
@@ -454,7 +454,7 @@ public class CadastroMedicoView extends JFrame {
 		} else {
 			med.setSexo(SexoEnum.FEMININO);
 		}
-		med.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getDate()));
+		med.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getText()));
 		med.setEstadoCivil(estadoCivil.getText());
 		
 		//Registros de dados corporativos

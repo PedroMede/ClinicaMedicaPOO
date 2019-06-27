@@ -28,6 +28,7 @@ public class SecretariaView extends JFrame {
 		AtualizarConsultaView attCon = new AtualizarConsultaView(repo);
 		CadastrarExameView cadExa = new CadastrarExameView(repo);
 		ExamesView exame = new ExamesView(repo);
+		MarcarExameView marcExame = new MarcarExameView(repo);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 519, 397);
@@ -93,7 +94,7 @@ public class SecretariaView extends JFrame {
 				exame.setSize(800, 427);
 			}
 		});
-		baseExames.setBounds(298, 204, 144, 23);
+		baseExames.setBounds(330, 204, 144, 23);
 		contentPane.add(baseExames);
 		
 		JSeparator separator_4 = new JSeparator();
@@ -127,7 +128,17 @@ public class SecretariaView extends JFrame {
 				cadExa.setVisible(true);
 			}
 		});
-		btnCadatrarExame.setBounds(62, 204, 144, 23);
+		btnCadatrarExame.setBounds(176, 204, 144, 23);
 		contentPane.add(btnCadatrarExame);
+		
+		JButton btnMarcarExame = new JButton("Marcar Exame");
+		btnMarcarExame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				marcExame.setVisible(true);
+			}
+		});
+		btnMarcarExame.setBounds(23, 204, 142, 23);
+		contentPane.add(btnMarcarExame);
 	}
 }

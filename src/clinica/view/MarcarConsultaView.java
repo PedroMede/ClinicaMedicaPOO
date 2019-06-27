@@ -24,8 +24,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import com.toedter.calendar.JDateChooser;
-
 import clinica.controller.ConsultaController;
 import clinica.controller.GerenteController;
 import clinica.controller.SecretariaController;
@@ -33,13 +31,15 @@ import clinica.model.Consulta;
 import clinica.model.Medico;
 import clinica.model.Paciente;
 import clinica.model.dados.Repositorio;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MarcarConsultaView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JFormattedTextField hora;
-	private JDateChooser dia;
+	private JFormattedTextField dia;
 	private Consulta con;
 	private JComboBox<Object> medicos = new JComboBox<Object>();
 	private JComboBox<Object> pacientes = new JComboBox<Object>();
@@ -55,6 +55,16 @@ public class MarcarConsultaView extends JFrame {
 	 * Create the frame.
 	 */
 	public MarcarConsultaView(Repositorio repo) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				medicos.removeAll();
+				medicosList = null;
+				
+				pacientes.removeAll();
+				pacientesList = null;
+			}
+		});
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
@@ -114,7 +124,11 @@ public class MarcarConsultaView extends JFrame {
 		lblDia.setBounds(322, 123, 25, 14);
 		contentPane.add(lblDia);
 		
-		dia = new JDateChooser();
+		try {
+			dia = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		dia.setBounds(357, 121, 93, 20);
 		contentPane.add(dia);
 		
@@ -156,7 +170,7 @@ public class MarcarConsultaView extends JFrame {
 	
 	private void limparCampos() {
 		hora.setText(null);
-		dia.setDate(null);
+		dia.setText(null);
 	}
 	
 	private void setDados(Repositorio repo) throws ParseException {
@@ -166,7 +180,7 @@ public class MarcarConsultaView extends JFrame {
 		con = new Consulta();
 
 		Date dataAtual = sdf.parse(sdf.format(new Date()));
-		Date data = sdf.parse(sdf.format(dia.getDate()));
+		Date data = sdf.parse(sdf.format(dia.getText()));
 
 		if(data.before(dataAtual)) {
 			throw new DateTimeException(null);
@@ -178,7 +192,7 @@ public class MarcarConsultaView extends JFrame {
 		
 		if(repo.getConsultas() != null) {
 			for(Object consulta : repo.getConsultas()) {
-				if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(dia.getDate()))) {
+				if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(dia.getText()))) {
 					throw new RuntimeException();
 				}
 			}
@@ -186,13 +200,13 @@ public class MarcarConsultaView extends JFrame {
 		
 		if(consultasList.size() > 0) {			
 			for(Object con : consultasList) {
-				if(((Consulta) con).getHora().equals(hora.getText()) && ((Consulta) con).getDia().equals(sdf.format(dia.getDate()))) {
+				if(((Consulta) con).getHora().equals(hora.getText()) && ((Consulta) con).getDia().equals(sdf.format(dia.getText()))) {
 					throw new RuntimeException();
 				}
 			}
 		}
 		
-		con.setDia(sdf.format(dia.getDate()));
+		con.setDia(sdf.format(dia.getText()));
 		con.setHora(hora.getText());
 		
 		for(Object medico : medicosList) {

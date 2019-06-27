@@ -1,25 +1,33 @@
 package clinica.view;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import com.toedter.calendar.JDateChooser;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import clinica.controller.GerenteController;
 import clinica.model.Secretaria;
@@ -29,16 +37,6 @@ import clinica.model.enums.HorarioEnum;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.enums.SexoEnum;
 import clinica.model.login.Login;
-
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import javax.swing.JPasswordField;
-import javax.swing.JTextArea;
 
 public class CadastroSecretariaView extends JFrame {
 
@@ -66,7 +64,7 @@ public class CadastroSecretariaView extends JFrame {
 	private JRadioButton rdbtnManh;
 	private JRadioButton rdbtnTarde;
 	private JRadioButton rdbtnNoite;
-	private JDateChooser dataNascimento;
+	private JFormattedTextField dataNascimento;
 	private Secretaria sec;
 	private GerenteController gerenteController = new GerenteController();
 	private List<Object> logins = new ArrayList<Object>();
@@ -297,7 +295,11 @@ public class CadastroSecretariaView extends JFrame {
 		label_12.setBounds(54, 326, 134, 14);
 		contentPane.add(label_12);
 		
-		dataNascimento = new JDateChooser();
+		try {
+			dataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		dataNascimento.setBounds(192, 324, 93, 20);
 		contentPane.add(dataNascimento);
 
@@ -411,7 +413,7 @@ public class CadastroSecretariaView extends JFrame {
 		celular.setText("");
 		cpf.setText("");
 		rg.setText("");
-		dataNascimento.setDate(null);
+		dataNascimento.setText("");
 		estadoCivil.setText("");
 		ctps.setText("");
 		login.setText("");
@@ -458,7 +460,7 @@ public class CadastroSecretariaView extends JFrame {
 		} else {
 			sec.setSexo(SexoEnum.FEMININO);
 		}
-		sec.setDataNascimento(sdf.format(dataNascimento.getDate()));
+		sec.setDataNascimento(sdf.format(dataNascimento.getText()));
 		sec.setEstadoCivil(estadoCivil.getText());
 		
 		//Registros de dados corporativos

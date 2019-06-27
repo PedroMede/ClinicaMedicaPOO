@@ -21,8 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.text.MaskFormatter;
 
-import com.toedter.calendar.JDateChooser;
-
 import clinica.controller.ConsultaController;
 import clinica.model.Consulta;
 import clinica.model.TableModel.ConsultaTableModel;
@@ -34,7 +32,7 @@ public class AtualizarConsultaView extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private ConsultaTableModel tabela = new ConsultaTableModel();
 	private JTable table;
-	private JDateChooser data;
+	private JFormattedTextField data;
 	private JFormattedTextField hora;
 	private ConsultaController consultaController = new ConsultaController();
 	private List<Object> consultas;
@@ -115,7 +113,7 @@ public class AtualizarConsultaView extends JFrame{
 				}
 				
 				hora.setText("");
-				data.setDate(null);
+				data.setText(null);
 			}
 		});
 		
@@ -132,8 +130,12 @@ public class AtualizarConsultaView extends JFrame{
 		lblData.setBounds(299, 30, 48, 14);
 		getContentPane().add(lblData);
 		
-		data = new JDateChooser();
-		data.setBounds(299, 45, 104, 20);
+		try {
+			data = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		data.setBounds(298, 45, 74, 20);
 		getContentPane().add(data);
 		
 		btnAlterar.setBounds(25, 319, 89, 23);
@@ -170,7 +172,7 @@ public class AtualizarConsultaView extends JFrame{
 	private void atualizar(Repositorio repo) throws ParseException {
 		String horaSub = hora.getText().substring(3, 5);
 		Date dataAtual = sdf.parse(sdf.format(new Date()));
-		Date dataRemarcada = sdf.parse(sdf.format(data.getDate()));
+		Date dataRemarcada = sdf.parse(sdf.format(data.getText()));
 
 		if(dataRemarcada.before(dataAtual)) {
 			throw new DateTimeException(null);
@@ -193,7 +195,7 @@ public class AtualizarConsultaView extends JFrame{
 					tabela.setValueAt(((Consulta) consulta).getHora(), table.getSelectedRow(), 0);
 				}
 				if(((Consulta) consulta).getDia().equals(tabela.getValueAt(table.getSelectedRow(), 1))) {
-					((Consulta) consulta).setDia(sdf.format(data.getDate()));
+					((Consulta) consulta).setDia(sdf.format(data.getText()));
 					tabela.setValueAt(((Consulta) consulta).getDia(), table.getSelectedRow(), 0);
 				}
 				
@@ -209,7 +211,7 @@ public class AtualizarConsultaView extends JFrame{
 	
 	private boolean marcada(List<Object> consultas) {
 		for(Object consulta : consultas) {
-			if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(data.getDate()))) {
+			if(((Consulta) consulta).getHora().equals(hora.getText()) && ((Consulta) consulta).getDia().equals(sdf.format(data.getText()))) {
 				return true;
 			}
 		}
