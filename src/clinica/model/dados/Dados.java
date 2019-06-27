@@ -78,7 +78,6 @@ public class Dados extends ObjectOutputStream {
 			while(true) {
 				Object obj = objLeitura.readObject();
 				objects.add(obj);
-				System.out.println(obj);
 			}
 		} catch (EOFException e2) {
 			System.out.println("Dados recuperados com sucesso!");
@@ -93,10 +92,7 @@ public class Dados extends ObjectOutputStream {
 		File arq = new File(path);
 		
 		if(arq.exists()) {
-			boolean sucesso = arq.delete();
-			
-			if(sucesso)
-				System.out.println("Apagado com sucesso!");
+			arq.delete();
 		}
 	}
 }

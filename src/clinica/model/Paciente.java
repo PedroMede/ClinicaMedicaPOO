@@ -35,9 +35,4 @@ public class Paciente extends Pessoa implements Serializable {
 	public void setLocalNascimento(String localNascimento) {
 		this.localNascimento = localNascimento;
 	}
-
-	@Override
-	public String toString() {
-		return getNome();
-	}
 }

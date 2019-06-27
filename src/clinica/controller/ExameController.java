@@ -9,8 +9,8 @@ public class ExameController {
 	private Secretaria secretaria = new Secretaria();
 	private Anamnese ana = new Anamnese();
 	
-	public boolean cadastrarExame(List<Object> exame, String path) {
-		if((this.secretaria.cadastrarObjeto(exame, path, true))) {
+	public boolean cadastrarExame(List<Object> exame, String path, boolean append) {
+		if((this.secretaria.cadastrarObjeto(exame, path, append))) {
 			return true;
 		} else {
 			return false;

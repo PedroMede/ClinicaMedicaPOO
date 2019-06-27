@@ -1,34 +1,26 @@
 package clinica.view;
 
 import java.awt.Dimension;
-
-import javax.swing.JFrame;
-
-import clinica.controller.ExameController;
-import clinica.model.Consulta;
-import clinica.model.Exame;
-import clinica.model.TableModel.ExameTableModel;
-import clinica.model.dados.Repositorio;
-import clinica.model.enums.ExameEnum;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.text.ParseException;
-import java.time.DateTimeException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import clinica.controller.ExameController;
+import clinica.model.Exame;
+import clinica.model.TableModel.ExameTableModel;
+import clinica.model.dados.Repositorio;
 
 public class ExamesView extends JFrame{
 	
@@ -40,7 +32,6 @@ public class ExamesView extends JFrame{
 	private JTable table;
 	private JTextField txtNome;
 	private JTextField txtObsG;
-	private JTextField txtClassificacao;
 	private List<Object> exame;
 	private List<Object> examesList = new ArrayList<Object>();
 	private ExameController exameController = new ExameController();
@@ -55,23 +46,21 @@ public class ExamesView extends JFrame{
 				exame = exameController.recuperarExame("./database/examesCadastrados.txt");
 				
 				if(exame != null) {
-					if(repo.getExamesCadastrados()== null) {
-						repo.setConsultas(exame);
-					}else {
-						
+					if(repo.getExamesCadastrados() == null) {
+						repo.setExamesCadastrados(exame);
+					} else {
 						if(repo.getExamesCadastrados().equals(exame)) {
 							repo.setExamesCadastrados(exame);
 						} else {
 							repo.getExamesCadastrados().addAll(exame);
 						}
-
-						
 					}
 				}
 				for(Object exames : repo.getExamesCadastrados()) {
 					tabela.addRow((Exame) exames);
 				}
 				
+				JOptionPane.showMessageDialog(null, "Todos os campos s√£o obrigat√≥rios!", "Exames", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			public void componentHidden(ComponentEvent e) {
@@ -88,14 +77,13 @@ public class ExamesView extends JFrame{
 		});
 		getContentPane().setBounds(new Rectangle(111, 120, 500, 500));
 	
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
 		table = new JTable();
 		table.setPreferredScrollableViewportSize(new Dimension(100,80));
 		table.setModel(tabela);
-		
 		
 		JScrollPane pane  = new JScrollPane(table);
 		pane.setBounds(25, 90, 617, 218);
@@ -124,12 +112,8 @@ public class ExamesView extends JFrame{
 				if(table.getSelectedRow() != -1) {
 					try {
 						atualizar(repo);
-					} catch (DateTimeException dte) {
-						JOptionPane.showMessageDialog(null, "Data inv·lida!", "Erro ao atualizar!", JOptionPane.ERROR_MESSAGE);
-					} catch (ParseException e1) {
-						JOptionPane.showMessageDialog(null, "Data inv·lida!", "Erro ao atualizar!", JOptionPane.ERROR_MESSAGE);
 					} catch (RuntimeException re) {
-						JOptionPane.showMessageDialog(null, re.getMessage(), "Erro ao marcar!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, re.getMessage(), "Erro ao atualizar!", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecione a linha a ser alterada.");
@@ -152,7 +136,7 @@ public class ExamesView extends JFrame{
 		getContentPane().add(lblHorrio);
 		
 		JLabel lblData = new JLabel("Obs Geral");
-		lblData.setBounds(228, 31, 48, 14);
+		lblData.setBounds(228, 31, 64, 14);
 		getContentPane().add(lblData);
 		
 		JLabel lblMedico = new JLabel("Dura\u00E7\u00E3o");
@@ -176,28 +160,16 @@ public class ExamesView extends JFrame{
 		button.setBounds(553, 319, 89, 23);
 		getContentPane().add(button);
 		
-		txtClassificacao = new JTextField();
-		txtClassificacao.setBounds(546, 46, 96, 20);
-		getContentPane().add(txtClassificacao);
-		txtClassificacao.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(594, 49, 48, 14);
-		getContentPane().add(lblNewLabel);
-		
-		JLabel lblTipoExame = new JLabel("Classifica\u00E7\u00E3o");
-		lblTipoExame.setBounds(546, 31, 64, 14);
-		getContentPane().add(lblTipoExame);
-		
 		
 		
 	}
 	
 	private void desmarcar(Repositorio repo) {
 		int i;
+		
 		for(i = 0; i < repo.getExamesCadastrados().size(); i++) {
 			Object exames = repo.getExamesCadastrados().get(i);
-			if(((Exame) exames).getCodigo().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
+			if(((Exame) exames).getNome().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
 				repo.getExamesCadastrados().remove(i);
 				tabela.removeRow(i);
 			}
@@ -208,59 +180,38 @@ public class ExamesView extends JFrame{
 	
 	
 	
-	private void atualizar(Repositorio repo) throws ParseException {
-		//String horaSub = hora.getText().substring(3, 5);
-	//	Date dataAtual = sdf.parse(sdf.format(new Date()));
-		// dataRemarcada = sdf.parse(sdf.format(data.getDate()));
-
-			int i;
-			for(i = 0; i < repo.getExamesCadastrados().size(); i++) {
-				Object exames = repo.getExamesCadastrados().get(i);
-				if(((Exame) exames).getNome().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
-					((Exame) exames).setNome(txtNome.getText());
-					tabela.setValueAt(((Exame) exame).getNome(), table.getSelectedRow(), 0);
-				}
-				if(((Exame) exame).getObsGeral().equals(tabela.getValueAt(table.getSelectedRow(), 1))) {
-					((Exame) exame).setObsGeral(txtObsG.getText());
-					tabela.setValueAt(((Exame) exame).getObsGeral(), table.getSelectedRow(), 1);
-				}
-				
-				if(((Exame) exame).getTempDuracao().equals(tabela.getValueAt(table.getSelectedRow(), 2))) {
-					((Exame) exame).setTempDuracao(txtDuracao.getText());
-					tabela.setValueAt(((Exame) exame).getTempDuracao(), table.getSelectedRow(), 2);
-				}
-				
-				if(((Exame) exame).getTempResultado().equals(tabela.getValueAt(table.getSelectedRow(), 3))) {
-					((Exame) exame).setTempResultado(txtResultado.getText());
-					tabela.setValueAt(((Exame) exame).getTempResultado(), table.getSelectedRow(), 3);
-				}
-				
-				if(((Exame) exame).getClassificacao().toString().equals(tabela.getValueAt(table.getSelectedRow(), 4))) {
-					((Exame) exame).setClassificacao(ExameEnum.valueOf(txtClassificacao.getText()));
-					tabela.setValueAt(((Exame) exame).getClassificacao(), table.getSelectedRow(), 4);
-				}
-				
-				
-				
-				
-				examesList.add(exame);
-				repo.getExamesCadastrados().remove(i);
-				repo.getExamesCadastrados().add(i, exame);
+	private void atualizar(Repositorio repo) {
+		int i;
+		
+		for(i = 0; i < repo.getExamesCadastrados().size(); i++) {
+			Object exames = repo.getExamesCadastrados().get(i);
+			if(((Exame) exames).getNome().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
+				((Exame) exames).setNome(txtNome.getText());
+				tabela.setValueAt(((Exame) exames).getNome(), table.getSelectedRow(), 0);
 			}
+			
+			if(((Exame) exames).getObsGeral().equals(tabela.getValueAt(table.getSelectedRow(), 1))) {
+				((Exame) exames).setObsGeral(txtObsG.getText());
+				tabela.setValueAt(((Exame) exames).getObsGeral(), table.getSelectedRow(), 1);
+			}
+			
+			if(((Exame) exames).getTempDuracao().equals(tabela.getValueAt(table.getSelectedRow(), 2))) {
+				((Exame) exames).setTempDuracao(txtDuracao.getText());
+				tabela.setValueAt(((Exame) exames).getTempDuracao(), table.getSelectedRow(), 2);
+			}
+			
+			if(((Exame) exames).getTempResultado().equals(tabela.getValueAt(table.getSelectedRow(), 3))) {
+				((Exame) exames).setTempResultado(txtResultado.getText());
+				tabela.setValueAt(((Exame) exames).getTempResultado(), table.getSelectedRow(), 3);
+			}
+			
+			examesList.add(exames);
+			repo.getExamesCadastrados().remove(i);
+			repo.getExamesCadastrados().add(i, exames);
+		}
 		
 		
 		System.out.println(repo.getExamesCadastrados());
-		
-	}
-	
-	
-	public static void main(String[] args) {
-		Repositorio repo = null;
-		ExamesView  update = new ExamesView(repo);
-		
-		update.setVisible(true);
-		update.setSize(800, 427);
-		
 		
 	}
 }

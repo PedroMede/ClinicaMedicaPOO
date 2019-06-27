@@ -27,6 +27,7 @@ public class SecretariaView extends JFrame {
 		CadastroPacienteView cadPac = new CadastroPacienteView(repo);
 		AtualizarConsultaView attCon = new AtualizarConsultaView(repo);
 		CadastrarExameView cadExa = new CadastrarExameView(repo);
+		ExamesView exame = new ExamesView(repo);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 519, 397);
@@ -85,6 +86,13 @@ public class SecretariaView extends JFrame {
 		contentPane.add(separator_3);
 		
 		JButton baseExames = new JButton("Base de Exames");
+		baseExames.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				exame.setVisible(true);
+				exame.setSize(800, 427);
+			}
+		});
 		baseExames.setBounds(298, 204, 144, 23);
 		contentPane.add(baseExames);
 		

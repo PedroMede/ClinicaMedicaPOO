@@ -6,15 +6,9 @@ import java.util.List;
 import clinica.model.dados.Dados;
 import clinica.model.enums.ExameEnum;
 
-<<<<<<< HEAD
 public class Exame implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Integer codigo;
-=======
-public class Exame {
-	
->>>>>>> 4e629c832e33b5e35717a17b70fb02477fc1924e
 	private String nome;
 	private String obsGeral;
 	private String tempDuracao;
@@ -24,7 +18,6 @@ public class Exame {
 	public Exame() {
 	}
 
-	
 	public String getNome() {
 		return nome;
 	}

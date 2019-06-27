@@ -29,17 +29,4 @@ public class Secretaria extends Funcionario implements Serializable {
 	public List<Object> recuperarObjeto(String path) {
 		return Dados.recuperar(path);
 	}
-
-	@Override
-	public String toString() {
-		return "Secretaria [horarioTrab=" + horarioTrab + ", getCarteiraTrab()=" + getCarteiraTrab()
-				+ ", getDataAdmissao()=" + getDataAdmissao() + ", getLogin()=" + getLogin() + ", getSenha()="
-				+ getSenha() + ", getPerfilEnum()=" + getPerfilEnum() + ", getNome()=" + getNome() + ", getCpf()="
-				+ getCpf() + ", getRg()=" + getRg() + ", getTelefone()=" + getTelefone() + ", getDataNascimento()="
-				+ getDataNascimento() + ", getEstadoCivil()=" + getEstadoCivil() + ", getSexo()=" + getSexo()
-				+ ", getEtnia()=" + getEtnia() + ", getLogradouro()=" + getLogradouro() + ", getNumero()=" + getNumero()
-				+ ", getCep()=" + getCep() + ", getBairro()=" + getBairro() + ", getCidade()=" + getCidade()
-				+ ", getEstado()=" + getEstado() + ", getComplemento()=" + getComplemento() + "]";
-	}
-
 }

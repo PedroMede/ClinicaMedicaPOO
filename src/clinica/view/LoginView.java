@@ -53,7 +53,7 @@ public class LoginView extends JFrame {
 					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt", false);
 				}
 				if(repo.getExamesCadastrados() != null) {
-					exameController.cadastrarExame(repo.getExamesCadastrados(), "./database/examesCadastrados.txt");
+					exameController.cadastrarExame(repo.getExamesCadastrados(), "./database/examesCadastrados.txt", false);
 				}
 				if(repo.getExamesMarcados() != null) {
 					secretariaController.cadastrarObjeto(repo.getExamesMarcados(), "./database/examesMarcados.txt");

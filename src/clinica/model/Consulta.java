@@ -44,9 +44,4 @@ public class Consulta implements Serializable{
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-
-	@Override
-	public String toString() {
-		return "Consulta [hora=" + hora + ", dia=" + dia + ", medico=" + medico + ", paciente=" + paciente + "]";
-	}
 }

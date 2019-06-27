@@ -30,11 +30,6 @@ public class Medico extends Funcionario implements Serializable {
 		this.especialidade = especialidade;
 	}
 
-	@Override
-	public String toString() {
-		return getNome();
-	}
-	
 	public boolean cadastrarAnamnese(List<Object> obj, String path) {
 		return Dados.cadastrar(obj, path, true);
 	}
