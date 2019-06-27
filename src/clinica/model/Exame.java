@@ -7,7 +7,6 @@ import clinica.model.enums.ExameEnum;
 
 public class Exame {
 	
-	private Integer codigo;
 	private String nome;
 	private String obsGeral;
 	private String tempDuracao;
@@ -17,14 +16,7 @@ public class Exame {
 	public Exame() {
 	}
 
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}

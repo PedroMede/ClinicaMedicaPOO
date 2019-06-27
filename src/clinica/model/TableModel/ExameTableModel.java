@@ -15,7 +15,7 @@ public class ExameTableModel extends AbstractTableModel{
 	private List<Exame> dados = new ArrayList<>();
 
 	// array para os nomes das colunas
-	private String[] colunas = {"Codigo","Nome","Obs Geral","Tempo Duração","Tempo Resultado", "Tipo Exame", "Classificação"};
+	private String[] colunas = {"Nome","Obs Geral","Tempo Duração","Tempo Resultado", "Classificação"};
 	
 	
 	
@@ -38,26 +38,23 @@ public class ExameTableModel extends AbstractTableModel{
 	public Object getValueAt(int linha, int coluna) {
 		switch (coluna) {
 		
-		case 0:
-			return dados.get(linha).getCodigo();
 			
-		case 1:
+		case 0:
 			return dados.get(linha).getNome();
 			
-		case 2:
+		case 1:
 			return dados.get(linha).getObsGeral();
 			
-		case 3:
+		case 2:
 			return dados.get(linha).getTempDuracao();
 		
-		case 4:
+		case 3:
 			return dados.get(linha).getTempResultado();
 			
-		case 5:
-			return dados.get(linha).getTipoExame();
+		case 4:
 			
-		case 6:
 			return dados.get(linha).getClassificacao();
+			
 
 	}
 	
@@ -70,27 +67,20 @@ public class ExameTableModel extends AbstractTableModel{
 		switch (coluna) {
 		
 			case 0:
-				 dados.get(linha).setCodigo(Integer.parseInt((String)valor));
-				 break;
-			case 1:
 				 dados.get(linha).setNome((String)valor);
 				 break;
-			case 2:
+			case 1:
 				 dados.get(linha).setObsGeral((String)valor);
 				 break;
-			case 3:
+			case 2:
 				 dados.get(linha).setTempDuracao((String)valor);
 				 break;
-			case 4:
+			case 3:
 				 dados.get(linha).setTempResultado((String)valor);
 				break;
-			case 5:
-				 dados.get(linha).setTipoExame((String)valor);
-				break;
-			case 6:
-				
+			case 4:
 				 dados.get(linha).setClassificacao(ExameEnum.valueOf(valor.toString()));
-				 break;
+				break;
 		}
 	}
 	
