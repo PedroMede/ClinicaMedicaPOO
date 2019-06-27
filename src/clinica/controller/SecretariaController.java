@@ -14,7 +14,7 @@ public class SecretariaController {
 	private Secretaria secretaria = new Secretaria();
 	
 	public boolean cadastrarObjeto(List<Object> objetos, String path) {
-		if(secretaria.cadastrarObjeto(objetos, path)) {
+		if(secretaria.cadastrarObjeto(objetos, path, true)) {
 			return true;
 		} else {
 			return false;

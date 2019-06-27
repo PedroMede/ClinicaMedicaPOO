@@ -47,20 +47,10 @@ public class MedicoView extends JFrame{
 				consultas = consultaController.recuperarConsultas("./database/consultas.txt");
 				
 				if(consultas != null) {
-					if(repo.getConsultas() == null) {
-						repo.setConsultas(consultas);
-					} else {
-						if(repo.getConsultas().equals(consultas)) {
-							repo.setConsultas(consultas);
-						} else {
-							repo.getConsultas().addAll(consultas);
+					for(Object consulta : consultas) {
+						if(((Login) login).getUsuario().equals(((Consulta) consulta).getMedico().getLogin())) {
+							tabela.addRow((Consulta) consulta);
 						}
-					}
-				}
-				
-				for(Object consulta : repo.getConsultas()) {
-					if(((Login) login).getUsuario().equals(((Consulta) consulta).getMedico().getLogin())) {
-						tabela.addRow((Consulta) consulta);
 					}
 				}
 				
@@ -72,7 +62,7 @@ public class MedicoView extends JFrame{
 			public void componentHidden(ComponentEvent e) {
 				int linha;
 				if(repo.getConsultas() != null) {
-					for(linha = repo.getConsultas().size() - 1; linha >= 0 ; linha--) {
+					for(linha = consultas.size() - 1; linha >= 0 ; linha--) {
 						tabela.removeRow(linha);
 					}
 					consultas.clear();
@@ -138,7 +128,7 @@ public class MedicoView extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(table.getSelectedRow() != -1) {
-					Consulta consulta = (Consulta) getConsulta(repo);
+					Consulta consulta = (Consulta) getConsulta(consultas);
 					AnamneseView anamense = new AnamneseView(repo, consulta);
 					anamense.setVisible(true);
 					
@@ -150,17 +140,16 @@ public class MedicoView extends JFrame{
 		
 	}
 	
-	private Object getConsulta(Repositorio repo) {
+	private Object getConsulta(List<Object> consultas) {
 		Object con = null;
 		
-		for(Object consulta : repo.getConsultas()) {
+		for(Object consulta : consultas) {
 			if(((Consulta) consulta).getHora().equals(tabela.getValueAt(table.getSelectedRow(), 0))) {
 				con = consulta;
 				break;
 			}
-
 		}
-		
+	
 		return con;
 	}
 }

@@ -155,7 +155,8 @@ public class MarcarConsultaView extends JFrame {
 	}
 	
 	private void limparCampos() {
-		
+		hora.setText(null);
+		dia.setDate(null);
 	}
 	
 	private void setDados(Repositorio repo) throws ParseException {

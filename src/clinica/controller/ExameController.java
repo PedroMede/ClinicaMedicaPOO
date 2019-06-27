@@ -10,7 +10,7 @@ public class ExameController {
 	private Anamnese ana = new Anamnese();
 	
 	public boolean cadastrarExame(List<Object> exame, String path) {
-		if((this.secretaria.cadastrarObjeto(exame, path))) {
+		if((this.secretaria.cadastrarObjeto(exame, path, true))) {
 			return true;
 		} else {
 			return false;

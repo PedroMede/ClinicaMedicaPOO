@@ -7,7 +7,7 @@ import clinica.model.dados.Dados;
 public class GerenteGeral {
 	
 	public boolean cadastrarFuncionario(List<Object> obj, String path) {
-		return Dados.cadastrar(obj, path);
+		return Dados.cadastrar(obj, path, true);
 	}
 	
 	public List<Object> recuperarFuncionario(String path) {

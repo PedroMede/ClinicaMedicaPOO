@@ -22,8 +22,8 @@ public class Secretaria extends Funcionario implements Serializable {
 		this.horarioTrab = horarioTrab;
 	}
 
-	public boolean cadastrarObjeto(List<Object> obj, String path) {
-		return Dados.cadastrar(obj, path);
+	public boolean cadastrarObjeto(List<Object> obj, String path, boolean append) {
+		return Dados.cadastrar(obj, path, append);
 	}
 	
 	public List<Object> recuperarObjeto(String path) {

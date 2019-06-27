@@ -36,7 +36,7 @@ public class Medico extends Funcionario implements Serializable {
 	}
 	
 	public boolean cadastrarAnamnese(List<Object> obj, String path) {
-		return Dados.cadastrar(obj, path);
+		return Dados.cadastrar(obj, path, true);
 	}
 	
 	public List<Object> recuperarAnamnese(String path) {

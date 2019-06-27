@@ -9,8 +9,8 @@ import clinica.model.Secretaria;
 public class ConsultaController {
 	private Secretaria secretaria = new Secretaria();
 	
-	public boolean cadastrarConsulta(List<Object> consultas, String path) {
-		if((secretaria.cadastrarObjeto(consultas, path))) {
+	public boolean cadastrarConsulta(List<Object> consultas, String path, boolean append) {
+		if((secretaria.cadastrarObjeto(consultas, path, append))) {
 			return true;
 		} else {
 			return false;

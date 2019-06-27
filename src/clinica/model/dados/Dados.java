@@ -34,7 +34,7 @@ public class Dados extends ObjectOutputStream {
 	   return oos;
 	}
 
-	public static boolean cadastrar(List<Object> objs, String path) {
+	public static boolean cadastrar(List<Object> objs, String path, boolean append) {
 		File dir = new File("./" + "\\database");
 		
 		if(!dir.exists()) {
@@ -47,15 +47,28 @@ public class Dados extends ObjectOutputStream {
 		
 		File arq = new File(path);
 		
-		try (ObjectOutputStream bw = openStream(arq)) {
-			for(Object obj : objs) {
-				bw.writeObject(obj); 
+		if(append) {
+			try (ObjectOutputStream bw = openStream(arq)) {
+				for(Object obj : objs) {
+					bw.writeObject(obj); 
+				}
+				
+			} catch(Exception e) {
+				return false;
 			}
-			
-		} catch(Exception e) {
-			return false;
+		} else {
+			try (ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(arq))) {
+				for(Object obj : objs) {
+					bw.writeObject(obj); 
+				}
+				
+			} catch(Exception e) {
+				return false;
+			}
 		}
-		return true;
+		
+		
+		return true;	
 	}
 	
 	public static List<Object> recuperar(String path) {

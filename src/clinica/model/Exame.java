@@ -1,12 +1,14 @@
 package clinica.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import clinica.model.dados.Dados;
 import clinica.model.enums.ExameEnum;
 
-public class Exame {
-	
+public class Exame implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private Integer codigo;
 	private String nome;
 	private String obsGeral;
@@ -66,7 +68,7 @@ public class Exame {
 	}
 	
 	public boolean cadastrarExame(List<Object> exames, String path) {
-		return Dados.cadastrar(exames, path);
+		return Dados.cadastrar(exames, path, true);
 	}
 	
 	public List<Object> recuperarExames(String path) {

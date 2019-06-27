@@ -113,7 +113,9 @@ public class AnamneseView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					cadastrar(repo, con);	
+					cadastrar(repo, con);
+					JOptionPane.showMessageDialog(null, "Anamnese registrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					limparCampos();
 				} catch(Exception e2) {
 					JOptionPane.showMessageDialog(null, "Dados incorretos", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
@@ -122,6 +124,12 @@ public class AnamneseView extends JFrame {
 		});
 		button.setBounds(209, 539, 109, 23);
 		contentPane.add(button);
+	}
+	
+	private void limparCampos() {
+		sintomas.setText(null);
+		prescricao.setText(null);
+		diagnostico.setText(null);
 	}
 	
 	private void cadastrar(Repositorio repo, Consulta con) {
@@ -134,6 +142,12 @@ public class AnamneseView extends JFrame {
 		
 		anamnese.setMedico(con.getMedico());
 		anamnese.setPaciente(con.getPaciente());
+		
+		for(Object exame : examesList) {
+			if(((Exame) exame).getNome().equals(exames.getSelectedItem())) {
+				anamnese.setExame((Exame) exame);
+			}
+		}
 		
 		anamneses.add(anamnese);
 		atributos = MedicoController.gerarListaAtributos(anamnese);

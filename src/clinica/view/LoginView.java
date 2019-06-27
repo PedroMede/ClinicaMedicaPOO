@@ -23,7 +23,6 @@ import clinica.controller.GerenteController;
 import clinica.controller.LoginController;
 import clinica.controller.MedicoController;
 import clinica.controller.SecretariaController;
-import clinica.model.dados.Dados;
 import clinica.model.dados.Repositorio;
 import clinica.model.enums.PerfilEnum;
 import clinica.model.login.Login;
@@ -51,8 +50,7 @@ public class LoginView extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				JOptionPane.showMessageDialog(null, "Dados Salvos !", "Salvos", JOptionPane.INFORMATION_MESSAGE);
 				if(repo.getConsultas() != null) {
-					Dados.apagarArquivo("./database/consultas.txt");
-					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt");
+					consultaController.cadastrarConsulta(repo.getConsultas(), "./database/consultas.txt", false);
 				}
 				if(repo.getExamesCadastrados() != null) {
 					exameController.cadastrarExame(repo.getExamesCadastrados(), "./database/examesCadastrados.txt");
